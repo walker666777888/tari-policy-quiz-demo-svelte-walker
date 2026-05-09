@@ -11,17 +11,29 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- UTILITY: auto-update updated_at timestamps
 -- =============================================================================
 
+-- SECURITY: SECURITY DEFINER + SET search_path = '' prevents search-path
+-- injection attacks against this trigger function (runs on every mutable table).
 CREATE OR REPLACE FUNCTION trigger_set_updated_at()
-RETURNS TRIGGER AS $$
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = ''
+AS $$
 BEGIN
   NEW.updated_at = NOW();
   RETURN NEW;
 END;
-$$ LANGUAGE plpgsql;
+$$;
 
--- Helper macro to attach the trigger to any table
+-- Helper macro to attach the trigger to any table.
+-- SET search_path = '' required because the function executes dynamic SQL
+-- that references the target table by identifier — immune to schema injection.
 CREATE OR REPLACE FUNCTION create_updated_at_trigger(tbl TEXT)
-RETURNS VOID AS $$
+RETURNS VOID
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = ''
+AS $$
 BEGIN
   EXECUTE format(
     'CREATE TRIGGER set_updated_at
@@ -30,7 +42,7 @@ BEGIN
     tbl
   );
 END;
-$$ LANGUAGE plpgsql;
+$$;
 
 -- =============================================================================
 -- 1. TENANTS
@@ -99,9 +111,21 @@ CREATE TABLE users (
                                   'general', 'manager', 'executive',
                                   'teller', 'compliance_officer', 'it', 'other'
                                 )),
+  -- Role values MUST match the JWT 'user_role' custom claim used by all RLS
+  -- helper functions (auth_user_role, is_client_admin, is_individual_role).
+  -- Mismatched values would silently break all RLS policy checks.
+  --
+  --   super_admin  — Tari platform staff (service_role key only; bypasses RLS)
+  --   client_admin — Tenant administrator (full CRUD within their tenant)
+  --   cxo          — Executive viewer (read-only analytics, own sessions)
+  --   employee     — Standard user (own sessions and quiz data only)
   role              TEXT        NOT NULL DEFAULT 'employee'
-                                CHECK (role IN ('super_admin', 'tenant_admin',
-                                                'branch_manager', 'employee')),
+                                CHECK (role IN (
+                                  'super_admin',
+                                  'client_admin',
+                                  'cxo',
+                                  'employee'
+                                )),
   status            TEXT        NOT NULL DEFAULT 'active'
                                 CHECK (status IN ('active', 'inactive', 'suspended')),
   last_login_at     TIMESTAMPTZ,
@@ -128,15 +152,18 @@ SELECT create_updated_at_trigger('users');
 -- =============================================================================
 
 CREATE TABLE policies (
-  id           UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
-  code         TEXT        NOT NULL UNIQUE,                    -- e.g. 'AML', 'KYC'
-  title        TEXT        NOT NULL,
-  description  TEXT,
-  version      TEXT        NOT NULL DEFAULT '1.0',
-  is_active    BOOLEAN     NOT NULL DEFAULT TRUE,
-  display_order INT        NOT NULL DEFAULT 0,
-  created_at   TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  updated_at   TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  id            UUID        PRIMARY KEY DEFAULT gen_random_uuid(),
+  code          TEXT        NOT NULL UNIQUE,                    -- e.g. 'AML', 'KYC'
+  title         TEXT        NOT NULL,
+  description   TEXT,
+  version       TEXT        NOT NULL DEFAULT '1.0',
+  is_active     BOOLEAN     NOT NULL DEFAULT TRUE,
+  -- TRUE for policies that draw questions from both master AND tenant banks
+  -- (COC, COI, PIT). FALSE = master bank only.
+  is_dual_track BOOLEAN     NOT NULL DEFAULT FALSE,
+  display_order INT         NOT NULL DEFAULT 0,
+  created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE INDEX idx_policies_code      ON policies (code);
@@ -298,7 +325,12 @@ CREATE TABLE test_sessions (
   policy_id           UUID        NOT NULL REFERENCES policies (id) ON DELETE RESTRICT,
   status              TEXT        NOT NULL DEFAULT 'in_progress'
                                   CHECK (status IN (
-                                    'in_progress', 'completed', 'expired', 'abandoned'
+                                    'in_progress',
+                                    'paused',       -- session temporarily suspended by user
+                                    'completed',
+                                    'expired',
+                                    'abandoned',
+                                    'cancelled'     -- set by cron when a paused session expires
                                   )),
   total_questions     INT         NOT NULL DEFAULT 0,
   answered_questions  INT         NOT NULL DEFAULT 0,
