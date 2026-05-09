@@ -13,7 +13,9 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
 		"import:master": "tsx scripts/import-master-questions.ts",
-		"import:master:dry": "tsx scripts/import-master-questions.ts --dry-run"
+		"import:master:dry": "tsx scripts/import-master-questions.ts --dry-run",
+		"import:tenant": "tsx scripts/import-tenant-questions.ts",
+		"import:tenant:dry": "tsx scripts/import-tenant-questions.ts --dry-run"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^2.0.4",
