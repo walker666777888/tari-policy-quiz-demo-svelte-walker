@@ -230,6 +230,21 @@ function flushLog (): void {
 }
 
 // =============================================================================
+// SECURITY: PATH TRAVERSAL GUARD                                 (MEDIUM-3)
+// Rejects any resolved path that escapes the project root.
+// Prevents --file ../../../../etc/passwd style attacks in CI environments.
+// =============================================================================
+
+const PROJECT_ROOT = process.cwd()
+
+function assertSafePath (resolved: string, label: string): void {
+  if (!resolved.startsWith(PROJECT_ROOT + path.sep) && resolved !== PROJECT_ROOT) {
+    logError(`Path traversal rejected for ${label}: "${resolved}" is outside project root`)
+    process.exit(1)
+  }
+}
+
+// =============================================================================
 // UTILITIES
 // =============================================================================
 
@@ -791,6 +806,7 @@ async function main (): Promise<void> {
   if (SINGLE_FILE) {
     // Single-file mode — tenant_id must come from CLI or JSON
     const absPath = path.resolve(process.cwd(), SINGLE_FILE)
+    assertSafePath(absPath, '--file')                // MEDIUM-3: path traversal guard
     if (!fs.existsSync(absPath)) {
       logError(`File not found: ${absPath}`)
       process.exit(1)

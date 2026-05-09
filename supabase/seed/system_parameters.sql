@@ -28,19 +28,20 @@ RETURNS TEXT
 LANGUAGE sql
 STABLE
 SECURITY DEFINER
+SET search_path = ''                   -- SECURITY FIX (HIGH-2): prevents search-path injection
 AS $$
   SELECT COALESCE(
     -- 1st: tenant-specific override
     (
-      SELECT value FROM system_parameters
-      WHERE key = p_key
+      SELECT value FROM public.system_parameters   -- fully-qualified (required when search_path = '')
+      WHERE key       = p_key
         AND tenant_id = p_tenant_id
       LIMIT 1
     ),
     -- 2nd: platform-wide default (tenant_id IS NULL)
     (
-      SELECT value FROM system_parameters
-      WHERE key = p_key
+      SELECT value FROM public.system_parameters
+      WHERE key       = p_key
         AND tenant_id IS NULL
       LIMIT 1
     )
