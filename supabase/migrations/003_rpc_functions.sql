@@ -1,0 +1,2 @@
+-- 003_rpc_functions.sql
+-- PostgreSQL RPC functions and stored procedures

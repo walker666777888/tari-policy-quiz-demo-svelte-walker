@@ -1,0 +1,2 @@
+-- system_parameters.sql
+-- Seed data for system-wide configuration parameters

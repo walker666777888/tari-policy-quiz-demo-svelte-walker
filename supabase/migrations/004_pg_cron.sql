@@ -1,0 +1,2 @@
+-- 004_pg_cron.sql
+-- pg_cron scheduled jobs configuration

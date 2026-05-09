@@ -1,0 +1,2 @@
+-- 001_initial_schema.sql
+-- Initial database schema for multi-tenant SaaS compliance quiz platform

@@ -1,0 +1,2 @@
+-- 002_rls_policies.sql
+-- Row Level Security policies for multi-tenant data isolation
