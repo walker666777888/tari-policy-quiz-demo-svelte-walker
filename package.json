@@ -15,7 +15,9 @@
 		"import:master": "tsx scripts/import-master-questions.ts",
 		"import:master:dry": "tsx scripts/import-master-questions.ts --dry-run",
 		"import:tenant": "tsx scripts/import-tenant-questions.ts",
-		"import:tenant:dry": "tsx scripts/import-tenant-questions.ts --dry-run"
+		"import:tenant:dry": "tsx scripts/import-tenant-questions.ts --dry-run",
+		"validate:pool": "tsx scripts/validate-pool.ts",
+		"validate:pool:json": "tsx scripts/validate-pool.ts --json"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^2.0.4",
