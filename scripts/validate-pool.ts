@@ -171,7 +171,10 @@ function loadEnv (): void {
       if (eq === -1) continue
       const k = t.slice(0, eq).trim()
       const v = t.slice(eq + 1).trim()
-      if (k && v && !process.env[k]) process.env[k] = v
+      // .env.local always wins — do NOT guard with !process.env[k].
+      // The guard silently swallows the service-role key when Vite or npm
+      // has already injected PUBLIC_SUPABASE_ANON_KEY into process.env.
+      if (k && v) process.env[k] = v
     }
     break
   }
@@ -841,8 +844,21 @@ async function main (): Promise<void> {
     process.exit(1)
   }
 
+  // Explicitly pin the Authorization header so the service-role key is used
+  // on every PostgREST request, regardless of @supabase/supabase-js v2's
+  // async GoTrueClient initialisation race. Without this, requests fired
+  // immediately after createClient() can send no Bearer token (or the anon
+  // key), resulting in "permission denied for table <x>".
   const supabase = createClient(url, svcKey, {
-    auth: { persistSession: false, autoRefreshToken: false }
+    auth: {
+      autoRefreshToken: false,
+      persistSession:   false,
+    },
+    global: {
+      headers: {
+        Authorization: `Bearer ${svcKey}`,
+      },
+    },
   })
 
   // ── Load reference data ──────────────────────────────────────────────────────

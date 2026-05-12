@@ -1,21 +1,80 @@
-import { createServerClient } from '@supabase/ssr';
-import { type Handle } from '@sveltejs/kit';
+import { createServerClient }    from '@supabase/ssr';
+import { type Handle, json }     from '@sveltejs/kit';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
+import { getAdminClient }        from '$lib/server/auth/supabase-admin.js';
+import type { AppRole }          from './app.js';
 
 // =============================================================================
-// AUDIT HELPERS                                                   (MEDIUM-4)
-//
-// Auth events are written to audit_logs so that login, failed-auth, and
-// first-session events are captured for regulatory compliance.
-//
-// Rules:
-//   · Audit inserts are fire-and-forget — they never block or fail the request.
-//   · actor_user_id is always auth.uid() (enforced by the DB INSERT policy).
-//   · Only genuine state changes are logged (new session, failed auth).
-//   · ip_address and user_agent are captured from the incoming request.
+// JWT HELPERS
 // =============================================================================
 
-/** Safely write one audit log row. Never throws — failures are console-warned. */
+/**
+ * Decode the payload of a JWT without verifying the signature.
+ * Signature verification has already been done by Supabase's getUser().
+ */
+function decodeJwtPayload (token: string): Record<string, unknown> {
+	try {
+		const base64Url = token.split('.')[1]
+		if (!base64Url) return {}
+		// Base64url → base64 → JSON
+		const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+		return JSON.parse(Buffer.from(base64, 'base64').toString('utf8'))
+	} catch {
+		return {}
+	}
+}
+
+// =============================================================================
+// ROLE HELPERS
+// =============================================================================
+
+const VALID_ROLES = new Set<AppRole>(['employee', 'cxo', 'client_admin', 'super_admin'])
+
+function isValidRole (r: unknown): r is AppRole {
+	return typeof r === 'string' && VALID_ROLES.has(r as AppRole)
+}
+
+/**
+ * Resolve role + tenant_id for an authenticated user.
+ *
+ * Priority:
+ *  1. JWT claims  (fast, no DB round-trip; requires custom_access_token_hook)
+ *  2. DB lookup   (fallback when hook is not yet registered)
+ */
+async function resolveRoleClaims (
+	userId:      string,
+	accessToken: string
+): Promise<{ role: AppRole | null; tenantId: string | null }> {
+	// ── 1. Try JWT claims first ────────────────────────────────────────────────
+	const payload   = decodeJwtPayload(accessToken)
+	const jwtRole   = payload['role']
+	const jwtTenant = payload['tenant_id']
+
+	if (isValidRole(jwtRole) && typeof jwtTenant === 'string' && jwtTenant) {
+		return { role: jwtRole, tenantId: jwtTenant }
+	}
+
+	// ── 2. Fallback: DB lookup (hook not yet registered) ──────────────────────
+	try {
+		const admin = getAdminClient()
+		const { data } = await admin
+			.from('users')
+			.select('role, tenant_id')
+			.eq('id', userId)
+			.single()
+
+		const dbRole   = isValidRole(data?.role) ? (data!.role as AppRole) : null
+		const dbTenant = typeof data?.tenant_id === 'string' ? data.tenant_id : null
+		return { role: dbRole, tenantId: dbTenant }
+	} catch {
+		return { role: null, tenantId: null }
+	}
+}
+
+// =============================================================================
+// AUDIT HELPERS
+// =============================================================================
+
 async function writeAuditLog(
 	supabase: ReturnType<typeof createServerClient>,
 	payload: {
@@ -41,9 +100,42 @@ async function writeAuditLog(
 			user_agent:    payload.user_agent   ?? null,
 		});
 	} catch (err) {
-		// Never propagate — audit failure must not break the user request
 		console.warn('[audit] Failed to write audit log:', (err as Error).message);
 	}
+}
+
+// =============================================================================
+// ROUTE DEFINITIONS
+// =============================================================================
+
+/**
+ * Roles permitted to access each protected route prefix.
+ * Layout server files enforce these too; this is the fast-path for API routes.
+ */
+const PAGE_ROUTE_ROLES: Array<{ prefix: string; allowed: AppRole[] }> = [
+	{ prefix: '/platform', allowed: ['super_admin']                   },
+	{ prefix: '/admin',    allowed: ['client_admin']                  },
+	{ prefix: '/dashboard',allowed: ['employee', 'cxo', 'client_admin', 'super_admin'] },
+]
+
+/**
+ * API routes that require authentication and a specific role.
+ * Returning early from handle() means the route handler never fires.
+ */
+const API_ROUTE_ROLES: Array<{ prefix: string; allowed: AppRole[] }> = [
+	{ prefix: '/api/admin/',    allowed: ['client_admin']  },
+	{ prefix: '/api/platform/', allowed: ['super_admin']   },
+]
+
+/** Routes that are always public (no auth check). */
+function isPublicPath (path: string): boolean {
+	return (
+		path === '/'                        ||
+		path.startsWith('/login')           ||
+		path.startsWith('/forgot-password') ||
+		path.startsWith('/auth/')           ||
+		path.startsWith('/api/auth/')
+	)
 }
 
 // =============================================================================
@@ -51,8 +143,9 @@ async function writeAuditLog(
 // =============================================================================
 
 export const handle: Handle = async ({ event, resolve }) => {
+	const path = event.url.pathname
 
-	// ── Create a per-request Supabase server client ──────────────────────────
+	// ── Create per-request Supabase server client ───────────────────────────
 	event.locals.supabase = createServerClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {
 		cookies: {
 			getAll: () => event.cookies.getAll(),
@@ -64,26 +157,14 @@ export const handle: Handle = async ({ event, resolve }) => {
 		}
 	});
 
-	// ── safeGetSession: validates JWT with Supabase Auth on every request ────
-	// getSession() alone trusts the client-supplied JWT without server validation.
-	// getUser() makes a network call to Supabase Auth to validate the JWT,
-	// making it the only source of truth for authentication state.
+	// ── safeGetSession ──────────────────────────────────────────────────────
 	event.locals.safeGetSession = async () => {
-		const {
-			data: { session }
-		} = await event.locals.supabase.auth.getSession();
-
+		const { data: { session } } = await event.locals.supabase.auth.getSession();
 		if (!session) return { session: null, user: null };
 
-		const {
-			data: { user },
-			error
-		} = await event.locals.supabase.auth.getUser();
+		const { data: { user }, error } = await event.locals.supabase.auth.getUser();
 
 		if (error) {
-			// ── Auth failure audit event ───────────────────────────────────────
-			// Captures invalid / expired / tampered JWT attempts.
-			// actor_user_id is NULL because the identity cannot be confirmed.
 			const tenantId = (session.user?.user_metadata?.tenant_id as string) ?? null;
 			await writeAuditLog(event.locals.supabase, {
 				tenant_id:     tenantId,
@@ -100,42 +181,110 @@ export const handle: Handle = async ({ event, resolve }) => {
 		return { session, user };
 	};
 
-	// ── Resolve session for this request ─────────────────────────────────────
+	// ── Resolve session ─────────────────────────────────────────────────────
 	const { session, user } = await event.locals.safeGetSession();
+	event.locals.session = session;
+	event.locals.user    = user;
 
-	// ── Session-start audit event ─────────────────────────────────────────────
-	// Fires when a validated session is present AND the request carries a
-	// freshly-issued access token (issued within the last 30 seconds).
-	// This captures logins without logging every single API request.
+	// ── Resolve role + tenantId ─────────────────────────────────────────────
+	// Extracted from JWT claims (fast path) or DB fallback (when hook not live).
+	let role:     AppRole | null = null
+	let tenantId: string | null  = null
+
+	if (user && session?.access_token) {
+		const resolved = await resolveRoleClaims(user.id, session.access_token)
+		role     = resolved.role
+		tenantId = resolved.tenantId
+	}
+
+	event.locals.role     = role
+	event.locals.tenantId = tenantId
+
+	// ── Session-start audit ─────────────────────────────────────────────────
 	if (user && session) {
-		const issuedAt     = session.expires_at ? session.expires_at - 3600 : 0; // expires_at - 1hr TTL
+		const issuedAt     = session.expires_at ? session.expires_at - 3600 : 0;
 		const nowSecs      = Math.floor(Date.now() / 1000);
-		const isFreshLogin = (nowSecs - issuedAt) < 30;                           // within 30 s of issuance
+		const isFreshLogin = (nowSecs - issuedAt) < 30;
 
 		if (isFreshLogin) {
-			const tenantId = (user.user_metadata?.tenant_id as string) ?? null;
 			await writeAuditLog(event.locals.supabase, {
 				tenant_id:     tenantId,
 				actor_user_id: user.id,
 				action:        'auth.session_started',
 				entity_type:   'user',
 				entity_id:     user.id,
-				metadata:      {
-					provider:    session.user?.app_metadata?.provider ?? 'email',
-					user_agent:  event.request.headers.get('user-agent') ?? null,
+				metadata: {
+					provider:  session.user?.app_metadata?.provider ?? 'email',
+					role,
 				},
-				ip_address:    event.getClientAddress(),
-				user_agent:    event.request.headers.get('user-agent'),
+				ip_address: event.getClientAddress(),
+				user_agent: event.request.headers.get('user-agent'),
 			});
 		}
 	}
 
-	event.locals.session = session;
-	event.locals.user    = user;
+	// ── Skip guards for public paths ────────────────────────────────────────
+	if (isPublicPath(path)) {
+		return resolve(event, {
+			filterSerializedResponseHeaders (name) {
+				return name === 'content-range' || name === 'x-supabase-api-version';
+			}
+		})
+	}
+
+	// ── API route guards ────────────────────────────────────────────────────
+	// Fast-fail before the route handler fires. Returns JSON (not a redirect).
+	for (const { prefix, allowed } of API_ROUTE_ROLES) {
+		if (!path.startsWith(prefix)) continue
+
+		if (!user) {
+			return json(
+				{ ok: false, error: { code: 'UNAUTHORIZED', message: 'Authentication required.' } },
+				{ status: 401 }
+			)
+		}
+		if (!role || !allowed.includes(role)) {
+			await writeAuditLog(event.locals.supabase, {
+				tenant_id:     tenantId,
+				actor_user_id: user.id,
+				action:        'auth.api_access_denied',
+				entity_type:   'api_route',
+				metadata:      { path, required_roles: allowed, user_role: role },
+				ip_address:    event.getClientAddress(),
+				user_agent:    event.request.headers.get('user-agent'),
+			})
+			return json(
+				{ ok: false, error: { code: 'FORBIDDEN', message: 'You do not have permission to access this resource.' } },
+				{ status: 403 }
+			)
+		}
+		break   // matched prefix — access granted, proceed to handler
+	}
+
+	// ── Page route access logging ───────────────────────────────────────────
+	// Layout server files do the actual redirect. We only log denied attempts here
+	// for routes where the user is authenticated but has the wrong role.
+	if (user && role) {
+		for (const { prefix, allowed } of PAGE_ROUTE_ROLES) {
+			if (!path.startsWith(prefix)) continue
+			if (!allowed.includes(role)) {
+				await writeAuditLog(event.locals.supabase, {
+					tenant_id:     tenantId,
+					actor_user_id: user.id,
+					action:        'auth.page_access_denied',
+					entity_type:   'page_route',
+					metadata:      { path, required_roles: allowed, user_role: role },
+					ip_address:    event.getClientAddress(),
+					user_agent:    event.request.headers.get('user-agent'),
+				})
+			}
+			break
+		}
+	}
 
 	return resolve(event, {
-		filterSerializedResponseHeaders(name) {
+		filterSerializedResponseHeaders (name) {
 			return name === 'content-range' || name === 'x-supabase-api-version';
 		}
-	});
-};
+	})
+}

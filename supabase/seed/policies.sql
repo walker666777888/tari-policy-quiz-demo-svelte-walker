@@ -3,27 +3,27 @@
 -- Compliance Policies + Sub-headings Seed Data
 -- 8 policies × 10 sub_headings = 80 sub_headings total
 --
--- Dual-track policies (appear in both master + tenant question pools):
---   · Code of Conduct        (COC)
---   · Conflict of Interest   (COI)
+-- Dual-track policies (questions drawn from both master + tenant pools):
+--   · Code of Conduct               (COC)
+--   · Conflict of Interest          (COI)
 --   · Prevention of Insider Trading (PIT)
 --
--- NOTE: This seed adds is_dual_track to the policies table if not present.
---       In production, move this column to migration 001.
+-- NOTE: is_dual_track column is defined in migration 001_initial_schema.sql.
+--       No ALTER TABLE needed here.
+--
+-- Compatible with Supabase (search_path = '' default):
+--   All table references are schema-qualified (public.*).
 -- =============================================================================
-
-ALTER TABLE policies
-  ADD COLUMN IF NOT EXISTS is_dual_track BOOLEAN NOT NULL DEFAULT FALSE;
 
 -- =============================================================================
 -- SEED BLOCK
--- Uses a single DO $$ block so policy UUIDs are declared once and reused
--- safely across all 80 sub_heading inserts — no risk of UUID mismatch.
+-- A single DO block declares all policy UUIDs once and reuses them across
+-- all 80 sub_heading inserts — no risk of UUID mismatch.
 -- =============================================================================
 
-DO $$
+DO $seed$
 DECLARE
-  -- ── Policy UUIDs ────────────────────────────────────────────────────────────
+  -- ── Policy UUIDs ─────────────────────────────────────────────────────────────
   v_coc UUID := 'b1000001-0000-0000-0000-000000000001'; -- Code of Conduct
   v_coi UUID := 'b1000001-0000-0000-0000-000000000002'; -- Conflict of Interest
   v_pit UUID := 'b1000001-0000-0000-0000-000000000003'; -- Prevention of Insider Trading
@@ -36,14 +36,14 @@ DECLARE
 BEGIN
 
 -- =============================================================================
--- 1. INSERT POLICIES
+-- 1. POLICIES (8 rows)
 -- =============================================================================
 
-INSERT INTO policies
+INSERT INTO public.policies
   (id, code, title, description, version, is_active, is_dual_track, display_order)
 VALUES
 
-  -- ── DUAL-TRACK ─────────────────────────────────────────────────────────────
+  -- ── DUAL-TRACK ───────────────────────────────────────────────────────────────
 
   (v_coc, 'COC', 'Code of Conduct',
    'Standards governing professional behaviour, ethics, and workplace conduct expected of all employees.',
@@ -57,7 +57,7 @@ VALUES
    'Rules prohibiting the use of material non-public information for personal trading gain and the obligations of employees who possess such information.',
    '1.0', TRUE, TRUE, 3),
 
-  -- ── SINGLE-TRACK ───────────────────────────────────────────────────────────
+  -- ── SINGLE-TRACK ─────────────────────────────────────────────────────────────
 
   (v_aml, 'AML', 'Anti-Money Laundering',
    'Regulatory requirements and internal controls to detect, prevent, and report money laundering and terrorist financing activities.',
@@ -87,14 +87,14 @@ ON CONFLICT (code) DO UPDATE SET
   updated_at    = NOW();
 
 -- =============================================================================
--- 2. INSERT SUB_HEADINGS (10 per policy = 80 total)
+-- 2. SUB_HEADINGS (10 per policy = 80 total)
 -- =============================================================================
 
-INSERT INTO sub_headings
+INSERT INTO public.sub_headings
   (id, policy_id, code, title, description, display_order, is_active)
 VALUES
 
-  -- ── COC: Code of Conduct (10) ───────────────────────────────────────────────
+  -- ── COC: Code of Conduct (10) ─────────────────────────────────────────────
   (gen_random_uuid(), v_coc, 'COC-01', 'Professional Standards',
    'Expected levels of professionalism, competence, and accountability in all work activities.', 1, TRUE),
 
@@ -125,7 +125,7 @@ VALUES
   (gen_random_uuid(), v_coc, 'COC-10', 'Ethics and Integrity',
    'Core ethical principles underpinning all business decisions, relationships, and actions.', 10, TRUE),
 
-  -- ── COI: Conflict of Interest (10) ─────────────────────────────────────────
+  -- ── COI: Conflict of Interest (10) ───────────────────────────────────────
   (gen_random_uuid(), v_coi, 'COI-01', 'Definition and Scope',
    'What constitutes a conflict of interest and to whom this policy applies.', 1, TRUE),
 
@@ -156,7 +156,7 @@ VALUES
   (gen_random_uuid(), v_coi, 'COI-10', 'Annual Certification and Monitoring',
    'Requirements for periodic employee self-certification and management review of conflict disclosures.', 10, TRUE),
 
-  -- ── PIT: Prevention of Insider Trading (10) ────────────────────────────────
+  -- ── PIT: Prevention of Insider Trading (10) ──────────────────────────────
   (gen_random_uuid(), v_pit, 'PIT-01', 'Definition of Insider Information',
    'What constitutes material non-public information (MNPI) and how it is recognised.', 1, TRUE),
 
@@ -187,7 +187,7 @@ VALUES
   (gen_random_uuid(), v_pit, 'PIT-10', 'Record Keeping and Surveillance',
    'Obligations to maintain trading records and submission to ongoing surveillance programmes.', 10, TRUE),
 
-  -- ── AML: Anti-Money Laundering (10) ────────────────────────────────────────
+  -- ── AML: Anti-Money Laundering (10) ──────────────────────────────────────
   (gen_random_uuid(), v_aml, 'AML-01', 'Introduction to Money Laundering',
    'Definition, mechanics, and societal harm caused by money laundering and terrorist financing.', 1, TRUE),
 
@@ -218,7 +218,7 @@ VALUES
   (gen_random_uuid(), v_aml, 'AML-10', 'Penalties for Non-Compliance',
    'Regulatory, financial, and reputational consequences of AML failures for individuals and institutions.', 10, TRUE),
 
-  -- ── KYC: Know Your Customer (10) ───────────────────────────────────────────
+  -- ── KYC: Know Your Customer (10) ─────────────────────────────────────────
   (gen_random_uuid(), v_kyc, 'KYC-01', 'KYC Overview and Purpose',
    'Why KYC exists, its role in AML compliance, and the obligations it places on staff.', 1, TRUE),
 
@@ -249,7 +249,7 @@ VALUES
   (gen_random_uuid(), v_kyc, 'KYC-10', 'KYC Failure Consequences',
    'Regulatory sanctions, reputational risk, and internal consequences of inadequate KYC controls.', 10, TRUE),
 
-  -- ── DPP: Data Protection & Privacy (10) ────────────────────────────────────
+  -- ── DPP: Data Protection & Privacy (10) ──────────────────────────────────
   (gen_random_uuid(), v_dpp, 'DPP-01', 'Data Protection Principles',
    'Core principles of lawfulness, fairness, transparency, purpose limitation, and data minimisation.', 1, TRUE),
 
@@ -280,7 +280,7 @@ VALUES
   (gen_random_uuid(), v_dpp, 'DPP-10', 'Employee Data Handling',
    'Rules governing how employee personal data is collected, used, stored, and shared internally.', 10, TRUE),
 
-  -- ── CIS: Cybersecurity & Information Security (10) ─────────────────────────
+  -- ── CIS: Cybersecurity & Information Security (10) ───────────────────────
   (gen_random_uuid(), v_cis, 'CIS-01', 'Information Classification',
    'Framework for classifying data by sensitivity and applying appropriate handling controls.', 1, TRUE),
 
@@ -311,7 +311,7 @@ VALUES
   (gen_random_uuid(), v_cis, 'CIS-10', 'Third-Party and Supply Chain Security',
    'Due diligence and ongoing monitoring requirements for technology vendors and suppliers.', 10, TRUE),
 
-  -- ── FPD: Fraud Prevention & Detection (10) ─────────────────────────────────
+  -- ── FPD: Fraud Prevention & Detection (10) ───────────────────────────────
   (gen_random_uuid(), v_fpd, 'FPD-01', 'Types and Categories of Fraud',
    'Taxonomy of fraud including internal, external, cyber, payment, and identity fraud.', 1, TRUE),
 
@@ -348,41 +348,45 @@ ON CONFLICT (policy_id, code) DO UPDATE SET
   display_order = EXCLUDED.display_order,
   updated_at    = NOW();
 
-END $$;
+END $seed$;
 
 -- =============================================================================
 -- VERIFY COUNTS
+-- Uses a separate named dollar-quote to avoid any parser conflict with the
+-- seed block above. All table refs are schema-qualified for search_path safety.
 -- =============================================================================
 
-DO $$
+DO $verify$
 DECLARE
   v_policy_count     INT;
   v_subheading_count INT;
   v_dual_track_count INT;
 BEGIN
-  SELECT COUNT(*) INTO v_policy_count     FROM policies;
-  SELECT COUNT(*) INTO v_subheading_count FROM sub_headings;
-  SELECT COUNT(*) INTO v_dual_track_count FROM policies WHERE is_dual_track = TRUE;
+  SELECT COUNT(*) INTO v_policy_count     FROM public.policies;
+  SELECT COUNT(*) INTO v_subheading_count FROM public.sub_headings;
+  SELECT COUNT(*) INTO v_dual_track_count FROM public.policies WHERE is_dual_track = TRUE;
 
-  RAISE NOTICE '─────────────────────────────────────────';
-  RAISE NOTICE 'Seed verification:';
-  RAISE NOTICE '  Policies inserted   : %', v_policy_count;
-  RAISE NOTICE '  Sub-headings inserted: %', v_subheading_count;
+  RAISE NOTICE '─────────────────────────────────────────────────';
+  RAISE NOTICE 'policies.sql seed verification:';
+  RAISE NOTICE '  Total policies      : %', v_policy_count;
+  RAISE NOTICE '  Total sub_headings  : %', v_subheading_count;
   RAISE NOTICE '  Dual-track policies : %', v_dual_track_count;
 
   IF v_policy_count < 8 THEN
-    RAISE EXCEPTION 'Expected 8 policies, found %', v_policy_count;
+    RAISE EXCEPTION 'Expected at least 8 policies, found %', v_policy_count;
   END IF;
+
   IF v_subheading_count < 80 THEN
-    RAISE EXCEPTION 'Expected 80 sub_headings, found %', v_subheading_count;
+    RAISE EXCEPTION 'Expected at least 80 sub_headings, found %', v_subheading_count;
   END IF;
+
   IF v_dual_track_count <> 3 THEN
-    RAISE EXCEPTION 'Expected 3 dual-track policies, found %', v_dual_track_count;
+    RAISE EXCEPTION 'Expected exactly 3 dual-track policies, found %', v_dual_track_count;
   END IF;
 
   RAISE NOTICE 'All seed assertions passed.';
-  RAISE NOTICE '─────────────────────────────────────────';
-END $$;
+  RAISE NOTICE '─────────────────────────────────────────────────';
+END $verify$;
 
 -- =============================================================================
 -- END OF SEED: policies.sql
