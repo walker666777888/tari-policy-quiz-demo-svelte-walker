@@ -1,0 +1,979 @@
+/* ── Premium Font Stack ─────────────────────────────────────
+   Display / Hero : Instrument Serif  (editorial italic accents)
+   Headings       : Bricolage Grotesque (bold, expressive)
+   Body / UI      : Plus Jakarta Sans  (crisp, modern, readable)
+   Mono / Numbers : JetBrains Mono     (clean code + stats)
+   ────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800;12..96,900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  :root {
+    --primary: #1a56db;
+    --secondary: #1e429f;
+    --font-color: #ffffff;
+    --primary-light: #1a56db20;
+    --color-primary: 26 86 219;
+    --color-secondary: 30 66 159;
+
+    /* Light mode — warm white canvas */
+    --border: #E2E8F0;
+    --input: #E2E8F0;
+    --ring: #1a56db;
+    --background: #F8FAFC;
+    --foreground: #0D1526;
+    --surface: #FFFFFF;
+    --muted: #F1F5F9;
+    --muted-foreground: #64748B;
+
+    /* Shadow system */
+    --shadow-sm: 0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
+    --shadow-md: 0 4px 12px rgba(15,23,42,0.08), 0 2px 4px rgba(15,23,42,0.04);
+    --shadow-lg: 0 10px 30px rgba(15,23,42,0.1), 0 4px 8px rgba(15,23,42,0.05);
+    --shadow-glow: 0 0 0 1px rgba(26,86,219,0.15), 0 6px 24px rgba(26,86,219,0.12);
+
+    /* Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+  }
+
+  .dark {
+    --border: #2d3f55;
+    --input: #2d3f55;
+    --ring: #3b82f6;
+    --background: #0a0f1e;
+    --foreground: #e8edf5;
+    --surface: #111827;
+    --muted: #161f30;
+    --muted-foreground: #8b9ab8;
+
+    /* Dark shadow system — deeper, cooler */
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.2);
+    --shadow-lg: 0 10px 40px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.25);
+    --shadow-glow: 0 0 0 1px rgba(99,157,255,0.2), 0 6px 32px rgba(99,157,255,0.15);
+  }
+
+  html {
+    @apply antialiased bg-background text-foreground;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-feature-settings: "cv11", "ss01", "ss03", "kern", "liga", "calt";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.011em;
+    text-rendering: optimizeLegibility;
+    font-size: 15px;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    min-height: 100dvh;
+    line-height: 1.6;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.018'/%3E%3C/svg%3E");
+  }
+
+  /* Premium heading hierarchy — Bricolage Grotesque */
+  h1 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-optical-sizing: auto;
+    letter-spacing: -0.035em;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+  h2 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-optical-sizing: auto;
+    letter-spacing: -0.028em;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  h3 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    letter-spacing: -0.022em;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  /* Paragraph and body copy */
+  p {
+    line-height: 1.65;
+    letter-spacing: -0.005em;
+  }
+
+  /* Labels — Plus Jakarta Sans, uppercase, wider tracking */
+  label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+  }
+
+  /* Code / numbers — JetBrains Mono */
+  code, kbd, pre, .font-mono {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-feature-settings: "liga", "calt";
+    letter-spacing: -0.02em;
+  }
+
+  /* Ultra-thin premium scrollbar */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--muted-foreground);
+  }
+
+  :focus-visible {
+    @apply outline-none;
+    box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--primary);
+  }
+}
+
+@layer components {
+  .page-title {
+    @apply text-[32px] font-bold text-foreground leading-tight tracking-tight;
+  }
+  
+  .section-title {
+    @apply text-[22px] font-semibold text-foreground leading-snug tracking-tight;
+  }
+  
+  .card-metric {
+    @apply text-[42px] font-bold text-foreground leading-none tracking-tight;
+  }
+  
+  .text-body {
+    @apply text-[14px] font-normal text-foreground leading-relaxed;
+  }
+  
+  .text-label {
+    @apply text-[13px] font-medium text-muted-foreground uppercase tracking-wider;
+  }
+  
+  .text-meta {
+    @apply text-[12px] font-normal text-muted-foreground;
+  }
+
+  /* Structural Base Cards — layered shadow system */
+  .card-enterprise {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md, 12px);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.25s ease;
+  }
+  .card-enterprise:hover {
+    box-shadow: var(--shadow-md);
+    border-color: rgba(26, 86, 219, 0.2);
+    transform: translateY(-1px);
+  }
+  
+  /* Buttons — premium gradient + letter-spacing */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5
+           text-sm font-semibold text-white
+           rounded-lg
+           transition-all duration-200
+           focus-visible:outline-none;
+    background: linear-gradient(135deg, #1a56db 0%, #1740a8 100%);
+    box-shadow: 0 1px 3px rgba(26,86,219,0.4), 0 4px 12px rgba(26,86,219,0.2);
+    letter-spacing: 0.01em;
+  }
+  .btn-primary:hover {
+    box-shadow: 0 2px 8px rgba(26,86,219,0.5), 0 8px 20px rgba(26,86,219,0.25);
+    transform: translateY(-1px);
+  }
+  .btn-primary:active { transform: scale(0.98); }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-sm px-4 py-2 
+           text-sm font-medium text-foreground bg-secondary
+           transition-colors hover:bg-secondary/80
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-sm px-4 py-2 
+           text-sm font-medium text-foreground bg-transparent border border-border
+           transition-colors hover:bg-accent hover:text-accent-foreground
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-sm px-4 py-2 
+           text-sm font-medium text-foreground bg-transparent
+           transition-colors hover:bg-accent hover:text-accent-foreground
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+  }
+
+  .input-enterprise {
+    @apply flex w-full border border-border bg-surface px-3.5 py-2.5
+           text-sm text-foreground placeholder:text-muted-foreground
+           disabled:cursor-not-allowed disabled:opacity-50;
+    border-radius: var(--radius-sm, 8px);
+    box-shadow: inset 0 1px 2px rgba(15,23,42,0.04);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .input-enterprise:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: inset 0 1px 2px rgba(15,23,42,0.04),
+                0 0 0 3px rgba(26,86,219,0.12);
+  }
+
+  .label-enterprise {
+    @apply text-[13px] font-medium text-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70;
+  }
+  
+  /* Badge */
+  .badge-enterprise {
+    @apply inline-flex items-center rounded-sm px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+  }
+  .badge-success { @apply bg-success/10 text-success hover:bg-success/20; }
+  .badge-warning { @apply bg-warning/10 text-warning hover:bg-warning/20; }
+  .badge-danger { @apply bg-destructive/10 text-destructive hover:bg-destructive/20; }
+  .badge-info { @apply bg-info/10 text-info hover:bg-info/20; }
+  .badge-neutral { @apply bg-secondary text-secondary-foreground hover:bg-secondary/80; }
+}
+
+/* =========================================================
+   GLOBAL DARK MODE OVERRIDES
+   Raw CSS outside @layer for maximum cascade specificity.
+   Covers ALL hardcoded slate/white classes in every portal.
+   ========================================================= */
+
+/* --- Backgrounds --- */
+.dark .bg-white,
+.dark .bg-white\/95 { background-color: var(--surface) !important; }
+
+.dark .bg-slate-50,
+.dark .bg-slate-50\/30,
+.dark .bg-slate-50\/40,
+.dark .bg-slate-50\/50,
+.dark .bg-slate-50\/70 { background-color: var(--muted) !important; }
+
+.dark .bg-slate-100 { background-color: color-mix(in srgb, var(--muted) 80%, var(--surface)) !important; }
+.dark .bg-slate-200 { background-color: var(--border) !important; }
+
+/* --- Borders --- */
+.dark .border-slate-50,
+.dark .border-slate-100,
+.dark .border-slate-150,
+.dark .border-slate-200,
+.dark .border-slate-200\/40,
+.dark .border-slate-200\/50,
+.dark .border-slate-200\/60,
+.dark .border-slate-200\/85 { border-color: var(--border) !important; }
+
+.dark .divide-slate-100 > :not([hidden]) ~ :not([hidden]) { border-color: var(--border) !important; }
+
+/* --- Text --- */
+.dark .text-slate-900,
+.dark .text-slate-800 { color: var(--foreground) !important; }
+
+.dark .text-slate-700,
+.dark .text-slate-650,
+.dark .text-slate-600 { color: color-mix(in srgb, var(--foreground) 80%, var(--muted-foreground)) !important; }
+
+.dark .text-slate-500,
+.dark .text-slate-400,
+.dark .text-slate-300 { color: var(--muted-foreground) !important; }
+
+/* --- Hover backgrounds --- */
+.dark .hover\:bg-white:hover { background-color: var(--surface) !important; }
+.dark .hover\:bg-slate-50:hover,
+.dark .hover\:bg-slate-50\/80:hover,
+.dark .hover\:bg-slate-100:hover,
+.dark .hover\:bg-slate-100\/50:hover { background-color: color-mix(in srgb, var(--muted) 60%, var(--surface)) !important; }
+.dark .hover\:bg-slate-50\/70:hover { background-color: var(--muted) !important; }
+.dark .hover\:text-slate-900:hover,
+.dark .hover\:text-slate-800:hover { color: var(--foreground) !important; }
+.dark .hover\:border-slate-200:hover,
+.dark .hover\:border-slate-300:hover { border-color: var(--border) !important; }
+
+/* --- All form inputs, selects, textareas --- */
+.dark input:not([type="color"]):not([type="range"]),
+.dark select,
+.dark textarea {
+  background-color: var(--surface) !important;
+  color: var(--foreground) !important;
+  border-color: var(--border) !important;
+}
+.dark input::placeholder,
+.dark textarea::placeholder { color: var(--muted-foreground) !important; opacity: 0.65; }
+.dark select option { background-color: var(--surface); color: var(--foreground); }
+
+/* --- Status / compliance badges --- */
+.dark .bg-emerald-50 { background-color: rgba(16,185,129,0.12) !important; }
+.dark .border-emerald-100 { border-color: rgba(16,185,129,0.25) !important; }
+.dark .text-emerald-600 { color: #34d399 !important; }
+
+.dark .bg-amber-50 { background-color: rgba(245,158,11,0.12) !important; }
+.dark .border-amber-100 { border-color: rgba(245,158,11,0.25) !important; }
+.dark .text-amber-600 { color: #fbbf24 !important; }
+
+.dark .bg-rose-50 { background-color: rgba(239,68,68,0.12) !important; }
+.dark .border-rose-100 { border-color: rgba(239,68,68,0.25) !important; }
+.dark .text-rose-600 { color: #f87171 !important; }
+
+.dark .bg-teal-50 { background-color: rgba(20,184,166,0.12) !important; }
+.dark .border-teal-100 { border-color: rgba(20,184,166,0.25) !important; }
+.dark .text-teal-700,
+.dark .text-teal-600 { color: #2dd4bf !important; }
+
+.dark .bg-red-50 { background-color: rgba(239,68,68,0.12) !important; }
+.dark .border-red-100 { border-color: rgba(239,68,68,0.25) !important; }
+.dark .text-red-700 { color: #f87171 !important; }
+
+.dark .bg-violet-50 { background-color: rgba(139,92,246,0.12) !important; }
+.dark .border-violet-100 { border-color: rgba(139,92,246,0.25) !important; }
+
+.dark .bg-indigo-50 { background-color: rgba(99,102,241,0.12) !important; }
+.dark .border-indigo-100 { border-color: rgba(99,102,241,0.25) !important; }
+
+/* --- Tables thead rows --- */
+.dark .bg-slate-50\/70 { background-color: var(--muted) !important; }
+
+/* --- Slide-in drawer panels --- */
+.dark .max-w-lg.bg-white { background-color: var(--surface) !important; }
+
+/* --- Stepper inactive step circles --- */
+.dark span.bg-white.text-slate-400 { background-color: var(--muted) !important; color: var(--muted-foreground) !important; }
+
+/* --- Stepper connector line --- */
+.dark .bg-slate-200.h-\[1px\],
+.dark .h-\[1px\].bg-slate-200 { background-color: var(--border) !important; }
+
+/* --- SVG pie/donut chart tracks --- */
+.dark circle[stroke="#f1f5f9"],
+.dark circle[stroke="#F1F5F9"] { stroke: var(--muted) !important; }
+
+/* --- Submit / dark buttons (bg-slate-900) --- */
+.dark .bg-slate-900:not(html):not(body) { background-color: #334155 !important; }
+.dark .hover\:bg-slate-800:hover { background-color: #475569 !important; }
+.dark .hover\:bg-black:hover { background-color: #475569 !important; }
+
+/* =========================================================
+   PREMIUM HOVER & GLOW EFFECTS
+   Applied globally across all portals for that ultra-premium
+   enterprise dashboard feel — glows, shimmer, glass, etc.
+   ========================================================= */
+
+/* ── 1. Stat / Metric Cards — Soft primary glow on hover ── */
+.rounded-xl.border.shadow-sm,
+.rounded-xl.border.shadow-sm.p-5,
+.rounded-xl.border.shadow-sm.p-6 {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.25s ease;
+  will-change: transform;
+}
+
+.rounded-xl.border.shadow-sm:hover {
+  box-shadow:
+    0 0 0 1px rgba(26, 86, 219, 0.18),
+    0 8px 32px -4px rgba(26, 86, 219, 0.12),
+    0 2px 8px -2px rgba(0, 0, 0, 0.08) !important;
+}
+
+.dark .rounded-xl.border.shadow-sm:hover {
+  box-shadow:
+    0 0 0 1px rgba(99, 157, 255, 0.22),
+    0 8px 40px -4px rgba(99, 157, 255, 0.18),
+    0 0 60px -20px rgba(99, 157, 255, 0.12) !important;
+  border-color: rgba(99, 157, 255, 0.25) !important;
+}
+
+/* ── 2. Input fields — glowing focus ring ── */
+input:not([type="color"]):not([type="range"]):not([type="file"]):not([type="checkbox"]):not([type="radio"]),
+select,
+textarea {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+input:not([type="color"]):not([type="range"]):focus,
+select:focus,
+textarea:focus {
+  box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.15), 0 1px 4px rgba(26, 86, 219, 0.1) !important;
+  outline: none !important;
+}
+
+.dark input:not([type="color"]):not([type="range"]):focus,
+.dark select:focus,
+.dark textarea:focus {
+  box-shadow: 0 0 0 3px rgba(99, 157, 255, 0.2), 0 0 20px rgba(99, 157, 255, 0.1) !important;
+  border-color: rgba(99, 157, 255, 0.5) !important;
+}
+
+/* ── 3. Primary action buttons — shimmer sweep animation ── */
+@keyframes shimmer-sweep {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.bg-primary {
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.25s ease, transform 0.2s ease, opacity 0.2s ease;
+}
+
+.bg-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255,255,255,0.18) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.bg-primary:hover::after {
+  opacity: 1;
+  animation: shimmer-sweep 0.75s ease forwards;
+}
+
+.bg-primary:hover {
+  box-shadow: 0 4px 20px rgba(26, 86, 219, 0.4), 0 0 40px rgba(26, 86, 219, 0.15) !important;
+}
+
+.dark .bg-primary:hover {
+  box-shadow: 0 4px 24px rgba(99, 157, 255, 0.45), 0 0 60px rgba(99, 157, 255, 0.2) !important;
+}
+
+/* ── 4. Table rows — smooth left accent glow on hover ── */
+tbody tr {
+  transition: background-color 0.15s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+tbody tr:hover {
+  box-shadow: inset 3px 0 0 rgba(26, 86, 219, 0.5) !important;
+}
+
+.dark tbody tr:hover {
+  box-shadow: inset 3px 0 0 rgba(99, 157, 255, 0.6) !important;
+}
+
+/* ── 5. Sidebar nav active item — glow pulse ── */
+nav a.bg-primary {
+  box-shadow: 0 2px 12px rgba(26, 86, 219, 0.35), 0 0 0 1px rgba(26, 86, 219, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+
+.dark nav a.bg-primary {
+  box-shadow: 0 2px 16px rgba(99, 157, 255, 0.4), 0 0 30px rgba(99, 157, 255, 0.15);
+}
+
+nav a:not(.bg-primary) {
+  transition: background-color 0.2s ease, color 0.2s ease, padding-left 0.2s ease, box-shadow 0.2s ease;
+}
+
+nav a:not(.bg-primary):hover {
+  padding-left: 1rem !important;
+}
+
+/* ── 6. Avatar / Circle buttons — ring glow on hover ── */
+.avatar-btn:hover,
+.avatar-btn:focus {
+  box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.3), 0 0 20px rgba(26, 86, 219, 0.2) !important;
+}
+
+.dark .avatar-btn:hover,
+.dark .avatar-btn:focus {
+  box-shadow: 0 0 0 3px rgba(99, 157, 255, 0.35), 0 0 30px rgba(99, 157, 255, 0.2) !important;
+}
+
+/* ── 7. Bell button — amber glow on hover (dark mode) ── */
+.bell-btn:hover {
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.2);
+}
+
+.dark .bell-btn:hover {
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.3) !important;
+}
+
+/* ── 8. Dark mode cards — subtle inner glass shimmer ── */
+.dark .rounded-xl.border {
+  background-image: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.02) 0%,
+    transparent 60%
+  );
+}
+
+/* ── 9. Page header H1 — glowing text in dark mode ── */
+.dark h1 {
+  text-shadow: 0 0 40px rgba(99, 157, 255, 0.12);
+}
+
+/* ── 10. Theme toggle button — spin glow ── */
+.theme-btn:hover {
+  box-shadow: 0 0 18px rgba(245, 158, 11, 0.35) !important;
+  background-color: rgba(245, 158, 11, 0.08) !important;
+}
+
+/* ── 11. Compliance status badges — soft glow ── */
+.dark span[class*="rounded-full"][class*="emerald"] {
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+}
+.dark span[class*="rounded-full"][class*="rose"],
+.dark span[class*="rounded-full"][class*="red"] {
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+}
+.dark span[class*="rounded-full"][class*="amber"] {
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.2);
+}
+
+/* ── 12. Scroll-into-view card ambient animation ── */
+@keyframes card-appear {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in > div,
+.animate-fade-in > section {
+  animation: card-appear 0.4s ease forwards;
+}
+
+/* ── 13. Dropdown menus — glass blur panel ── */
+.bell-dropdown,
+.avatar-dropdown {
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+}
+
+.dark .bell-dropdown,
+.dark .avatar-dropdown {
+  box-shadow:
+    0 0 0 1px rgba(99, 157, 255, 0.12),
+    0 20px 60px -10px rgba(0, 0, 0, 0.5),
+    0 0 80px -30px rgba(99, 157, 255, 0.1) !important;
+}
+
+/* ── 14. Stat card progress bars — animated fill ── */
+.bg-primary.rounded-full[style*="width"] {
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-primary.rounded-full[style*="width"]::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35));
+  animation: shimmer-sweep 2s ease-in-out infinite;
+}
+
+/* ── 15. Main layout wrapper — dark mode ambient glow backdrop ── */
+.dark body::before {
+  content: '';
+  position: fixed;
+  top: -20%;
+  left: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(ellipse, rgba(26, 86, 219, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: pulse 8s ease-in-out infinite;
+}
+
+.dark body::after {
+  content: '';
+  position: fixed;
+  bottom: -20%;
+  right: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: pulse 12s ease-in-out infinite 2s;
+}
+
+/* ── Floating background icons (books, pen, laptop etc) ── */
+@keyframes float-bob {
+  0%, 100% { transform: translateY(0px) rotate(-3deg); }
+  33%       { transform: translateY(-18px) rotate(3deg); }
+  66%       { transform: translateY(-8px) rotate(-1.5deg); }
+}
+
+.floating-bg-icon {
+  position: fixed;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  animation: float-bob 8s ease-in-out infinite;
+  /* Light mode: clearly visible */
+  opacity: 0.20;
+  filter: saturate(0.6) brightness(0.8);
+  transition: opacity 0.4s ease;
+  will-change: transform;
+  line-height: 1;
+}
+
+/* Dark mode: brighter and more saturated */
+.dark .floating-bg-icon {
+  opacity: 0.30;
+  filter: saturate(1) brightness(1.1);
+}
+
+/* =========================================================
+   PREMIUM POLISH — Global Refinements
+   Consistent depth, hierarchy and micro-detail across
+   every portal page.
+   ========================================================= */
+
+/* ── All rounded-xl cards get the layered shadow treatment ── */
+.rounded-xl.border,
+.rounded-2xl.border,
+.rounded-3xl.border {
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(15,23,42,0.06));
+  transition: box-shadow 0.3s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+.rounded-xl.border:hover,
+.rounded-2xl.border:hover {
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(15,23,42,0.08));
+}
+
+/* ── Top NavBar: frosted glass border bottom ── */
+header,
+nav[class*="sticky"],
+nav[class*="fixed"] {
+  border-bottom-color: var(--border) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ── Table: zebra-subtle stripe + premium header ── */
+thead th {
+  letter-spacing: 0.04em;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+tbody tr:nth-child(even) {
+  background-color: rgba(15, 23, 42, 0.015);
+}
+.dark tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.015);
+}
+
+/* ── All submit buttons (bg-slate-900) — premium look ── */
+button[type="submit"],
+button.bg-primary,
+a.bg-primary {
+  letter-spacing: 0.015em;
+}
+
+/* ── Inline badges — pill border ── */
+span[class*="rounded-full"][class*="bg-"] {
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+/* ── Stat numbers on dashboards ── */
+.card-metric,
+[class*="text-3xl"][class*="font-bold"],
+[class*="text-4xl"][class*="font-bold"],
+[class*="text-2xl"][class*="font-black"] {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+/* ── Text selection highlight ── */
+::selection {
+  background: rgba(26, 86, 219, 0.18);
+  color: inherit;
+}
+.dark ::selection {
+  background: rgba(99, 157, 255, 0.25);
+  color: inherit;
+}
+
+/* ── Premium page transitions ── */
+.animate-fade-in {
+  animation: premium-fade-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes premium-fade-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.995); }
+  to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+
+/* ── Staggered card children ── */
+.animate-fade-in > * { animation: inherit; }
+.animate-fade-in > *:nth-child(1) { animation-delay: 0ms; }
+.animate-fade-in > *:nth-child(2) { animation-delay: 40ms; }
+.animate-fade-in > *:nth-child(3) { animation-delay: 80ms; }
+.animate-fade-in > *:nth-child(4) { animation-delay: 120ms; }
+.animate-fade-in > *:nth-child(5) { animation-delay: 160ms; }
+.animate-fade-in > *:nth-child(6) { animation-delay: 200ms; }
+
+/* ── Dark mode — card surface shimmer overlay ── */
+.dark .rounded-xl.border {
+  background-image: linear-gradient(
+    145deg,
+    rgba(255,255,255,0.025) 0%,
+    rgba(255,255,255,0.005) 50%,
+    transparent 100%
+  ) !important;
+}
+
+/* ── Light mode — subtle card gradient ── */
+.rounded-xl.border:not(.dark *) {
+  background-image: linear-gradient(
+    160deg,
+    rgba(255,255,255,1) 0%,
+    rgba(248,250,252,0.6) 100%
+  );
+}
+
+/* ── Input inset shadow for depth ── */
+input:not([type="color"]):not([type="range"]):not([type="file"]):not([type="checkbox"]):not([type="radio"]),
+select,
+textarea {
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+
+/* ── Remove shadow on checkbox/radio ── */
+input[type="checkbox"],
+input[type="radio"] {
+  box-shadow: none !important;
+}
+
+/* ── Form section dividers look refined ── */
+form h3[class*="border-b"],
+div h3[class*="border-b"] {
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+/* =========================================================
+   PREMIUM TYPOGRAPHY UTILITIES
+   Use these classes directly in Svelte components for
+   instant premium text styling across all portals.
+   ========================================================= */
+
+/* ── Gradient text — blue-to-indigo ── */
+.text-gradient {
+  background: linear-gradient(135deg, #1a56db 0%, #7c3aed 60%, #4f46e5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+/* ── Gradient text — light mode sky-to-blue ── */
+.text-gradient-sky {
+  background: linear-gradient(135deg, #0ea5e9 0%, #1a56db 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Gradient text — emerald for success states ── */
+.text-gradient-success {
+  background: linear-gradient(135deg, #10b981 0%, #0d9488 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Eyebrow label — the tiny uppercase before a heading ── */
+.text-eyebrow {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
+  opacity: 0.85;
+}
+
+/* ── Display accent — Instrument Serif italic for hero moments ── */
+.text-display {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+
+/* ── Stat number — JetBrains Mono, large, tight ── */
+.text-stat {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+/* ── Section label — refined uppercase label ── */
+.text-section-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* ── Caption / helper text ── */
+.text-caption {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: -0.002em;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+}
+
+/* ── Lead paragraph — slightly larger body copy ── */
+.text-lead {
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+  color: var(--muted-foreground);
+}
+
+/* ── Balanced text wrapping for headings ── */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+/* ── Inline code span ── */
+.text-code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82em;
+  font-weight: 500;
+  background: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+  letter-spacing: -0.01em;
+}
+
+/* ── Global heading improvements in dark mode ── */
+.dark h1 {
+  text-shadow: 0 0 60px rgba(99, 157, 255, 0.1);
+}
+
+/* ── All uppercase tracking text ── */
+[class*="uppercase"][class*="tracking"] {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+}
+
+/* ── Headings in card containers get slightly less weight ── */
+.card-enterprise h2,
+.card-enterprise h3,
+.rounded-xl h3,
+.rounded-xl h2 {
+  letter-spacing: -0.02em;
+}
+
+/* ── Muted text should always use Plus Jakarta Sans ── */
+.text-muted-foreground,
+[class*="text-slate-400"],
+[class*="text-slate-500"] {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -0.006em;
+}
+
+/* ── Nav links — Plus Jakarta Sans, tracked medium ── */
+nav a {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* ── Table cell text ── */
+td {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.875rem;
+  letter-spacing: -0.008em;
+  line-height: 1.5;
+}
+
+/* ── Button text ── */
+button, .btn-primary, .btn-secondary, .btn-outline {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: 0.008em;
+  font-weight: 600;
+}
+
+/* =========================================================
+   PREMIUM PORTAL PAGE HEADINGS
+   A consistent, gorgeous header utility across all dashboards
+   featuring left accent neon gradient bars and text-fill gradients.
+   ========================================================= */
+
+.premium-heading-group {
+  position: relative;
+  padding-left: 1.25rem; /* pl-5 equivalent */
+  text-align: left;
+}
+
+.premium-heading-group::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 4px;
+  border-radius: 99px;
+  background: linear-gradient(180deg, var(--primary) 0%, #3b82f6 100%);
+  box-shadow: 0 0 10px rgba(26, 86, 219, 0.4);
+}
+
+.dark .premium-heading-group::before {
+  background: linear-gradient(180deg, var(--primary) 0%, #60a5fa 100%);
+  box-shadow: 0 0 14px rgba(99, 157, 255, 0.65);
+}
+
+.premium-heading-title {
+  font-family: 'Bricolage Grotesque', sans-serif !important;
+  font-size: 1.85rem !important; /* text-2xl/3xl */
+  font-weight: 900 !important;
+  letter-spacing: -0.04em !important;
+  line-height: 1.15 !important;
+  color: var(--foreground) !important;
+  background: linear-gradient(135deg, var(--foreground) 30%, color-mix(in srgb, var(--foreground) 75%, var(--primary)) 100%);
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.premium-heading-subtitle {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 0.78rem !important; /* text-xs */
+  font-weight: 500 !important;
+  color: var(--muted-foreground) !important;
+  letter-spacing: -0.01em !important;
+  margin-top: 0.35rem !important; /* mt-1.5 */
+  opacity: 0.85;
+}
+
