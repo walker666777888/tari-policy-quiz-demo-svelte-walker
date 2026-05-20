@@ -90,8 +90,8 @@
   }
 }} />
 
-<header class="h-16 border-b border-border bg-surface flex items-center justify-between px-4 md:px-6 shrink-0 relative z-40 transition-all duration-300">
-  <div class="flex items-center gap-4 md:gap-8 flex-1">
+<header class="h-16 border-b border-border bg-surface flex items-center justify-between px-3 md:px-6 shrink-0 relative z-40 transition-all duration-300 gap-2">
+  <div class="flex items-center gap-2 md:gap-8 flex-1 min-w-0">
     {#if showSidebarToggle}
       <button 
         class="md:hidden p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors"
@@ -105,7 +105,7 @@
     {#if children}
       {@render children()}
     {:else if showSearch}
-      <div class="relative w-64">
+      <div class="relative w-full max-w-[140px] sm:max-w-[240px]">
         <input type="text" placeholder="Search..." class="input-enterprise w-full pl-9" />
         <span class="absolute left-3 top-2.5 text-muted-foreground">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
@@ -114,7 +114,7 @@
     {/if}
   </div>
 
-  <div class="flex items-center gap-4 relative">
+  <div class="flex items-center gap-1 sm:gap-4 relative shrink-0">
     
     <!-- Dark Mode Toggle Button -->
     <button 
@@ -147,7 +147,7 @@
     {#if showNotifications}
       <div 
         transition:fade={{ duration: 150 }}
-        class="bell-dropdown absolute right-10 top-12 w-80 bg-surface rounded-xl border border-border shadow-2xl z-50 overflow-hidden flex flex-col transition-all duration-300"
+        class="bell-dropdown absolute right-0 sm:right-10 top-12 w-[300px] sm:w-80 max-w-[calc(100vw-1rem)] bg-surface rounded-xl border border-border shadow-2xl z-50 overflow-hidden flex flex-col transition-all duration-300"
       >
         <div class="p-3.5 bg-muted border-b border-border flex items-center justify-between">
           <span class="text-[11px] font-bold text-foreground uppercase tracking-wider">Alert Center</span>
@@ -190,7 +190,7 @@
     {#if showUserMenu}
       <div 
         transition:fade={{ duration: 150 }}
-        class="avatar-dropdown absolute right-0 top-12 w-60 bg-surface rounded-2xl border border-border shadow-2xl z-50 overflow-hidden flex flex-col py-1.5 transition-all duration-300"
+        class="avatar-dropdown absolute right-0 top-12 w-56 sm:w-60 max-w-[calc(100vw-1rem)] bg-surface rounded-2xl border border-border shadow-2xl z-50 overflow-hidden flex flex-col py-1.5 transition-all duration-300"
       >
         <!-- Header Info -->
         <div class="px-5 py-3.5 border-b border-border bg-muted/40 flex flex-col">
