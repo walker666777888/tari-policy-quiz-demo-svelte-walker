@@ -2,7 +2,7 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { fade } from 'svelte/transition';
-  import { isDarkMode } from '$lib/stores/themeMode';
+  import { isDarkMode, toggleTheme } from '$lib/stores/themeMode';
   import { isSidebarOpen } from '$lib/stores/sidebar';
 
   let { showSearch = false, showSidebarToggle = false, children } = $props<{ showSearch?: boolean; showSidebarToggle?: boolean; children?: import('svelte').Snippet }>();
@@ -118,7 +118,7 @@
     
     <!-- Dark Mode Toggle Button -->
     <button 
-      onclick={() => isDarkMode.update(d => !d)}
+      onclick={toggleTheme}
       class="theme-btn p-1.5 text-muted-foreground hover:text-foreground transition-all duration-200 rounded-full hover:bg-muted cursor-pointer flex items-center justify-center"
       aria-label="Toggle theme mode"
     >

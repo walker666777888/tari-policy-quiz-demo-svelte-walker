@@ -1,47 +1,41 @@
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
+import { themeTransition } from './themeTransition';
+import { get } from 'svelte/store';
 
 const initialValue = browser ? localStorage.getItem('themeMode') === 'dark' : false;
 
 export const isDarkMode = writable(initialValue);
 
+// Apply initial class with no animation
 if (browser) {
-  // Apply the theme class immediately on load without transition
-  const root = document.documentElement;
   if (initialValue) {
-    root.classList.add('dark');
+    document.documentElement.classList.add('dark');
   }
+}
 
-  let isInitial = true;
+export function toggleTheme() {
+  if (!browser) return;
 
-  isDarkMode.subscribe(value => {
-    if (isInitial) {
-      isInitial = false;
-      return; // Skip the first subscribe call (already applied above)
-    }
+  const currentDark = get(isDarkMode);
+  const next = !currentDark;
 
-    const root = document.documentElement;
+  // 1. Show the premium overlay
+  themeTransition.set({ active: true, targetMode: next ? 'dark' : 'light' });
 
-    // Use the View Transitions API for a buttery-smooth crossfade if available
-    if ('startViewTransition' in document) {
-      (document as any).startViewTransition(() => {
-        if (value) {
-          root.classList.add('dark');
-        } else {
-          root.classList.remove('dark');
-        }
-        localStorage.setItem('themeMode', value ? 'dark' : 'light');
-      });
+  // 2. After the overlay has expanded and is covering the screen, swap the class
+  setTimeout(() => {
+    if (next) {
+      document.documentElement.classList.add('dark');
     } else {
-      // Fallback: inject transition class briefly for browsers without View Transitions API
-      root.classList.add('theme-transitioning');
-      if (value) {
-        root.classList.add('dark');
-      } else {
-        root.classList.remove('dark');
-      }
-      localStorage.setItem('themeMode', value ? 'dark' : 'light');
-      setTimeout(() => root.classList.remove('theme-transitioning'), 600);
+      document.documentElement.classList.remove('dark');
     }
-  });
+    localStorage.setItem('themeMode', next ? 'dark' : 'light');
+    isDarkMode.set(next);
+  }, 420);
+
+  // 3. Hide the overlay after the class swap is done
+  setTimeout(() => {
+    themeTransition.set({ active: false, targetMode: next ? 'dark' : 'light' });
+  }, 1100);
 }
