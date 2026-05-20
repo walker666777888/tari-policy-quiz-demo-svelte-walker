@@ -33,8 +33,8 @@
 <div class="flex h-screen bg-background text-foreground overflow-hidden">
   <AppSidebar title="SuperAdmin" {links} />
   <div class="flex flex-col flex-1 min-w-0">
-    <TopNavbar />
-    <main class="flex-1 overflow-y-auto p-6 lg:p-8">
+    <TopNavbar showSidebarToggle={true} />
+    <main class="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
       <div class="max-w-7xl mx-auto grid grid-cols-1 grid-rows-1 w-full">
         {#if isLoading}
           <div class="col-start-1 row-start-1 w-full">

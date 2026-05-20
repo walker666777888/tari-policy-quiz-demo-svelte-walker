@@ -3,8 +3,9 @@
   import { page } from '$app/stores';
   import { fade } from 'svelte/transition';
   import { isDarkMode } from '$lib/stores/themeMode';
+  import { isSidebarOpen } from '$lib/stores/sidebar';
 
-  let { showSearch = false, children } = $props<{ showSearch?: boolean; children?: import('svelte').Snippet }>();
+  let { showSearch = false, showSidebarToggle = false, children } = $props<{ showSearch?: boolean; showSidebarToggle?: boolean; children?: import('svelte').Snippet }>();
 
   // Dropdown States
   let showNotifications = $state(false);
@@ -89,8 +90,18 @@
   }
 }} />
 
-<header class="h-16 border-b border-border bg-surface flex items-center justify-between px-6 shrink-0 relative z-40 transition-all duration-300">
-  <div class="flex items-center gap-8 flex-1">
+<header class="h-16 border-b border-border bg-surface flex items-center justify-between px-4 md:px-6 shrink-0 relative z-40 transition-all duration-300">
+  <div class="flex items-center gap-4 md:gap-8 flex-1">
+    {#if showSidebarToggle}
+      <button 
+        class="md:hidden p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors"
+        onclick={() => isSidebarOpen.update(v => !v)}
+        aria-label="Toggle Sidebar"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+      </button>
+    {/if}
+
     {#if children}
       {@render children()}
     {:else if showSearch}

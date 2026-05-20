@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores';
+  import { isSidebarOpen } from '$lib/stores/sidebar';
 
   type SidebarLink = {
     href: string;
@@ -29,7 +30,15 @@
   let titleRest = $derived(title.replace(/([a-z])([A-Z])/g, '$1 $2').split(' ').slice(1).join(' '));
 </script>
 
-<aside class="w-64 border-r border-border bg-surface h-screen flex flex-col hidden md:flex shrink-0 transition-all duration-300">
+{#if $isSidebarOpen}
+  <div 
+    class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden" 
+    onclick={() => isSidebarOpen.set(false)} 
+    aria-hidden="true"
+  ></div>
+{/if}
+
+<aside class="w-64 border-r border-border bg-surface h-screen flex flex-col shrink-0 transition-transform duration-300 fixed md:relative z-50 { $isSidebarOpen ? 'translate-x-0' : '-translate-x-full' } md:translate-x-0">
 
   <!-- Brand Header — Premium -->
   <div class="h-[72px] flex items-center gap-3.5 px-5 border-b border-border shrink-0">
