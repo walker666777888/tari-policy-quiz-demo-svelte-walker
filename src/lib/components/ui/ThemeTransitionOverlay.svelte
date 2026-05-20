@@ -1,7 +1,7 @@
 <script lang="ts">
   import { themeTransition } from '$lib/stores/themeTransition';
-  import { fade } from 'svelte/transition';
-  import { cubicInOut } from 'svelte/easing';
+  import { fade, scale } from 'svelte/transition';
+  import { cubicOut, expoOut } from 'svelte/easing';
 
   let visible = $state(false);
   let targetMode = $state<'dark' | 'light'>('light');
@@ -11,68 +11,79 @@
     targetMode = state.targetMode;
   });
 
-  // Computed values for dark vs light overlay
   let isDark = $derived(targetMode === 'dark');
 </script>
 
 {#if visible}
-  <!-- Premium Theme Transition Overlay -->
+  <!-- Full-screen solid backdrop -->
   <div
-    class="theme-overlay"
-    class:dark-overlay={isDark}
-    class:light-overlay={!isDark}
-    in:fade={{ duration: 220, easing: cubicInOut }}
-    out:fade={{ duration: 380, easing: cubicInOut }}
+    class="fixed inset-0 z-[99999] flex items-center justify-center overflow-hidden transition-colors duration-500
+           {isDark ? 'bg-slate-950' : 'bg-slate-50'}"
+    in:fade={{ duration: 250, easing: cubicOut }}
+    out:fade={{ duration: 400, easing: cubicOut }}
   >
-    <!-- Radial pulse rings -->
-    <div class="ring ring-1"></div>
-    <div class="ring ring-2"></div>
-    <div class="ring ring-3"></div>
+    <!-- Huge ambient glow behind the card -->
+    <div 
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full blur-[120px] opacity-40 pointer-events-none transition-colors duration-700"
+      class:bg-blue-500={isDark}
+      class:bg-amber-300={!isDark}
+    ></div>
 
-    <!-- Central content -->
-    <div class="overlay-content">
+    <!-- Center Solid Card -->
+    <div 
+      class="relative z-10 flex flex-col items-center gap-7 px-14 py-10 rounded-[2rem] border shadow-2xl transition-all duration-500
+             {isDark ? 'bg-slate-900 border-slate-800 shadow-black/60' : 'bg-white border-slate-200/60 shadow-slate-300/60'}"
+      in:scale={{ start: 0.96, duration: 450, easing: expoOut }}
+    >
+      <!-- Visual Loader Center -->
+      <div class="relative flex items-center justify-center w-[120px] h-[120px]">
+        
+        <!-- Flawless SVG Ring Progress (Guaranteed mathematical centering) -->
+        <svg class="absolute inset-0 w-full h-full -rotate-90 drop-shadow-sm pointer-events-none" viewBox="0 0 120 120">
+          <!-- Background Track -->
+          <circle 
+            cx="60" cy="60" r="56" 
+            class="fill-none transition-colors duration-500 {isDark ? 'stroke-slate-800' : 'stroke-slate-200'}" 
+            stroke-width="3"
+          />
+          <!-- Animated Foreground Sweep -->
+          <circle 
+            cx="60" cy="60" r="56" 
+            class="fill-none transition-colors duration-500 animate-premium-dash {isDark ? 'stroke-blue-500' : 'stroke-amber-400'}" 
+            stroke-width="3.5"
+            stroke-linecap="round"
+          />
+        </svg>
 
-      <!-- Animated icon -->
-      <div class="icon-wrapper">
-        {#if isDark}
-          <!-- Moon + stars for dark mode -->
-          <div class="icon-bg dark-bg">
-            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon moon-icon">
+        <!-- Inner Floating Bubble for Icon -->
+        <div 
+          class="relative flex items-center justify-center w-[92px] h-[92px] rounded-full transition-colors duration-500 z-10 shadow-lg
+                 {isDark ? 'bg-slate-800 border border-slate-700' : 'bg-white border border-slate-100'}"
+        >
+          <!-- Subtle inner glow to give the bubble a 3D feel -->
+          <div class="absolute inset-0 rounded-full opacity-60 pointer-events-none transition-colors duration-500 {isDark ? 'bg-gradient-to-tr from-blue-500/20 to-transparent' : 'bg-gradient-to-tr from-amber-400/20 to-transparent'}"></div>
+
+          {#if isDark}
+            <svg class="relative z-10 w-[38px] h-[38px] text-blue-400 drop-shadow animate-icon-pop" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
             </svg>
-            <!-- Star sparkles -->
-            <span class="sparkle s1">✦</span>
-            <span class="sparkle s2">✧</span>
-            <span class="sparkle s3">✦</span>
-            <span class="sparkle s4">✧</span>
-          </div>
-        {:else}
-          <!-- Sun for light mode -->
-          <div class="icon-bg light-bg">
-            <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon sun-icon">
+          {:else}
+            <svg class="relative z-10 w-[38px] h-[38px] text-amber-500 drop-shadow animate-spin-slow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="4"/>
-              <path d="M12 2v2"/><path d="M12 20v2"/>
-              <path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/>
-              <path d="M2 12h2"/><path d="M20 12h2"/>
-              <path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
+              <path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
             </svg>
-            <!-- Glow rays -->
-            <span class="ray r1"></span>
-            <span class="ray r2"></span>
-            <span class="ray r3"></span>
-            <span class="ray r4"></span>
-          </div>
-        {/if}
+          {/if}
+        </div>
       </div>
 
-      <!-- Label -->
-      <p class="overlay-label" class:label-dark={isDark} class:label-light={!isDark}>
-        {isDark ? 'Switching to Dark Mode' : 'Switching to Light Mode'}
-      </p>
-
-      <!-- Progress bar -->
-      <div class="progress-track" class:track-dark={isDark} class:track-light={!isDark}>
-        <div class="progress-fill" class:fill-dark={isDark} class:fill-light={!isDark}></div>
+      <!-- Typography -->
+      <div class="flex flex-col items-center gap-2 text-center mt-2">
+        <h2 class="text-[1.15rem] font-bold tracking-tight transition-colors duration-500 {isDark ? 'text-slate-50' : 'text-slate-800'}">
+          {isDark ? 'Switching to Dark Mode' : 'Switching to Light Mode'}
+        </h2>
+        <p class="text-[0.92rem] font-medium transition-colors duration-500 {isDark ? 'text-blue-400/80' : 'text-amber-500/90'} animate-pulse-soft">
+          Applying preferences...
+        </p>
       </div>
 
     </div>
@@ -80,185 +91,45 @@
 {/if}
 
 <style>
-  /* === Base Overlay === */
-  .theme-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+  /* SVG Circular Loader Animation */
+  .animate-premium-dash {
+    stroke-dasharray: 352; /* 2 * pi * 56 ≈ 351.85 */
+    stroke-dashoffset: 352;
+    animation: dash-fill 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
   }
 
-  .dark-overlay {
-    background: radial-gradient(ellipse at 50% 40%, #0f1729 0%, #060c1a 60%, #000308 100%);
+  @keyframes dash-fill {
+    0% { stroke-dashoffset: 352; transform: rotate(0deg); transform-origin: center; }
+    100% { stroke-dashoffset: 0; transform: rotate(360deg); transform-origin: center; }
   }
 
-  .light-overlay {
-    background: radial-gradient(ellipse at 50% 40%, #fffdf7 0%, #f0f4ff 55%, #dde8ff 100%);
+  /* Crisp entry for the moon */
+  .animate-icon-pop {
+    animation: pop-in 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   }
 
-  /* === Radial Pulse Rings === */
-  .ring {
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid;
-    animation: ring-pulse 1.1s cubic-bezier(0.4, 0, 0.6, 1) forwards;
-    pointer-events: none;
+  @keyframes pop-in {
+    0% { opacity: 0; transform: scale(0.5) rotate(-30deg); filter: drop-shadow(0 0 0 transparent); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); filter: drop-shadow(0 4px 6px rgba(96, 165, 250, 0.4)); }
   }
 
-  .dark-overlay .ring { border-color: rgba(99, 157, 255, 0.25); }
-  .light-overlay .ring { border-color: rgba(251, 191, 36, 0.3); }
-
-  .ring-1 { width: 160px; height: 160px; animation-delay: 0ms; }
-  .ring-2 { width: 300px; height: 300px; animation-delay: 80ms; }
-  .ring-3 { width: 460px; height: 460px; animation-delay: 160ms; }
-
-  @keyframes ring-pulse {
-    from { opacity: 0.8; transform: scale(0.4); }
-    to   { opacity: 0;   transform: scale(1); }
+  /* Smooth spin entry for the sun */
+  .animate-spin-slow {
+    animation: spin-in 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
   }
 
-  /* === Content === */
-  .overlay-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    animation: content-enter 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+  @keyframes spin-in {
+    0% { opacity: 0; transform: scale(0.5) rotate(-120deg); filter: drop-shadow(0 0 0 transparent); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); filter: drop-shadow(0 4px 6px rgba(245, 158, 11, 0.4)); }
   }
 
-  @keyframes content-enter {
-    from { opacity: 0; transform: translateY(12px) scale(0.96); }
-    to   { opacity: 1; transform: translateY(0)    scale(1); }
+  /* Breathing opacity for the subtitle */
+  .animate-pulse-soft {
+    animation: pulse-soft 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 
-  /* === Icon === */
-  .icon-wrapper {
-    position: relative;
-  }
-
-  .icon-bg {
-    width: 96px;
-    height: 96px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-
-  .dark-bg {
-    background: radial-gradient(circle, rgba(79, 130, 246, 0.18) 0%, rgba(30, 58, 138, 0.08) 100%);
-    border: 1.5px solid rgba(99, 157, 255, 0.3);
-    box-shadow: 0 0 40px rgba(99, 157, 255, 0.25), 0 0 80px rgba(79, 130, 246, 0.12);
-  }
-
-  .light-bg {
-    background: radial-gradient(circle, rgba(251, 191, 36, 0.2) 0%, rgba(251, 146, 60, 0.08) 100%);
-    border: 1.5px solid rgba(251, 191, 36, 0.4);
-    box-shadow: 0 0 40px rgba(251, 191, 36, 0.35), 0 0 80px rgba(251, 191, 36, 0.15);
-  }
-
-  .icon {
-    display: block;
-  }
-
-  .moon-icon {
-    color: #93bbff;
-    animation: moon-enter 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s both;
-  }
-
-  .sun-icon {
-    color: #f59e0b;
-    animation: sun-spin 1.1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
-  }
-
-  @keyframes moon-enter {
-    from { opacity: 0; transform: rotate(-40deg) scale(0.6); }
-    to   { opacity: 1; transform: rotate(0deg)   scale(1); }
-  }
-
-  @keyframes sun-spin {
-    from { opacity: 0; transform: rotate(-60deg) scale(0.5); }
-    to   { opacity: 1; transform: rotate(0deg)   scale(1); }
-  }
-
-  /* === Dark Mode Sparkles === */
-  .sparkle {
-    position: absolute;
-    font-size: 0.8rem;
-    animation: sparkle-float 1s ease-out both;
-    opacity: 0;
-  }
-
-  .s1 { top: -8px;  left: 14px;  color: #c4d9ff; animation-delay: 0.3s; font-size: 0.6rem; }
-  .s2 { top: 8px;   right: -10px; color: #93bbff; animation-delay: 0.5s; font-size: 0.9rem; }
-  .s3 { bottom: -6px; right: 12px; color: #c4d9ff; animation-delay: 0.4s; font-size: 0.5rem; }
-  .s4 { bottom: 10px; left: -10px; color: #93bbff; animation-delay: 0.6s; font-size: 0.7rem; }
-
-  @keyframes sparkle-float {
-    0%   { opacity: 0; transform: scale(0) rotate(-20deg); }
-    60%  { opacity: 1; transform: scale(1.2) rotate(10deg); }
-    100% { opacity: 0.7; transform: scale(1) rotate(0deg); }
-  }
-
-  /* === Light Mode Sun Rays === */
-  .ray {
-    position: absolute;
-    border-radius: 999px;
-    background: rgba(251, 191, 36, 0.45);
-    animation: ray-expand 0.9s ease-out 0.25s both;
-  }
-
-  .r1, .r3 { width: 2px; height: 28px; left: 50%; transform-origin: bottom center; }
-  .r2, .r4 { width: 28px; height: 2px; top: 50%; transform-origin: left center; }
-  .r1 { top: -32px; margin-left: -1px; }
-  .r3 { bottom: -32px; margin-left: -1px; }
-  .r2 { left: -32px; margin-top: -1px; }
-  .r4 { right: -32px; margin-top: -1px; }
-
-  @keyframes ray-expand {
-    from { opacity: 0; transform: scaleY(0); }
-    to   { opacity: 1; transform: scaleY(1); }
-  }
-
-  /* === Label === */
-  .overlay-label {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 0.01em;
-    margin: 0;
-  }
-
-  .label-dark  { color: #c4d9ff; }
-  .label-light { color: #92400e; }
-
-  /* === Progress Bar === */
-  .progress-track {
-    width: 160px;
-    height: 3px;
-    border-radius: 999px;
-    overflow: hidden;
-  }
-
-  .track-dark  { background: rgba(99, 157, 255, 0.15); }
-  .track-light { background: rgba(251, 191, 36, 0.2); }
-
-  .progress-fill {
-    height: 100%;
-    border-radius: 999px;
-    animation: fill-progress 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both;
-    width: 0%;
-  }
-
-  .fill-dark  { background: linear-gradient(90deg, #4f82f6, #93bbff); }
-  .fill-light { background: linear-gradient(90deg, #f59e0b, #fde68a); }
-
-  @keyframes fill-progress {
-    from { width: 0%; }
-    to   { width: 100%; }
+  @keyframes pulse-soft {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
   }
 </style>
