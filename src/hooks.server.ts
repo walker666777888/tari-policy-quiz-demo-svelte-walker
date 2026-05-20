@@ -159,26 +159,31 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	// ── safeGetSession ──────────────────────────────────────────────────────
 	event.locals.safeGetSession = async () => {
-		const { data: { session } } = await event.locals.supabase.auth.getSession();
-		if (!session) return { session: null, user: null };
+		try {
+			const { data: { session } } = await event.locals.supabase.auth.getSession();
+			if (!session) return { session: null, user: null };
 
-		const { data: { user }, error } = await event.locals.supabase.auth.getUser();
+			const { data: { user }, error } = await event.locals.supabase.auth.getUser();
 
-		if (error) {
-			const tenantId = (session.user?.user_metadata?.tenant_id as string) ?? null;
-			await writeAuditLog(event.locals.supabase, {
-				tenant_id:     tenantId,
-				actor_user_id: null,
-				action:        'auth.validation_failed',
-				entity_type:   'session',
-				metadata:      { error_code: error.code ?? 'unknown', error_message: error.message },
-				ip_address:    event.getClientAddress(),
-				user_agent:    event.request.headers.get('user-agent'),
-			});
+			if (error) {
+				const tenantId = (session.user?.user_metadata?.tenant_id as string) ?? null;
+				await writeAuditLog(event.locals.supabase, {
+					tenant_id:     tenantId,
+					actor_user_id: null,
+					action:        'auth.validation_failed',
+					entity_type:   'session',
+					metadata:      { error_code: error.code ?? 'unknown', error_message: error.message },
+					ip_address:    event.getClientAddress(),
+					user_agent:    event.request.headers.get('user-agent'),
+				});
+				return { session: null, user: null };
+			}
+
+			return { session, user };
+		} catch (err) {
+			// Suppress Supabase offline connection failures silently for local demo environments
 			return { session: null, user: null };
 		}
-
-		return { session, user };
 	};
 
 	// ── Resolve session ─────────────────────────────────────────────────────

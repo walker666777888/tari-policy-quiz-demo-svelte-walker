@@ -100,12 +100,11 @@
     </TopNavbar>
 
     <main class="flex-1 py-10 px-6 lg:px-12">
-      <div class="max-w-5xl mx-auto animate-fade-in pb-16 md:pb-0 grid grid-cols-1 grid-rows-1 w-full">
+      <div class="max-w-5xl mx-auto pb-16 md:pb-0 w-full">
         {#key $page.url.pathname}
-          <div 
-            in:fly={{ x: 8, duration: 220, delay: 180 }} 
-            out:fade={{ duration: 120 }} 
-            class="col-start-1 row-start-1 w-full"
+          <div
+            in:fade={{ duration: 200, delay: 120 }}
+            out:fade={{ duration: 80 }}
           >
             {@render children()}
           </div>

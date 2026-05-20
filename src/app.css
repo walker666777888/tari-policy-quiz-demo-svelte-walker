@@ -15,13 +15,25 @@
     @apply border-border;
   }
 
-  /* Ultra-high performance theme transitions to avoid layout stutters */
+  /* ── View Transitions API — buttery smooth dark mode toggle ──────────── */
+  /* Browsers that support it (Chrome 111+, Edge 111+, Safari 18+) get a    */
+  /* native GPU-composited crossfade — zero paint stutter, zero layout work  */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.4s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    mix-blend-mode: normal;
+  }
+
+  /* Fallback: CSS-only transition class for older browsers */
   .theme-transitioning,
   .theme-transitioning * {
-    transition: background-color 0.45s cubic-bezier(0.4, 0, 0.2, 1), 
-                border-color 0.45s cubic-bezier(0.4, 0, 0.2, 1), 
-                color 0.45s cubic-bezier(0.4, 0, 0.2, 1), 
-                box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                color 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                fill 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                stroke 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
   }
 
   :root {
