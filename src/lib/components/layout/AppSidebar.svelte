@@ -1,5 +1,12 @@
 <script lang="ts">
   import { page } from '$app/stores';
+
+  type SidebarLink = {
+    href: string;
+    label: string;
+    icon?: string;
+  };
+
   let { 
     links = [], 
     title = "CompliancePro",
@@ -7,15 +14,15 @@
     logoUrl = null,
     fallbackInitial = null
   } = $props<{ 
-    links?: { href: string; label: string; icon?: string }[], 
+    links?: SidebarLink[], 
     title?: string,
     brandColor?: string,
     logoUrl?: string | null,
     fallbackInitial?: string | null
   }>();
 
-  let mainLinks = $derived(links.filter(l => !l.label.toLowerCase().includes('setting')));
-  let settingsLinks = $derived(links.filter(l => l.label.toLowerCase().includes('setting')));
+  let mainLinks = $derived(links.filter((link: SidebarLink) => !link.label.toLowerCase().includes('setting')));
+  let settingsLinks = $derived(links.filter((link: SidebarLink) => link.label.toLowerCase().includes('setting')));
 
   // Split title into two parts for premium display e.g. "SuperAdmin" → "Super" + "Admin"
   let titleFirst = $derived(title.replace(/([a-z])([A-Z])/g, '$1 $2').split(' ')[0] ?? title);

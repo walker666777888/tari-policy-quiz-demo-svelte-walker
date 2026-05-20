@@ -1,9 +1,21 @@
 <script lang="ts">
+  type UserRole = "Client Admin" | "Employee";
+  type UserStatus = "Active" | "Suspended";
+  type User = {
+    id: string;
+    email: string;
+    name: string;
+    tenant: string;
+    role: UserRole;
+    status: UserStatus;
+    joinedDate: string;
+  };
+
   // Svelte 5 Runes for fully functional User Management sandbox
   let isSandboxActive = $state(false);
   let searchQuery = $state("");
-  let roleFilter = $state<"All" | "Client Admin" | "Employee">("All");
-  let statusFilter = $state<"All" | "Active" | "Suspended">("All");
+  let roleFilter = $state<"All" | UserRole>("All");
+  let statusFilter = $state<"All" | UserStatus>("All");
   let showModal = $state(false);
   let selectedUserId = $state("usr-1");
 
@@ -11,14 +23,14 @@
   let newName = $state("");
   let newEmail = $state("");
   let newTenant = $state("Acme Corp Financial");
-  let newRole = $state<"Client Admin" | "Employee">("Employee");
+  let newRole = $state<UserRole>("Employee");
 
   // Dynamic sandbox users list (reactive state)
-  let usersList = $state([
-    { id: 'usr-1', email: 'admin@acme.com', name: 'Sarah Connor', tenant: 'Acme Corp Financial', role: 'Client Admin' as const, status: 'Active' as const, joinedDate: 'Oct 01, 2023' },
-    { id: 'usr-2', email: 'engineer@globex.org', name: 'John Doe', tenant: 'Globex Healthcare', role: 'Employee' as const, status: 'Active' as const, joinedDate: 'Oct 05, 2023' },
-    { id: 'usr-3', email: 'hr@initech.co', name: 'Bill Lumbergh', tenant: 'Initech Solutions', role: 'Client Admin' as const, status: 'Suspended' as const, joinedDate: 'Sep 25, 2023' },
-    { id: 'usr-4', email: 'manager@soylent.com', name: 'Robert Neville', tenant: 'Soylent Logistics', role: 'Client Admin' as const, status: 'Active' as const, joinedDate: 'Sep 12, 2023' }
+  let usersList = $state<User[]>([
+    { id: 'usr-1', email: 'admin@acme.com', name: 'Sarah Connor', tenant: 'Acme Corp Financial', role: 'Client Admin', status: 'Active', joinedDate: 'Oct 01, 2023' },
+    { id: 'usr-2', email: 'engineer@globex.org', name: 'John Doe', tenant: 'Globex Healthcare', role: 'Employee', status: 'Active', joinedDate: 'Oct 05, 2023' },
+    { id: 'usr-3', email: 'hr@initech.co', name: 'Bill Lumbergh', tenant: 'Initech Solutions', role: 'Client Admin', status: 'Suspended', joinedDate: 'Sep 25, 2023' },
+    { id: 'usr-4', email: 'manager@soylent.com', name: 'Robert Neville', tenant: 'Soylent Logistics', role: 'Client Admin', status: 'Active', joinedDate: 'Sep 12, 2023' }
   ]);
 
   // Derived filtered users list

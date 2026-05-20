@@ -222,7 +222,7 @@
         <!-- Slider Passing threshold -->
         <div class="space-y-2">
           <div class="flex justify-between items-center text-xs font-bold text-slate-700">
-            <span for="scoreSlider">Minimum Passing Score Threshold</span>
+            <label for="scoreSlider">Minimum Passing Score Threshold</label>
             <span class="text-primary font-extrabold text-sm bg-primary/5 px-2 py-0.5 rounded border border-primary/10">{passingScore}% Correct</span>
           </div>
           <input 
