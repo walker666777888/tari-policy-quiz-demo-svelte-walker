@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { fade } from 'svelte/transition';
+  import { fade, fly, slide } from 'svelte/transition';
 
   // Simulated authenticated employee data
   const employee = {
@@ -92,99 +92,122 @@
   <title>My Dashboard - {employee.firstName} | CompliancePro</title>
 </svelte:head>
 
-<div class="animate-fade-in space-y-8 max-w-7xl mx-auto relative">
+<div class="animate-fade-in space-y-8 max-w-7xl mx-auto relative px-1 sm:px-4">
 
   <!-- Welcome Header -->
   <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-border pb-5">
     <div class="premium-heading-group">
-      <h1 class="premium-heading-title">Welcome, {employee.firstName}! 👋</h1>
-      <p class="premium-heading-subtitle">Continue your corporate compliance journey and review active certifications.</p>
+      <h1 class="premium-heading-title text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground transition-all duration-300">
+        Welcome back, {employee.firstName}! 👋
+      </h1>
+      <p class="premium-heading-subtitle text-sm text-muted-foreground font-medium mt-1.5">
+        Track your corporate compliance score, review milestones, and complete active training requirements.
+      </p>
     </div>
   </div>
 
-  <!-- 4 Premium Stat Cards -->
+  <!-- 4 Premium Stat Cards with Staggered Entrance Animations -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
     
-    <!-- Personal Compliance Score -->
-    <div class="bg-surface rounded-xl border border-border p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-primary/25 flex flex-col justify-between h-32 relative overflow-hidden group">
+    <!-- 1. Personal Compliance Score -->
+    <div 
+      in:fly={{ y: 15, duration: 450, delay: 0 }}
+      class="bg-surface rounded-2xl border border-border p-6 shadow-sm transition-all duration-350 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between h-36 relative overflow-hidden group"
+    >
       <div>
-        <span class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Overall Compliance Score</span>
-        <div class="text-3xl font-extrabold text-foreground tracking-tight mt-1">{employee.overallScore}%</div>
+        <span class="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Overall Compliance Score</span>
+        <div class="text-4xl font-black text-foreground tracking-tight mt-1 group-hover:scale-[1.02] transition-transform duration-300">{employee.overallScore}%</div>
       </div>
-      <div class="w-full space-y-1">
-        <div class="h-1.5 w-full bg-muted rounded-full overflow-hidden">
-          <div class="h-full bg-primary rounded-full transition-all duration-1000" style="width: {employee.overallScore}%"></div>
+      <div class="w-full space-y-2 mt-auto">
+        <div class="h-2 w-full bg-muted rounded-full overflow-hidden relative">
+          <div class="h-full bg-primary rounded-full transition-all duration-1000 relative" style="width: {employee.overallScore}%">
+            <!-- Shimmer sweep effect on loading progress -->
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-[shimmer_2s_infinite] w-[40%]"></div>
+          </div>
         </div>
-        <div class="text-[9px] text-muted-foreground font-bold uppercase text-right">Excellent Standing</div>
+        <div class="text-[9px] text-muted-foreground font-bold uppercase text-right tracking-wider">Excellent Standing</div>
       </div>
     </div>
 
-    <!-- Assigned vs Completed -->
-    <div class="bg-surface rounded-xl border border-border p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-primary/25 flex flex-col justify-between h-32 relative overflow-hidden group">
+    <!-- 2. Assigned vs Completed -->
+    <div 
+      in:fly={{ y: 15, duration: 450, delay: 80 }}
+      class="bg-surface rounded-2xl border border-border p-6 shadow-sm transition-all duration-355 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between h-36 relative overflow-hidden group"
+    >
       <div>
-        <span class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">My Modules Progress</span>
-        <div class="text-3xl font-extrabold text-foreground tracking-tight mt-1">
-          {employee.completedTotal}<span class="text-muted-foreground text-lg font-medium">/{employee.assignedTotal}</span>
+        <span class="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">My Modules Progress</span>
+        <div class="text-4xl font-black text-foreground tracking-tight mt-1 group-hover:scale-[1.02] transition-transform duration-300">
+          {employee.completedTotal}<span class="text-muted-foreground text-xl font-medium">/{employee.assignedTotal}</span>
         </div>
       </div>
-      <div class="text-[11px] text-muted-foreground font-medium">
+      <div class="text-[11px] text-muted-foreground font-semibold mt-auto flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
         Completed Certifications
       </div>
-      <div class="absolute -right-3 -bottom-3 w-16 h-16 rounded-full bg-muted border border-border flex items-center justify-center text-muted-foreground opacity-20 group-hover:scale-110 transition-transform">
-        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      <div class="absolute -right-3 -bottom-3 w-16 h-16 rounded-full bg-muted border border-border flex items-center justify-center text-muted-foreground opacity-20 group-hover:scale-110 group-hover:opacity-30 transition-all duration-300">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
       </div>
     </div>
 
-    <!-- Pending / Overdue -->
-    <div class="bg-surface rounded-xl border border-border p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-primary/25 flex flex-col justify-between h-32 relative overflow-hidden group">
+    <!-- 3. Pending / Overdue -->
+    <div 
+      in:fly={{ y: 15, duration: 450, delay: 160 }}
+      class="bg-surface rounded-2xl border border-border p-6 shadow-sm transition-all duration-360 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between h-36 relative overflow-hidden group"
+    >
       <div>
-        <span class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Pending Modules</span>
+        <span class="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Pending Modules</span>
         <div class="flex items-center gap-3 mt-1">
-          <div class="text-3xl font-extrabold text-foreground tracking-tight">{employee.assignedTotal - employee.completedTotal}</div>
+          <div class="text-4xl font-black text-foreground tracking-tight group-hover:scale-[1.02] transition-transform duration-300">{employee.assignedTotal - employee.completedTotal}</div>
           {#if employee.overdueTotal > 0}
-            <span class="px-2 py-0.5 text-[9px] font-extrabold uppercase rounded bg-rose-500/10 border border-rose-500/20 text-rose-500 animate-pulse">{employee.overdueTotal} Overdue</span>
+            <span class="px-2.5 py-1 text-[9px] font-extrabold uppercase rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-500 animate-pulse">{employee.overdueTotal} Overdue</span>
           {/if}
         </div>
       </div>
-      <div class="text-[11px] text-muted-foreground font-medium">
+      <div class="text-[11px] text-muted-foreground font-semibold mt-auto flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full {employee.overdueTotal > 0 ? 'bg-rose-500' : 'bg-amber-400'}"></span>
         Requires attention
       </div>
-      <div class="absolute -right-3 -bottom-3 w-16 h-16 rounded-full bg-muted border border-border flex items-center justify-center text-muted-foreground opacity-20 group-hover:scale-110 transition-transform">
-        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+      <div class="absolute -right-3 -bottom-3 w-16 h-16 rounded-full bg-muted border border-border flex items-center justify-center text-muted-foreground opacity-20 group-hover:scale-110 group-hover:opacity-30 transition-all duration-300">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
       </div>
     </div>
 
-    <!-- Next Due Highlight -->
-    <div class="bg-primary rounded-xl border border-primary p-5 shadow-md shadow-primary/20 flex flex-col justify-between h-32 relative overflow-hidden group text-white">
+    <!-- 4. Next Due Highlight -->
+    <div 
+      in:fly={{ y: 15, duration: 450, delay: 240 }}
+      class="bg-primary rounded-2xl border border-primary p-6 shadow-md shadow-primary/20 flex flex-col justify-between h-36 relative overflow-hidden group text-white hover:shadow-lg hover:shadow-primary/30 transition-all duration-350"
+    >
       <div>
-        <span class="text-[10px] font-bold text-white/70 uppercase tracking-wider">Up Next For You</span>
+        <span class="text-[10px] font-bold text-white/70 uppercase tracking-widest">Up Next For You</span>
         {#if nextDue}
-          <div class="text-lg font-extrabold tracking-tight mt-1 leading-tight line-clamp-2">{nextDue.title}</div>
+          <div class="text-base font-extrabold tracking-tight mt-1.5 leading-tight line-clamp-2">{nextDue.title}</div>
         {:else}
-          <div class="text-lg font-extrabold tracking-tight mt-1 leading-tight line-clamp-2">All Caught Up! 🎉</div>
+          <div class="text-base font-extrabold tracking-tight mt-1.5 leading-tight line-clamp-2">All Caught Up! 🎉</div>
         {/if}
       </div>
       {#if nextDue}
-        <div class="flex items-center justify-between mt-auto">
-          <span class="text-[10px] font-bold {nextDue.urgency === 'red' ? 'text-rose-300 animate-pulse' : 'text-white/80'} uppercase">Due {formatDate(nextDue.dueDate)}</span>
-          <a href="/dashboard/assessment/{nextDue.id}" class="text-[10px] font-extrabold bg-white text-primary px-2.5 py-1 rounded shadow hover:scale-105 transition-transform">Go</a>
+        <div class="flex items-center justify-between mt-auto z-10">
+          <span class="text-[10px] font-bold {nextDue.urgency === 'red' ? 'text-rose-250 animate-pulse' : 'text-white/80'} uppercase tracking-wider">Due {formatDate(nextDue.dueDate)}</span>
+          <a href="/dashboard/assessment/{nextDue.id}" class="text-[10px] font-extrabold bg-white text-primary px-3 py-1.5 rounded-lg shadow-sm hover:scale-105 active:scale-95 transition-transform duration-200">Start</a>
         </div>
       {/if}
-      <div class="absolute -right-3 -top-3 w-20 h-20 rounded-full bg-white opacity-5 group-hover:scale-110 transition-transform"></div>
-      <div class="absolute -right-8 -bottom-8 w-24 h-24 rounded-full bg-white opacity-10 group-hover:scale-110 transition-transform"></div>
+      <div class="absolute -right-3 -top-3 w-20 h-20 rounded-full bg-white opacity-5 group-hover:scale-110 transition-transform duration-300"></div>
+      <div class="absolute -right-8 -bottom-8 w-24 h-24 rounded-full bg-white opacity-10 group-hover:scale-110 transition-transform duration-300"></div>
     </div>
 
   </div>
 
   <!-- Filters & Section Title -->
-  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-4">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-8 pt-4">
     <h3 class="text-base font-extrabold text-foreground tracking-tight">My Compliance Modules</h3>
     
-    <div class="flex bg-muted border border-border p-1 rounded-lg">
+    <!-- Filter Toggle Segment with Hover Animations -->
+    <div class="flex bg-muted border border-border p-1 rounded-xl shadow-inner relative overflow-hidden self-start">
       {#each ["All", "Pending", "Completed", "Overdue"] as filterOption}
         <button 
           onclick={() => activeFilter = filterOption}
-          class="px-3 py-1.5 text-[11px] font-bold rounded-md transition-all {activeFilter === filterOption ? 'bg-surface text-foreground shadow-sm border border-border' : 'text-muted-foreground hover:text-foreground'}"
+          class="px-4 py-2 text-[11px] font-extrabold rounded-lg transition-all duration-300 relative z-10 active:scale-95 cursor-pointer
+            {activeFilter === filterOption ? 'bg-surface text-foreground shadow-sm border border-border/80' : 'text-muted-foreground hover:text-foreground'}"
         >
           {filterOption}
         </button>
@@ -192,93 +215,98 @@
     </div>
   </div>
 
-  <!-- Modules Grid -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    {#each filteredModules as mod (mod.id)}
-      <div class="bg-surface rounded-xl border border-border p-5 shadow-sm flex flex-col justify-between space-y-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-primary/20 group">
-        
-        <!-- Top header -->
-        <div class="space-y-3">
-          <div class="flex items-start justify-between gap-2">
-            <div>
-              <span class="px-2 py-0.5 text-[9px] font-extrabold uppercase rounded bg-muted border border-border text-muted-foreground mb-2 inline-block">Module</span>
-              <h4 class="text-sm font-extrabold text-foreground group-hover:text-primary transition-colors leading-snug">{mod.title}</h4>
+  <!-- Modules Grid with Keyed Entrance Animations -->
+  {#key activeFilter}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {#each filteredModules as mod, i (mod.id)}
+        <div 
+          in:fly={{ y: 15, duration: 400, delay: i * 60 }}
+          class="bg-surface rounded-2xl border border-border p-6 shadow-sm flex flex-col justify-between space-y-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md hover:border-primary/25 hover:ring-4 hover:ring-primary/5 group"
+        >
+          
+          <!-- Top header -->
+          <div class="space-y-3.5">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <span class="px-2 py-0.5 text-[9px] font-extrabold uppercase rounded bg-muted border border-border text-muted-foreground mb-2 inline-block tracking-wider">Module</span>
+                <h4 class="text-sm font-extrabold text-foreground group-hover:text-primary transition-colors leading-snug">{mod.title}</h4>
+              </div>
+              
+              <!-- Status Badge with Hover Scale -->
+              <div class="shrink-0 group-hover:scale-105 transition-transform duration-300">
+                {#if mod.status === 'Completed'}
+                  <span class="w-9 h-9 rounded-full bg-emerald-500/10 text-emerald-550 flex items-center justify-center border border-emerald-500/20" title="Completed">
+                    <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                  </span>
+                {:else if mod.status === 'In Progress'}
+                  <span class="w-9 h-9 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center border border-amber-500/20" title="In Progress">
+                    <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  </span>
+                {:else}
+                  <span class="w-9 h-9 rounded-full bg-muted text-muted-foreground flex items-center justify-center border border-border" title="Not Started">
+                    <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                  </span>
+                {/if}
+              </div>
             </div>
             
-            <!-- Status Badge -->
-            <div class="shrink-0">
-              {#if mod.status === 'Completed'}
-                <span class="w-8 h-8 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center border border-emerald-500/20" title="Completed">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                </span>
-              {:else if mod.status === 'In Progress'}
-                <span class="w-8 h-8 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center border border-amber-500/20" title="In Progress">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                </span>
+            <!-- Due Date & Urgency with soft glowing animations -->
+            <div class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider">
+              {#if mod.urgency === 'red' && mod.status !== 'Completed'}
+                <span class="px-2 py-0.5 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-500 animate-pulse">Overdue: {formatDate(mod.dueDate)}</span>
+              {:else if mod.urgency === 'yellow' && mod.status !== 'Completed'}
+                <span class="px-2 py-0.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-500">Due Soon: {formatDate(mod.dueDate)}</span>
               {:else}
-                <span class="w-8 h-8 rounded-full bg-muted text-muted-foreground flex items-center justify-center border border-border" title="Not Started">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                </span>
+                <span class="px-2 py-0.5 rounded-lg bg-muted border border-border text-muted-foreground">Deadline: {formatDate(mod.dueDate)}</span>
               {/if}
             </div>
           </div>
-          
-          <!-- Due Date & Urgency -->
-          <div class="flex items-center gap-1.5 text-[10px] font-bold uppercase">
-            {#if mod.urgency === 'red' && mod.status !== 'Completed'}
-              <span class="px-1.5 py-0.5 rounded bg-rose-500/10 border border-rose-500/20 text-rose-500 animate-pulse">Overdue: {formatDate(mod.dueDate)}</span>
-            {:else if mod.urgency === 'yellow' && mod.status !== 'Completed'}
-              <span class="px-1.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/20 text-amber-500">Due Soon: {formatDate(mod.dueDate)}</span>
+
+          <!-- Middle stats with sleek dividers -->
+          <div class="grid grid-cols-2 gap-4 py-4 border-y border-border">
+            <div class="space-y-1">
+              <div class="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Progress</div>
+              <div class="text-xs font-extrabold text-foreground">{mod.questionsAttempted} / {mod.totalQuestions}</div>
+              <div class="h-1.5 w-full bg-muted rounded-full overflow-hidden">
+                <div class="h-full bg-primary rounded-full transition-all duration-500 ease-out" style="width: {(mod.questionsAttempted / mod.totalQuestions) * 100}%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-0.5">Best Score</div>
+              <div class="text-xs font-black mt-0.5 {mod.bestScore ? 'text-primary' : 'text-muted-foreground'}">
+                {mod.bestScore ? `${mod.bestScore}%` : '—'}
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive Action Buttons -->
+          <div class="pt-1">
+            {#if mod.status === 'Completed'}
+              <a href="/dashboard/assessment/{mod.id}" class="block w-full py-3 bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground text-xs font-bold text-center rounded-xl border border-border transition-all active:scale-[0.98]">
+                Review / Retake Exam
+              </a>
+            {:else if mod.status === 'In Progress'}
+              <a href="/dashboard/assessment/{mod.id}" class="block w-full py-3 bg-primary/10 hover:bg-primary/20 text-primary text-xs font-bold text-center rounded-xl border border-primary/20 transition-all active:scale-[0.98]">
+                Continue Exam
+              </a>
             {:else}
-              <span class="px-1.5 py-0.5 rounded bg-muted border border-border text-muted-foreground">Deadline: {formatDate(mod.dueDate)}</span>
+              <a href="/dashboard/assessment/{mod.id}" class="block w-full py-3 bg-primary hover:opacity-95 text-white text-xs font-bold text-center rounded-xl shadow-md shadow-primary/10 hover:shadow-lg hover:shadow-primary/20 transition-all active:scale-[0.98] cursor-pointer">
+                Start Exam
+              </a>
             {/if}
           </div>
-        </div>
 
-        <!-- Middle stats -->
-        <div class="grid grid-cols-2 gap-3 py-4 border-y border-border">
-          <div>
-            <div class="text-[9px] font-bold text-muted-foreground uppercase tracking-wider mb-0.5">Progress</div>
-            <div class="text-xs font-extrabold text-foreground">{mod.questionsAttempted} / {mod.totalQuestions}</div>
-            <div class="h-1 w-full bg-muted rounded-full mt-1.5 overflow-hidden">
-              <div class="h-full bg-primary rounded-full transition-all" style="width: {(mod.questionsAttempted / mod.totalQuestions) * 100}%"></div>
-            </div>
-          </div>
-          <div>
-            <div class="text-[9px] font-bold text-muted-foreground uppercase tracking-wider mb-0.5">Best Score</div>
-            <div class="text-xs font-extrabold {mod.bestScore ? 'text-primary' : 'text-muted-foreground'}">
-              {mod.bestScore ? `${mod.bestScore}%` : '—'}
-            </div>
-          </div>
         </div>
-
-        <!-- Call to Action Buttons -->
-        <div>
-          {#if mod.status === 'Completed'}
-            <a href="/dashboard/assessment/{mod.id}" class="block w-full py-2.5 bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground text-xs font-bold text-center rounded-lg border border-border transition-all active:scale-95">
-              Review / Retake Exam
-            </a>
-          {:else if mod.status === 'In Progress'}
-            <a href="/dashboard/assessment/{mod.id}" class="block w-full py-2.5 bg-primary/10 hover:bg-primary/20 text-primary text-xs font-bold text-center rounded-lg border border-primary/20 transition-all active:scale-95">
-              Continue Exam
-            </a>
-          {:else}
-            <a href="/dashboard/assessment/{mod.id}" class="block w-full py-2.5 bg-primary hover:opacity-95 text-white text-xs font-bold text-center rounded-lg shadow-md shadow-primary/10 transition-all active:scale-95">
-              Start Exam
-            </a>
-          {/if}
-        </div>
-
-      </div>
-    {/each}
-  </div>
+      {/each}
+    </div>
+  {/key}
 
   {#if filteredModules.length === 0}
-    <div class="text-center py-12 bg-surface rounded-xl border border-border">
-      <div class="text-muted-foreground/50 mb-2">
-        <svg class="w-10 h-10 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+    <div in:fade={{duration: 250}} class="text-center py-16 bg-surface rounded-2xl border border-border">
+      <div class="text-muted-foreground/40 mb-3">
+        <svg class="w-12 h-12 mx-auto animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
       </div>
-      <h3 class="text-sm font-bold text-foreground">No modules found</h3>
+      <h3 class="text-sm font-bold text-foreground">No compliance modules found</h3>
       <p class="text-xs text-muted-foreground mt-1">Try selecting a different filter.</p>
     </div>
   {/if}

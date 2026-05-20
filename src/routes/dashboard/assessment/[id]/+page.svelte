@@ -274,78 +274,84 @@
       </div>
 
       <!-- Question Card -->
-      <div class="bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-200/50 p-6 md:p-10 flex-1 flex flex-col relative">
-        <span class="inline-block px-3 py-1 bg-slate-100 text-slate-500 text-[10px] font-extrabold uppercase rounded border border-slate-200/50 mb-6 self-start tracking-wider">
-          {currentQuestion.subTopic}
-        </span>
-        
-        <h3 class="text-xl md:text-2xl font-bold text-slate-800 leading-snug mb-8">
-          {currentQuestion.text}
-        </h3>
-
-        <!-- Options Grid -->
-        <div class="space-y-3 mb-8">
-          {#each currentQuestion.options as opt}
-            <button 
-              disabled={hasAnswered}
-              onclick={() => handleSelectOption(opt.id)}
-              class="w-full text-left p-4 rounded-xl border-2 transition-all duration-200 group flex items-center justify-between
-                { !hasAnswered ? 'border-slate-200 bg-white hover:border-primary/50 hover:bg-slate-50' : '' }
-                { hasAnswered && opt.id === currentQuestion.correctId ? 'border-emerald-500 bg-emerald-50/50 text-emerald-900' : '' }
-                { hasAnswered && opt.id === selectedOptionId && opt.id !== currentQuestion.correctId ? 'border-rose-500 bg-rose-50 text-rose-900' : '' }
-                { hasAnswered && opt.id !== selectedOptionId && opt.id !== currentQuestion.correctId ? 'border-slate-200 bg-slate-50 opacity-50' : '' }
-              "
-            >
-              <div class="flex items-center gap-4">
-                <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm
-                  { !hasAnswered ? 'bg-slate-100 text-slate-500 group-hover:bg-primary group-hover:text-white' : '' }
-                  { hasAnswered && opt.id === currentQuestion.correctId ? 'bg-emerald-500 text-white' : '' }
-                  { hasAnswered && opt.id === selectedOptionId && opt.id !== currentQuestion.correctId ? 'bg-rose-500 text-white' : '' }
-                  { hasAnswered && opt.id !== selectedOptionId && opt.id !== currentQuestion.correctId ? 'bg-slate-100 text-slate-400' : '' }
-                  transition-colors
-                ">
-                  {opt.id}
-                </div>
-                <span class="font-semibold {hasAnswered && opt.id === currentQuestion.correctId ? 'text-emerald-800' : 'text-slate-700'}">{opt.text}</span>
-              </div>
+      <div class="bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-200/50 p-6 md:p-10 flex-1 flex flex-col relative min-h-[500px]">
+        {#key currentQuestionIndex}
+          <div in:fly={{ y: 10, duration: 350, delay: 100 }} out:fade={{ duration: 100 }} class="flex-1 flex flex-col justify-between">
+            <div>
+              <span class="inline-block px-3 py-1 bg-slate-100 text-slate-500 text-[10px] font-extrabold uppercase rounded border border-slate-200/50 mb-6 self-start tracking-wider">
+                {currentQuestion.subTopic}
+              </span>
               
-              <!-- Result Icon Indicator -->
-              {#if hasAnswered}
-                {#if opt.id === currentQuestion.correctId}
-                  <div transition:scale class="text-emerald-500">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                  </div>
-                {:else if opt.id === selectedOptionId}
-                  <div transition:scale class="text-rose-500">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
-                  </div>
-                {/if}
-              {/if}
-            </button>
-          {/each}
-        </div>
+              <h3 class="text-xl md:text-2xl font-bold text-slate-800 leading-snug mb-8">
+                {currentQuestion.text}
+              </h3>
 
-        <!-- Explanation Block -->
-        {#if hasAnswered}
-          <div transition:slide={{axis: 'y'}} class="mt-auto border-t border-slate-100 pt-6">
-            <h4 class="text-xs font-extrabold text-slate-800 uppercase tracking-wider mb-2 flex items-center gap-2">
-              {#if selectedOptionId === currentQuestion.correctId}
-                <span class="text-emerald-600">Correct Answer</span>
-              {:else}
-                <span class="text-rose-600">Incorrect Answer</span>
-              {/if}
-            </h4>
-            <p class="text-sm font-medium text-slate-600 leading-relaxed mb-6 bg-slate-50 p-4 rounded-xl border border-slate-100">
-              {currentQuestion.explanation}
-            </p>
-            
-            <button onclick={nextQuestion} class="w-full py-4 bg-slate-900 hover:bg-black text-white text-sm font-extrabold rounded-xl shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2">
-              {currentQuestionIndex < mockQuestions.length - 1 ? 'Next Question' : 'View Final Results'}
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </button>
+              <!-- Options Grid -->
+              <div class="space-y-3 mb-8">
+                {#each currentQuestion.options as opt, i}
+                  <button 
+                    disabled={hasAnswered}
+                    onclick={() => handleSelectOption(opt.id)}
+                    in:fly={{ y: 8, duration: 250, delay: i * 35 }}
+                    class="w-full text-left p-4 rounded-xl border-2 transition-all duration-200 group flex items-center justify-between cursor-pointer
+                      { !hasAnswered ? 'border-slate-200 bg-white hover:border-primary/50 hover:bg-slate-50 hover:-translate-y-[1px] hover:shadow-sm' : '' }
+                      { hasAnswered && opt.id === currentQuestion.correctId ? 'border-emerald-500 bg-emerald-50/50 text-emerald-900 shadow-sm' : '' }
+                      { hasAnswered && opt.id === selectedOptionId && opt.id !== currentQuestion.correctId ? 'border-rose-500 bg-rose-50 text-rose-900 shadow-sm' : '' }
+                      { hasAnswered && opt.id !== selectedOptionId && opt.id !== currentQuestion.correctId ? 'border-slate-200 bg-slate-50 opacity-50' : '' }
+                    "
+                  >
+                    <div class="flex items-center gap-4">
+                      <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm
+                        { !hasAnswered ? 'bg-slate-100 text-slate-500 group-hover:bg-primary group-hover:text-white' : '' }
+                        { hasAnswered && opt.id === currentQuestion.correctId ? 'bg-emerald-500 text-white' : '' }
+                        { hasAnswered && opt.id === selectedOptionId && opt.id !== currentQuestion.correctId ? 'bg-rose-500 text-white' : '' }
+                        { hasAnswered && opt.id !== selectedOptionId && opt.id !== currentQuestion.correctId ? 'bg-slate-100 text-slate-400' : '' }
+                        transition-colors
+                      ">
+                        {opt.id}
+                      </div>
+                      <span class="font-semibold {hasAnswered && opt.id === currentQuestion.correctId ? 'text-emerald-800' : 'text-slate-700'}">{opt.text}</span>
+                    </div>
+                    
+                    <!-- Result Icon Indicator -->
+                    {#if hasAnswered}
+                      {#if opt.id === currentQuestion.correctId}
+                        <div transition:scale class="text-emerald-500">
+                          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                      {:else if opt.id === selectedOptionId}
+                        <div transition:scale class="text-rose-500">
+                          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </div>
+                      {/if}
+                    {/if}
+                  </button>
+                {/each}
+              </div>
+            </div>
+
+            <!-- Explanation Block -->
+            {#if hasAnswered}
+              <div transition:slide={{axis: 'y'}} class="mt-auto border-t border-slate-100 pt-6">
+                <h4 class="text-xs font-extrabold text-slate-800 uppercase tracking-wider mb-2 flex items-center gap-2 font-sans">
+                  {#if selectedOptionId === currentQuestion.correctId}
+                    <span class="text-emerald-600">✓ Correct Answer</span>
+                  {:else}
+                    <span class="text-rose-600">✗ Incorrect Answer</span>
+                  {/if}
+                </h4>
+                <p class="text-sm font-medium text-slate-600 leading-relaxed mb-6 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                  {currentQuestion.explanation}
+                </p>
+                
+                <button onclick={nextQuestion} class="w-full py-4 bg-slate-900 hover:bg-black text-white text-sm font-extrabold rounded-xl shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
+                  {currentQuestionIndex < mockQuestions.length - 1 ? 'Next Question' : 'View Final Results'}
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </button>
+              </div>
+            {/if}
           </div>
-        {/if}
-
+        {/key}
       </div>
     </div>
   

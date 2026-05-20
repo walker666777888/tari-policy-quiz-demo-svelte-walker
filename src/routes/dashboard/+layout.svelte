@@ -2,7 +2,7 @@
   import TopNavbar from '$lib/components/layout/TopNavbar.svelte';
   import { page } from '$app/stores';
   import { theme } from '$lib/stores/theme';
-  import { fade } from 'svelte/transition';
+  import { fade, fly } from 'svelte/transition';
   import SkeletonLoader from '$lib/components/layout/SkeletonLoader.svelte';
 
   let { children } = $props();
@@ -42,17 +42,6 @@
   ];
 
   let currentPath = $derived($page.url.pathname);
-  let isLoading = $state(false);
-
-  $effect(() => {
-    if (currentPath) {
-      isLoading = true;
-      const timer = setTimeout(() => {
-        isLoading = false;
-      }, 350);
-      return () => clearTimeout(timer);
-    }
-  });
 </script>
 
 <style>
@@ -112,21 +101,15 @@
 
     <main class="flex-1 py-10 px-6 lg:px-12">
       <div class="max-w-5xl mx-auto animate-fade-in pb-16 md:pb-0 grid grid-cols-1 grid-rows-1 w-full">
-        {#if isLoading}
-          <div class="col-start-1 row-start-1 w-full">
-            <SkeletonLoader />
+        {#key $page.url.pathname}
+          <div 
+            in:fly={{ x: 8, duration: 220, delay: 180 }} 
+            out:fade={{ duration: 120 }} 
+            class="col-start-1 row-start-1 w-full"
+          >
+            {@render children()}
           </div>
-        {:else}
-          {#key $page.url.pathname}
-            <div 
-              in:fade={{ duration: 150, delay: 150 }} 
-              out:fade={{ duration: 150 }} 
-              class="col-start-1 row-start-1 w-full"
-            >
-              {@render children()}
-            </div>
-          {/key}
-        {/if}
+        {/key}
       </div>
     </main>
 

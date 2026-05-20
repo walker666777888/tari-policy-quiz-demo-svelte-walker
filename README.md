@@ -90,6 +90,7 @@ CompliancePro is optimized for Vercel and automatically uses the `@sveltejs/adap
 ### Framework Configuration
 
 When importing this repository to Vercel, use the following configuration:
+
 - **Framework Preset:** `SvelteKit` (Automatically detected)
 - **Build Command:** `npm run build`
 - **Output Directory:** Handled automatically by the SvelteKit adapter.
@@ -97,6 +98,7 @@ When importing this repository to Vercel, use the following configuration:
 ### Environment Variables
 
 Remember to add the following Environment Variables in your Vercel **Project Settings**:
+
 - `PUBLIC_SUPABASE_URL`
 - `PUBLIC_SUPABASE_ANON_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY`

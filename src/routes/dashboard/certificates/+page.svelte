@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { fade } from 'svelte/transition';
+  import { fade, fly } from 'svelte/transition';
 
   // Mock Progress Metrics
   const metrics = {
@@ -41,33 +41,33 @@
   <title>My Progress & History | CompliancePro</title>
 </svelte:head>
 
-<div class="animate-fade-in space-y-8 max-w-7xl mx-auto relative pb-10">
+<div class="animate-fade-in space-y-8 max-w-7xl mx-auto relative pb-10 px-1 sm:px-4">
 
   <!-- Header -->
-  <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-100 pb-5">
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-border pb-5">
     <div class="premium-heading-group">
-      <h1 class="premium-heading-title">My Progress &amp; History</h1>
-      <p class="premium-heading-subtitle">Track your compliance scores, review past exams, and earn milestone badges.</p>
+      <h1 class="premium-heading-title text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight">My Progress &amp; History</h1>
+      <p class="premium-heading-subtitle text-sm text-muted-foreground font-medium mt-1">Track your compliance scores, review past exams, and earn milestone badges.</p>
     </div>
   </div>
 
-  <!-- Top Metrics -->
+  <!-- Top Metrics with Staggered Fade-in -->
   <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-    <div class="bg-white rounded-xl border border-slate-100 p-5 shadow-sm text-center">
-      <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Exams Taken</div>
-      <div class="text-3xl font-black text-slate-800">{metrics.totalExamsTaken}</div>
+    <div in:fly={{ y: 12, duration: 400, delay: 0 }} class="bg-surface rounded-2xl border border-border p-6 shadow-sm hover:shadow-md transition-all duration-300 hover:border-primary/25 text-center group">
+      <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Exams Taken</div>
+      <div class="text-3xl font-black text-foreground group-hover:scale-105 transition-transform duration-300">{metrics.totalExamsTaken}</div>
     </div>
-    <div class="bg-white rounded-xl border border-slate-100 p-5 shadow-sm text-center">
-      <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Questions Seen</div>
-      <div class="text-3xl font-black text-primary">{metrics.totalQuestionsSeen}</div>
+    <div in:fly={{ y: 12, duration: 400, delay: 60 }} class="bg-surface rounded-2xl border border-border p-6 shadow-sm hover:shadow-md transition-all duration-300 hover:border-primary/25 text-center group">
+      <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Questions Seen</div>
+      <div class="text-3xl font-black text-primary group-hover:scale-105 transition-transform duration-300">{metrics.totalQuestionsSeen}</div>
     </div>
-    <div class="bg-white rounded-xl border border-slate-100 p-5 shadow-sm text-center">
-      <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Average Score</div>
-      <div class="text-3xl font-black text-emerald-500">{metrics.averageScore}%</div>
+    <div in:fly={{ y: 12, duration: 400, delay: 120 }} class="bg-surface rounded-2xl border border-border p-6 shadow-sm hover:shadow-md transition-all duration-300 hover:border-primary/25 text-center group">
+      <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Average Score</div>
+      <div class="text-3xl font-black text-emerald-550 group-hover:scale-105 transition-transform duration-300">{metrics.averageScore}%</div>
     </div>
-    <div class="bg-white rounded-xl border border-slate-100 p-5 shadow-sm text-center">
-      <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Perfect 100%s</div>
-      <div class="text-3xl font-black text-amber-500">{metrics.perfectScores}</div>
+    <div in:fly={{ y: 12, duration: 400, delay: 180 }} class="bg-surface rounded-2xl border border-border p-6 shadow-sm hover:shadow-md transition-all duration-300 hover:border-primary/25 text-center group">
+      <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Perfect 100%s</div>
+      <div class="text-3xl font-black text-amber-550 group-hover:scale-105 transition-transform duration-300">{metrics.perfectScores}</div>
     </div>
   </div>
 
@@ -75,41 +75,57 @@
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     
     <!-- Score Improvement Chart -->
-    <div class="bg-white rounded-xl border border-slate-100 p-6 shadow-sm lg:col-span-2">
-      <h3 class="text-sm font-extrabold text-slate-800 uppercase tracking-wider mb-6">Score Improvement Over Time</h3>
+    <div in:fly={{ y: 15, duration: 500, delay: 240 }} class="bg-surface rounded-2xl border border-border p-6 shadow-sm lg:col-span-2 relative overflow-hidden group">
+      <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-6">Score Improvement Over Time</h3>
       
-      <div class="h-48 flex items-end justify-between gap-2 border-b border-slate-100 pb-2 relative">
-        <div class="absolute left-0 right-0 bottom-1/2 border-b border-dashed border-slate-200 z-0"></div>
-        <div class="absolute left-0 right-0 top-1/4 border-b border-dashed border-slate-200 z-0 text-[9px] text-slate-400 text-right pr-1">80% Passing</div>
+      <div class="h-48 flex items-end justify-between gap-3 border-b border-border pb-2 relative">
+        <div class="absolute left-0 right-0 bottom-1/2 border-b border-dashed border-border/80 z-0"></div>
+        <div class="absolute left-0 right-0 top-1/4 border-b border-dashed border-border/80 z-0 text-[8px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest text-right pr-1">80% Passing</div>
         
-        {#each chartData as data}
-          <div class="flex flex-col items-center flex-1 z-10 group relative">
+        {#each chartData as data, i}
+          <div class="flex flex-col items-center flex-1 z-10 group/bar relative h-full justify-end">
             <!-- Tooltip -->
-            <div class="absolute -top-10 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-800 text-white text-[10px] py-1 px-2 rounded whitespace-nowrap pointer-events-none">
+            <div class="absolute -top-10 opacity-0 group-hover/bar:opacity-100 transition-opacity bg-[#0d1526]/90 backdrop-blur-sm text-white text-[10px] font-bold py-1.5 px-3 rounded-lg border border-white/10 shadow-lg whitespace-nowrap pointer-events-none z-30">
               {data.score}% - {data.module}
             </div>
+            
+            <!-- Animated bar grow -->
             <div 
-              class="w-full max-w-[40px] rounded-t-sm transition-all duration-500 group-hover:opacity-80 {data.pass ? 'bg-primary' : 'bg-rose-400'}"
+              in:fly={{ y: 50, duration: 600, delay: 350 + (i * 50) }}
+              class="w-full max-w-[32px] rounded-t-lg transition-all duration-300 group-hover/bar:scale-x-105 hover:opacity-90 relative overflow-hidden
+                {data.pass 
+                  ? 'bg-gradient-to-t from-primary to-blue-500 shadow-md shadow-primary/10' 
+                  : 'bg-gradient-to-t from-rose-500 to-rose-455 shadow-md shadow-rose-500/10'}"
               style="height: {data.score}%"
-            ></div>
-            <div class="text-[8px] font-bold text-slate-400 mt-2 rotate-45 md:rotate-0 truncate w-full text-center">{data.label}</div>
+            >
+              <!-- Glass reflect shimmer -->
+              <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent w-[50%]"></div>
+            </div>
+            <div class="text-[8px] font-bold text-slate-400 dark:text-slate-500 mt-2 truncate w-full text-center tracking-wider">{data.label}</div>
           </div>
         {/each}
       </div>
     </div>
 
     <!-- Achievements -->
-    <div class="bg-white rounded-xl border border-slate-100 p-6 shadow-sm">
-      <h3 class="text-sm font-extrabold text-slate-800 uppercase tracking-wider mb-4">Milestone Badges</h3>
+    <div in:fly={{ y: 15, duration: 500, delay: 300 }} class="bg-surface rounded-2xl border border-border p-6 shadow-sm">
+      <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-5">Milestone Badges</h3>
       <div class="space-y-4">
-        {#each achievements as badge}
-          <div class="flex items-center gap-4 {badge.earned ? 'opacity-100' : 'opacity-40 grayscale'}">
-            <div class="w-12 h-12 rounded-full {badge.earned ? 'bg-amber-100 border border-amber-200 shadow-inner' : 'bg-slate-100 border border-slate-200'} flex items-center justify-center text-2xl shrink-0">
+        {#each achievements as badge, i}
+          <div 
+            in:fly={{ x: 15, duration: 400, delay: 350 + (i * 50) }}
+            class="flex items-center gap-4 transition-all duration-300 hover:translate-x-1 {badge.earned ? 'opacity-100' : 'opacity-35 grayscale'}"
+          >
+            <div class="w-12 h-12 rounded-full flex items-center justify-center text-2xl shrink-0 border transition-all duration-300
+              {badge.earned 
+                ? 'bg-amber-500/10 border-amber-500/20 text-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.1)] hover:scale-110' 
+                : 'bg-muted border-border text-muted-foreground'}"
+            >
               {badge.icon}
             </div>
             <div>
-              <div class="text-xs font-bold text-slate-800">{badge.title}</div>
-              <div class="text-[9px] text-slate-500 leading-tight mt-0.5">{badge.desc}</div>
+              <div class="text-xs font-bold text-foreground leading-tight">{badge.title}</div>
+              <div class="text-[9.5px] text-muted-foreground leading-tight mt-0.5">{badge.desc}</div>
             </div>
           </div>
         {/each}
@@ -119,14 +135,14 @@
   </div>
 
   <!-- Exam History Table -->
-  <div class="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden mt-8">
-    <div class="p-6 border-b border-slate-100">
-      <h3 class="text-sm font-extrabold text-slate-800 uppercase tracking-wider">Complete Exam Timeline</h3>
+  <div in:fly={{ y: 20, duration: 550, delay: 400 }} class="bg-surface rounded-2xl border border-border shadow-sm overflow-hidden mt-8">
+    <div class="p-6 border-b border-border">
+      <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Complete Exam Timeline</h3>
     </div>
     <div class="overflow-x-auto">
       <table class="w-full text-left border-collapse text-xs">
         <thead>
-          <tr class="bg-slate-50/70 border-b border-slate-100 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+          <tr class="bg-muted border-b border-border text-[9px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
             <th class="p-4 pl-6 whitespace-nowrap">Certification Module</th>
             <th class="p-4 whitespace-nowrap">Attempt Date</th>
             <th class="p-4 text-center whitespace-nowrap">Final Score</th>
@@ -134,20 +150,20 @@
             <th class="p-4 pr-6 whitespace-nowrap">Result</th>
           </tr>
         </thead>
-        <tbody class="font-medium text-slate-600 divide-y divide-slate-100">
-          {#each examHistory as exam}
-            <tr class="hover:bg-slate-50/50 transition-colors">
-              <td class="p-4 pl-6 font-bold text-slate-800 whitespace-nowrap">{exam.module}</td>
-              <td class="p-4 text-slate-500 whitespace-nowrap">{exam.date}</td>
+        <tbody class="font-medium text-slate-600 dark:text-slate-455 divide-y divide-border">
+          {#each examHistory as exam, i}
+            <tr class="hover:bg-muted/40 transition-colors duration-200">
+              <td class="p-4 pl-6 font-extrabold text-foreground whitespace-nowrap">{exam.module}</td>
+              <td class="p-4 text-muted-foreground whitespace-nowrap">{exam.date}</td>
               <td class="p-4 text-center whitespace-nowrap">
-                <span class="font-bold {exam.score >= 80 ? 'text-emerald-600' : 'text-rose-600'}">{exam.score}%</span>
+                <span class="font-black {exam.score >= 80 ? 'text-emerald-550' : 'text-rose-500'}">{exam.score}%</span>
               </td>
               <td class="p-4 text-center font-mono whitespace-nowrap">{exam.questions}</td>
               <td class="p-4 pr-6 whitespace-nowrap">
                 {#if exam.status === 'Pass'}
-                  <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-emerald-50 border border-emerald-100 text-emerald-600">Pass</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-emerald-500/10 border border-emerald-500/20 text-emerald-550">Pass</span>
                 {:else}
-                  <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-rose-50 border border-rose-100 text-rose-600">Fail</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-rose-500/10 border border-rose-500/20 text-rose-500">Fail</span>
                 {/if}
               </td>
             </tr>
