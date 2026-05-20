@@ -1,42 +1,82 @@
-# sv
+# CompliancePro Enterprise — Policy Quiz System
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+CompliancePro is a high-end, multi-tenant compliance SaaS platform built with SvelteKit, TailwindCSS, and Supabase. This repository contains the frontend web application and its integration scripts.
 
-## Creating a project
+This project is fully portable and ready for team development and seamless deployment on **Vercel**.
 
-If you're seeing this, you've probably already done this step. Congrats!
+---
 
-```sh
-# create a new project
-npx sv create my-app
+## 🚀 Getting Started
+
+Follow these steps to clone, configure, and run the project locally on your system.
+
+### 1. Prerequisites
+Ensure you have **Node.js** (v18 or higher) installed on your system.
+
+### 2. Clone the Repository
+```bash
+git clone <repository-url>
+cd tari-policy-quiz
+```
+*(Or unzip the project folder and open your terminal inside it).*
+
+### 3. Setup Environment Variables
+Before running the app, copy the template `.env.example` file to create your local `.env` file:
+```bash
+cp .env.example .env
+```
+Open the `.env` file and populate it with your local/development credentials:
+- **Supabase credentials** (obtainable from your Supabase Project Settings → API):
+  - `PUBLIC_SUPABASE_URL`
+  - `PUBLIC_SUPABASE_ANON_KEY`
+  - `SUPABASE_SERVICE_ROLE_KEY` (secret, server-side only)
+- **Application URL**:
+  - `PUBLIC_APP_URL` (defaults to `http://localhost:5173`)
+- **Email service**:
+  - `RESEND_API_KEY` (Resend API key to enable email sending, optional for local dev)
+
+### 4. Install Dependencies
+```bash
+npm install
 ```
 
-To recreate this project with the same configuration:
-
-```sh
-# recreate this project
-npx sv@0.15.3 create --template minimal --types ts --add prettier eslint sveltekit-adapter="adapter:vercel" --no-download-check --no-install .
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```sh
+### 5. Start Development Server
+```bash
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
+Open [http://localhost:5173](http://localhost:5173) in your browser to view the application.
 
-## Building
+---
 
-To create a production version of your app:
+## 🏗️ Production Build & Verification
 
-```sh
+To verify that the project compiles correctly and is ready for production deployment:
+```bash
+# Build the application
 npm run build
+
+# Preview the built application locally
+npm run preview
 ```
 
-You can preview the production build with `npm run preview`.
+---
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## ⚡ Vercel Deployment Guide
+
+CompliancePro is designed to be fully compatible with Vercel and uses `@sveltejs/adapter-vercel` automatically under production environments.
+
+### 1. Framework Settings
+When importing this project to Vercel, use the following configuration:
+* **Framework Preset:** `SvelteKit` (automatically detected by Vercel)
+* **Build Command:** `npm run build`
+* **Output Directory:** Default SvelteKit output (automatically handled by the Vercel adapter)
+
+### 2. Environment Variables
+Add the following environment variables in your Vercel Project Settings:
+* `PUBLIC_SUPABASE_URL`
+* `PUBLIC_SUPABASE_ANON_KEY`
+* `SUPABASE_SERVICE_ROLE_KEY`
+* `PUBLIC_APP_URL` (set to your production domain, e.g. `https://your-app.vercel.app`)
+* `RESEND_API_KEY` (optional, for email functionality)
+
+No additional configuration (`vercel.json`) is required, as SvelteKit detects the Vercel build environment and configures the native SvelteKit adapter accordingly.
