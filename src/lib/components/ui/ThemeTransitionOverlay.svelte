@@ -89,9 +89,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: rgba(0, 0, 0, 0.65); /* simple dimming, no frosted glass */
   }
 
   /* ── Card ─────────────────────────────────────────────────── */
