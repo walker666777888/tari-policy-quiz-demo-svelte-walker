@@ -2,6 +2,7 @@
 	import type { LayoutData } from './$types';
 	import { user } from '$lib/stores/auth';
 	import favicon from '$lib/assets/favicon.svg';
+	import '../app.css';
 
 	let { data, children }: { data: LayoutData; children: import('svelte').Snippet } = $props();
 
