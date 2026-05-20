@@ -204,7 +204,7 @@
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2 rounded-sm px-4 py-2 
            text-sm font-medium text-foreground bg-secondary
-           transition-colors hover:bg-secondary/80
+           transition-colors hover:opacity-90
            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
   }
 
