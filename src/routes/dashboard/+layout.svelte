@@ -36,6 +36,7 @@
   let currentPath = $derived($page.url.pathname);
 </script>
 
+<style>
   /* Ambient blob styles if needed */
 </style>
 
