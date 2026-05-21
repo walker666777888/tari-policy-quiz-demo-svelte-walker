@@ -65,10 +65,10 @@
     align-items: stretch;
     padding: 6px;
     gap: 4px;
-    /* Frosted glass: low opacity so blur shows clearly */
-    background: rgba(255, 255, 255, 0.38);
-    backdrop-filter: blur(18px) saturate(1.6) !important;
-    -webkit-backdrop-filter: blur(18px) saturate(1.6) !important;
+    /* Frosted glass: iOS 15+ Tab Bar exact values */
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(20px) saturate(1.8) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(1.8) !important;
     border: 1px solid rgba(255, 255, 255, 0.60);
     box-shadow:
       0 2px 8px  rgba(15, 23, 42, 0.08),
@@ -79,7 +79,7 @@
   }
 
   :global(.dark) .float-nav {
-    background: rgba(13, 18, 30, 0.60);
+    background: rgba(28, 28, 30, 0.70);
     border-color: rgba(255, 255, 255, 0.08);
     box-shadow:
       0 2px 8px  rgba(0, 0, 0, 0.25),
@@ -219,20 +219,20 @@
           <div class="float-nav-bubble">
             {#if link.href === '/dashboard'}
               <!-- Assessments: clipboard-list -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width={isActive ? 2.2 : 1.8} stroke-linecap="round" stroke-linejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
                 <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
                 <path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/>
               </svg>
             {:else if link.href === '/dashboard/certificates'}
               <!-- Certificates: award ribbon -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width={isActive ? 2.2 : 1.8} stroke-linecap="round" stroke-linejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="8" r="6"/>
                 <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
               </svg>
             {:else}
               <!-- Profile: user -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width={isActive ? 2.2 : 1.8} stroke-linecap="round" stroke-linejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="8" r="4"/>
                 <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
               </svg>
