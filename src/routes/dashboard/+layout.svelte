@@ -45,7 +45,149 @@
 </script>
 
 <style>
-  /* Use global .floating-bg-icon from app.css */
+  /* ── Floating frosted-glass bottom nav ──────────────────── */
+  .float-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 16px;
+    right: 16px;
+    height: 68px;
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 6px;
+    z-index: 100;
+
+    /* ── Apple-style frosted glass ──
+       Subtle blur (not heavy) + semi-transparent fill
+       so the content behind shows through softly          */
+    background: rgba(242, 244, 248, 0.60);
+    backdrop-filter: blur(10px) saturate(1.25);
+    -webkit-backdrop-filter: blur(10px) saturate(1.25);
+
+    /* Apple layered border: bright top specular + soft outer rim */
+    border: 1px solid rgba(255, 255, 255, 0.55);
+
+    /* Apple’s signature 3-layer shadow system */
+    box-shadow:
+      0 1px 2px  rgba(15, 23, 42, 0.04),   /* micro lift */
+      0 4px 12px rgba(15, 23, 42, 0.08),   /* mid shadow */
+      0 16px 40px rgba(15, 23, 42, 0.07),  /* ambient */
+      inset 0 1px 0 rgba(255, 255, 255, 0.90),  /* top specular */
+      inset 0 -1px 0 rgba(255, 255, 255, 0.30); /* bottom rim */
+
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  :global(.dark) .float-nav {
+    background: rgba(18, 22, 34, 0.72);
+    border-color: rgba(255, 255, 255, 0.07);
+    box-shadow:
+      0 1px 2px  rgba(0, 0, 0, 0.20),
+      0 4px 12px rgba(0, 0, 0, 0.28),
+      0 16px 40px rgba(0, 0, 0, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  .float-nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    /* Inset from nav edges so the active pill has breathing room */
+    height: calc(100% - 14px);
+    margin: 7px 3px;
+    padding: 6px 8px;
+    border-radius: 16px;
+    text-decoration: none;
+    color: var(--muted-foreground);
+    /* No transform in base transition — prevents any hover movement */
+    transition: color 0.2s ease,
+                background 0.22s ease-out,
+                box-shadow 0.22s ease-out,
+                opacity 0.15s ease;
+    position: relative;
+    -webkit-tap-highlight-color: transparent;
+    transform-origin: center center;
+  }
+
+  /* Press feedback only on real pointer devices (not touch) */
+  @media (hover: hover) and (pointer: fine) {
+    .float-nav-item:active {
+      opacity: 0.75;
+    }
+  }
+
+  /* Touch press: subtle down nudge only on touch devices */
+  @media (hover: none) {
+    .float-nav-item:active {
+      transform: translateY(1px);
+      opacity: 0.8;
+      transition: transform 0.08s ease, opacity 0.08s ease;
+    }
+  }
+
+  /* ── ACTIVE: full-item solid pill (icon + label covered) ──
+     Matches the Apple tab bar pattern from the reference image  */
+  .float-nav-item.float-active {
+    color: #0d1526;                          /* dark text on white pill */
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow:
+      0 1px 3px rgba(15, 23, 42, 0.10),
+      0 4px 14px rgba(15, 23, 42, 0.10),
+      inset 0 1px 0 rgba(255, 255, 255, 1); /* top specular */
+  }
+
+  :global(.dark) .float-nav-item.float-active {
+    color: #e8edf5;
+    background: rgba(255, 255, 255, 0.13);
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.25),
+      0 4px 14px rgba(0, 0, 0, 0.20),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+
+  /* Icon bubble — just a centred container, no own background */
+  .float-nav-bubble {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-origin: center center;
+  }
+
+  .float-nav-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+    line-height: 1;
+    white-space: nowrap;
+    transition: color 0.2s ease, font-weight 0.2s ease;
+  }
+
+  /* Bold label when active */
+  .float-nav-item.float-active .float-nav-label {
+    font-weight: 800;
+  }
+
+  @keyframes pip-pop {
+    from { transform: translateX(-50%) scale(0); opacity: 0; }
+    to   { transform: translateX(-50%) scale(1); opacity: 1; }
+  }
+
+  /* Hard-hide on tablet/desktop — belt AND suspenders alongside md:hidden */
+  @media (min-width: 768px) {
+    .float-nav {
+      display: none !important;
+    }
+  }
 </style>
 
 <!-- The --color-primary custom variable dynamically paint all Tailwind primary classes -->
@@ -100,7 +242,7 @@
     </TopNavbar>
 
     <main class="flex-1 py-6 px-4 md:py-10 md:px-6 lg:px-12 overflow-y-auto">
-      <div class="max-w-5xl mx-auto pb-16 md:pb-0 w-full">
+      <div class="max-w-5xl mx-auto pb-28 md:pb-0 w-full">
         {#key $page.url.pathname}
           <div
             in:fade={{ duration: 200, delay: 120 }}
@@ -112,17 +254,45 @@
       </div>
     </main>
 
-    <!-- Mobile Bottom Navigation (Hidden on desktop) -->
-    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface border-t border-border flex justify-around items-center h-16 px-4 z-50">
+    <!-- Floating Frosted Glass Mobile Bottom Nav -->
+    <nav class="float-nav" aria-label="Mobile navigation">
       {#each links as link}
+        {@const isActive = activeHref === link.href}
         <a
           href={link.href}
-          class="flex flex-col items-center justify-center gap-1 w-full h-full transition-colors
-            { activeHref === link.href
-              ? 'text-primary'
-              : 'text-muted-foreground hover:text-foreground' }"
+          class="float-nav-item"
+          class:float-active={isActive}
+          aria-current={isActive ? 'page' : undefined}
         >
-          <span class="text-[10px] font-bold">{link.label}</span>
+          <!-- Icon bubble -->
+          <div class="float-nav-bubble">
+            {#if link.href === '/dashboard'}
+              <!-- Assessments: clipboard-list -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width={isActive ? 2.2 : 1.8} stroke-linecap="round" stroke-linejoin="round">
+                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                <path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/>
+              </svg>
+            {:else if link.href === '/dashboard/certificates'}
+              <!-- Certificates: award ribbon -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width={isActive ? 2.2 : 1.8} stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="6"/>
+                <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>
+              </svg>
+            {:else}
+              <!-- Profile: user -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width={isActive ? 2.2 : 1.8} stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="4"/>
+                <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+              </svg>
+            {/if}
+          </div>
+
+          <!-- Label -->
+          <span class="float-nav-label">{link.label}</span>
+
+
+
         </a>
       {/each}
     </nav>
