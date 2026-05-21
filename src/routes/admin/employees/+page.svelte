@@ -458,7 +458,7 @@
   {#if selectedEmployee}
     <div 
       transition:fade={{duration: 200}} 
-      class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex justify-end"
+      class="fixed inset-0 z-50 bg-slate-900/60 flex justify-end"
       onclick={() => selectedEmployee = null}
     >
       <div 
@@ -552,7 +552,7 @@
   {#if isAddModalOpen}
     <div 
       transition:fade={{duration: 150}} 
-      class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4"
+      class="fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4"
       onclick={() => isAddModalOpen = false}
     >
       <div 

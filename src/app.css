@@ -618,6 +618,8 @@ nav a:not(.bg-primary):hover {
   pointer-events: none;
   z-index: 0;
   animation: pulse 8s ease-in-out infinite;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .dark body::after {
@@ -631,6 +633,8 @@ nav a:not(.bg-primary):hover {
   pointer-events: none;
   z-index: 0;
   animation: pulse 12s ease-in-out infinite 2s;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 /* ── Floating background icons (books, pen, laptop etc) ── */
@@ -685,6 +689,23 @@ nav[class*="fixed"] {
   border-bottom-color: var(--border) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  /* GPU-promote the header into its own compositor layer so scroll
+     frames never trigger a repaint on this element */
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* On mobile, backdrop-filter is too expensive — remove it entirely
+   and use a solid surface colour instead (no visible quality loss
+   since the blur was very subtle at small viewport sizes anyway) */
+@media (max-width: 768px) {
+  header,
+  nav[class*="sticky"],
+  nav[class*="fixed"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--surface) !important;
+  }
 }
 
 /* ── Table: zebra-subtle stripe + premium header ── */
@@ -998,3 +1019,72 @@ button, .btn-primary, .btn-secondary, .btn-outline {
   opacity: 0.85;
 }
 
+/* =========================================================
+   MOBILE SCROLL PERFORMANCE
+   Fixes stutter on all portals at small viewport sizes.
+   Key insight: blur effects + fixed backgrounds are the
+   main cause of scroll jank on mobile GPUs.
+   ========================================================= */
+
+/* GPU-composited smooth scroll for all contained scroll areas */
+main,
+.overflow-y-auto,
+[class*="overflow-y-auto"] {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Promote the floating dashboard icons to own layer —
+   prevents them from re-compositing on every scroll frame */
+.floating-bg-icon {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+@media (max-width: 768px) {
+  /* Kill ALL backdrop-filter blurs on mobile — every blur
+     forces a texture sample + repaint on mobile GPUs */
+  [class*="backdrop-blur"],
+  .bell-dropdown,
+  .avatar-dropdown {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Darken overlay backgrounds slightly to compensate
+     for removed blur so the modals still feel distinct */
+  .bg-slate-900\/40 {
+    background-color: rgba(15, 23, 42, 0.72) !important;
+  }
+
+  /* Stop the body ambient blobs from animating on mobile
+     — saves GPU cycles for the actual scroll */
+  .dark body::before,
+  .dark body::after {
+    animation: none !important;
+  }
+
+  /* Make drawers/modals full-width on small screens */
+  .max-w-lg[class*="h-screen"] {
+    max-width: 100vw !important;
+  }
+
+  /* Tighter horizontal padding on small screens */
+  main[class*="px-6"] {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Prevent horizontal overflow on analytics cards */
+  .grid.grid-cols-1.lg\:grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Header action buttons — stack tightly on mobile */
+  .premium-heading-group {
+    padding-left: 0.875rem;
+  }
+  .premium-heading-title {
+    font-size: 1.45rem !important;
+  }
+}

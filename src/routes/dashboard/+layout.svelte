@@ -49,7 +49,7 @@
 </style>
 
 <!-- The --color-primary custom variable dynamically paint all Tailwind primary classes -->
-<div class="min-h-screen bg-background text-foreground flex flex-col transition-all duration-300 relative overflow-hidden">
+<div class="h-screen bg-background text-foreground relative overflow-hidden">
 
   <!-- Floating compliance-themed background icons -->
   {#each floatingIcons as item}
@@ -68,7 +68,7 @@
     <div class="absolute bottom-[-10%] right-[-5%] w-[350px] h-[350px] rounded-full bg-indigo-500/4 blur-[80px]"></div>
   </div>
 
-  <div class="relative z-10 flex flex-col min-h-screen">
+  <div class="relative z-10 flex flex-col h-full">
     <TopNavbar>
       <!-- Brand Logo / Avatar and Dynamic Client Name -->
       <div class="flex items-center gap-2.5">
@@ -99,7 +99,7 @@
       </nav>
     </TopNavbar>
 
-    <main class="flex-1 py-10 px-6 lg:px-12">
+    <main class="flex-1 py-6 px-4 md:py-10 md:px-6 lg:px-12 overflow-y-auto">
       <div class="max-w-5xl mx-auto pb-16 md:pb-0 w-full">
         {#key $page.url.pathname}
           <div
