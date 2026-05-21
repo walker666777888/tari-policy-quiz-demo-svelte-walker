@@ -50,7 +50,8 @@
      Rules:
        1. Nav container owns all spacing (padding + gap)
        2. Items: NO margin, NO transform, NO position:relative
-       3. 
+       3. Transition: ONLY color + background-color
+     ═══════════════════════════════════════════════════════ */
   .float-nav {
     position: fixed;
     bottom: 20px;
