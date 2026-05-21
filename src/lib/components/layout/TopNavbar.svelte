@@ -90,8 +90,8 @@
   }
 }} />
 
-<header class="h-16 border-b border-border bg-surface flex items-center justify-between px-3 md:px-6 shrink-0 relative z-40 transition-all duration-300 gap-2">
-  <div class="flex items-center gap-2 md:gap-8 flex-1 min-w-0">
+<header class="h-[72px] md:h-[76px] border-b border-border bg-surface flex items-center justify-between px-4 md:px-8 shrink-0 relative z-40 transition-all duration-300 gap-3 shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
+  <div class="flex items-center gap-3 md:gap-8 flex-1 min-w-0">
     {#if showSidebarToggle}
       <button 
         class="md:hidden p-2 -ml-2 text-muted-foreground hover:text-foreground transition-colors"
@@ -181,7 +181,7 @@
     <!-- Avatar Button -->
     <button 
       onclick={() => { showUserMenu = !showUserMenu; showNotifications = false; }}
-      class="avatar-btn h-8 w-8 rounded-full bg-primary flex items-center justify-center font-bold text-sm text-white shadow-sm border border-black/5 shrink-0 transition-all duration-200 transform hover:scale-105"
+      class="avatar-btn h-9 w-9 md:h-10 md:w-10 rounded-full bg-primary flex items-center justify-center font-bold text-[15px] text-white shadow-sm border border-black/5 shrink-0 transition-all duration-200 transform hover:scale-105"
     >
       {userProfile.initials}
     </button>

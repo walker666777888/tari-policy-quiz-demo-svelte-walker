@@ -71,17 +71,17 @@
   <div class="relative z-10 flex flex-col h-full">
     <TopNavbar>
       <!-- Brand Logo / Avatar and Dynamic Client Name -->
-      <div class="flex items-center gap-2.5">
+      <div class="flex items-center gap-3">
         {#if $theme.logoUrl}
-          <div class="h-8 rounded overflow-hidden flex items-center justify-center">
+          <div class="h-9 md:h-10 rounded overflow-hidden flex items-center justify-center">
             <img src={$theme.logoUrl} alt="Company Logo" class="h-full object-contain" />
           </div>
         {:else}
-          <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-extrabold shadow-sm border border-black/5 shrink-0 transition-all duration-300 transform hover:scale-105 bg-primary">
+          <div class="w-9 h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center text-white text-[15px] font-extrabold shadow-sm border border-black/5 shrink-0 transition-all duration-300 transform hover:scale-105 bg-primary">
             {$theme.companyName.charAt(0)}
           </div>
         {/if}
-        <span class="font-bold text-[13px] text-foreground tracking-tight truncate max-w-[180px]">{$theme.companyName}</span>
+        <span class="font-bold text-[14px] md:text-[15px] text-foreground tracking-tight truncate max-w-[180px]">{$theme.companyName}</span>
       </div>
 
       <nav class="hidden md:flex items-center gap-1 p-1.5 bg-surface border border-border rounded-2xl shadow-sm">
