@@ -145,6 +145,19 @@ function isPublicPath (path: string): boolean {
 export const handle: Handle = async ({ event, resolve }) => {
 	const path = event.url.pathname
 
+	// ── LOCAL MOCK DATA BYPASS (Since Docker/Supabase is offline) ───────────
+	// This entirely skips the Supabase backend fetch and injects mock user data.
+	event.locals.user = { id: 'mock-user' } as any;
+	event.locals.session = { access_token: 'mock' } as any;
+	event.locals.tenantId = 'demo-acme';
+
+	if (path.startsWith('/super')) event.locals.role = 'super_admin';
+	else if (path.startsWith('/admin')) event.locals.role = 'client_admin';
+	else event.locals.role = 'employee';
+
+	return resolve(event);
+	// ────────────────────────────────────────────────────────────────────────
+
 	// ── Create per-request Supabase server client ───────────────────────────
 	event.locals.supabase = createServerClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {
 		cookies: {
