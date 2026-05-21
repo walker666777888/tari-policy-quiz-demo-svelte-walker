@@ -16,7 +16,7 @@
   });
 </script>
 
-<nav class="md:hidden fixed bottom-5 left-4 right-4 h-[68px] bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.25)] rounded-full flex z-50 p-1.5 gap-1" aria-label="Mobile navigation">
+<nav class="md:hidden fixed bottom-3 left-4 right-4 h-[68px] bg-white/75 dark:bg-slate-900/75 backdrop-blur-2xl border border-slate-200/70 dark:border-slate-700/50 shadow-[0_20px_40px_-8px_rgba(15,23,42,0.15),0_0_24px_rgba(15,23,42,0.08)] dark:shadow-[0_20px_40px_-8px_rgba(0,0,0,0.4),0_0_24px_rgba(0,0,0,0.2)] rounded-full flex z-50 p-1.5 gap-1" aria-label="Mobile navigation">
   {#each links as link}
     {@const isActive = activeHref === link.href}
     <a
