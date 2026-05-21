@@ -60,9 +60,9 @@
     height: 64px;
     border-radius: 20px;
     z-index: 100;
-    /* Container owns all spacing — children never need margin */
-    display: flex;
-    align-items: stretch;
+    /* Container owns all spacing — Grid guarantees identical columns */
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     padding: 6px;
     gap: 4px;
     /* Frosted glass: iOS 15+ Tab Bar exact values */
@@ -87,10 +87,10 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
-  /* Items — NO margin, NO transform, NO position, NO box-shadow in transition */
+  /* Items — NO margin, NO transform, NO position, strictly Grid bounded */
   .float-nav-item {
-    width: calc((100% - 8px) / 3);
-    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
