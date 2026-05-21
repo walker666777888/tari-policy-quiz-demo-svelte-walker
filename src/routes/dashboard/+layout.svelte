@@ -56,7 +56,7 @@
     position: fixed;
     bottom: 20px;
     left: 16px;
-    right: 16px;
+    width: calc(100vw - 32px);
     height: 64px;
     border-radius: 20px;
     z-index: 100;
@@ -89,7 +89,8 @@
 
   /* Items — NO margin, NO transform, NO position, NO box-shadow in transition */
   .float-nav-item {
-    flex: 1;
+    width: calc((100% - 8px) / 3);
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -98,8 +99,8 @@
     border-radius: 14px;
     text-decoration: none;
     color: rgba(100, 116, 139, 0.85);
-    /* ONLY these two — zero geometry/layout changes */
-    transition: color 0.18s ease, background-color 0.18s ease;
+    /* No color transition to prevent sub-pixel antialiasing shifts */
+    transition: background-color 0.15s ease;
     -webkit-tap-highlight-color: transparent;
     outline: none;
     user-select: none;
