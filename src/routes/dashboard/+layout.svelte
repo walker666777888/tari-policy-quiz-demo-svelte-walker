@@ -99,24 +99,21 @@
     border-radius: 14px;
     text-decoration: none;
     color: rgba(100, 116, 139, 0.85);
-    /* No color transition to prevent sub-pixel antialiasing shifts */
-    transition: background-color 0.15s ease;
+    /* Smooth color fade for Apple iOS style */
+    transition: color 0.2s ease;
     -webkit-tap-highlight-color: transparent;
     outline: none;
     user-select: none;
   }
 
-  /* Active: full-item solid white pill */
+  /* Active: Only color change, NO background pill (True Apple iOS Style) */
   .float-nav-item.float-active {
     color: #0f172a;
-    background-color: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.10), 0 3px 10px rgba(15, 23, 42, 0.08);
+    /* Native Apple tab bars do not have active background pills */
   }
 
   :global(.dark) .float-nav-item.float-active {
-    color: #f1f5f9;
-    background-color: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.20), 0 3px 10px rgba(0, 0, 0, 0.15);
+    color: #ffffff;
   }
 
   .float-nav-bubble {
