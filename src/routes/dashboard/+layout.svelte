@@ -84,19 +84,19 @@
         <span class="font-bold text-[13px] text-foreground tracking-tight truncate max-w-[180px]">{$theme.companyName}</span>
       </div>
 
-      <nav class="hidden md:flex gap-7">
+      <nav class="hidden md:flex items-center gap-7">
         {#each links as link}
           <a
             href={link.href}
-            class="relative text-xs font-semibold py-1 transition-colors duration-300 group
+            class="relative inline-block text-xs font-semibold py-1.5 transition-colors duration-300 group
               { activeHref === link.href
-                ? 'text-primary drop-shadow-sm'
+                ? 'text-primary'
                 : 'text-muted-foreground hover:text-foreground' }"
           >
             {link.label}
-            <!-- Sleek animated underline that prevents layout shifting -->
-            <span class="absolute left-0 bottom-0 w-full h-[2px] bg-primary rounded-full origin-center transition-all duration-300 ease-out
-              { activeHref === link.href ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-40' }">
+            <!-- Hardware-safe width animation (prevents text jitter) -->
+            <span class="absolute left-1/2 bottom-0 h-[2px] bg-primary rounded-full transition-all duration-300 ease-out -translate-x-1/2
+              { activeHref === link.href ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-40' }">
             </span>
           </a>
         {/each}
