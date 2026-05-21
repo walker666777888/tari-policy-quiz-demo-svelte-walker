@@ -14,6 +14,14 @@
     { href: '/dashboard/profile', label: 'My Profile' },
   ];
 
+  let activeHref = $derived.by(() => {
+    const path = $page.url.pathname.replace(/\/$/, '');
+    if (path.startsWith('/dashboard/certificates')) return '/dashboard/certificates';
+    if (path.startsWith('/dashboard/profile')) return '/dashboard/profile';
+    if (path.startsWith('/dashboard')) return '/dashboard';
+    return '';
+  });
+
   // Floating icons config: emoji + position + animation delay + size + opacity
   const floatingIcons = [
     { icon: '📚', top: '12%',  left: '4%',   delay: '0s',    size: '1.6rem', dur: '7s'  },
