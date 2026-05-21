@@ -16,13 +16,13 @@
   });
 </script>
 
-<nav class="md:hidden fixed bottom-0 left-0 right-0 h-[60px] bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex z-50 px-1 pb-[env(safe-area-inset-bottom)]" aria-label="Mobile navigation">
+<nav class="md:hidden fixed bottom-5 left-4 right-4 h-[68px] bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-slate-200/50 dark:border-slate-700/50 shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.25)] rounded-full flex z-50 p-1.5 gap-1" aria-label="Mobile navigation">
   {#each links as link}
     {@const isActive = activeHref === link.href}
     <a
       href={link.href}
-      class="flex-1 flex flex-col items-center justify-center gap-1 transition-colors duration-200 select-none
-        {isActive ? 'text-primary' : 'text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'}"
+      class="flex-1 flex flex-col items-center justify-center gap-1 rounded-full transition-colors duration-200 select-none overflow-hidden min-w-0
+        {isActive ? 'bg-gradient-to-br from-primary to-blue-600 text-white shadow-sm shadow-primary/20' : 'text-slate-500 hover:bg-slate-100/60 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-white'}"
       aria-current={isActive ? 'page' : undefined}
     >
       <div class="w-6 h-6 flex items-center justify-center">
