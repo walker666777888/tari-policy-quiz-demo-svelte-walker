@@ -84,12 +84,11 @@
         <span class="font-bold text-[13px] text-foreground tracking-tight truncate max-w-[180px]">{$theme.companyName}</span>
       </div>
 
-      <!-- Ultra-Premium Segmented Control Navigation -->
       <nav class="hidden md:flex items-center gap-1 p-1.5 bg-surface border border-border rounded-2xl shadow-sm">
         {#each links as link}
           <a
             href={link.href}
-            class="relative px-4 py-2 text-[13px] font-bold rounded-xl transition-all duration-300 ease-out select-none
+            class="relative px-4 py-2 text-[13px] font-bold rounded-xl transition-colors duration-300 ease-out select-none
               { activeHref === link.href
                 ? 'bg-gradient-to-br from-primary to-blue-600 text-white shadow-md shadow-primary/25'
                 : 'text-muted-foreground hover:bg-muted hover:text-foreground' }"
