@@ -56,10 +56,12 @@
     position: fixed;
     bottom: 20px;
     left: 16px;
-    width: calc(100vw - 32px);
+    right: 16px;
+    width: auto;
     height: 64px;
     border-radius: 20px;
     z-index: 100;
+    overflow: hidden;
     /* Container owns all spacing — Grid guarantees identical columns */
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -74,8 +76,6 @@
       0 2px 8px  rgba(15, 23, 42, 0.08),
       0 8px 28px rgba(15, 23, 42, 0.10),
       inset 0 1px 0 rgba(255, 255, 255, 0.85);
-    will-change: transform;
-    transform: translateZ(0);
   }
 
   :global(.dark) .float-nav {
@@ -103,7 +103,22 @@
     transition: color 0.2s ease;
     -webkit-tap-highlight-color: transparent;
     outline: none;
+    outline-offset: -2px;
     user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  .float-nav-item:focus,
+  .float-nav-item:focus-visible,
+  .float-nav-item:active {
+    outline: none;
+    outline-offset: -2px;
+    box-shadow: none;
+  }
+
+  .float-nav-item:hover {
+    /* prevent any browser-default hover shifts */
+    transform: none;
   }
 
   /* Active: Only color change, NO background pill (True Apple iOS Style) */
