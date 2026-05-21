@@ -45,53 +45,48 @@
 </script>
 
 <style>
-  /* ── Floating frosted-glass bottom nav ──────────────────── */
+  /* ═══════════════════════════════════════════════════════
+     FLOATING FROSTED-GLASS NAV — ground-up rewrite
+     Rules:
+       1. Nav container owns all spacing (padding + gap)
+       2. Items: NO margin, NO transform, NO position:relative
+       3. 
   .float-nav {
     position: fixed;
     bottom: 20px;
     left: 16px;
     right: 16px;
-    height: 68px;
-    border-radius: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 0 6px;
+    height: 64px;
+    border-radius: 20px;
     z-index: 100;
-
-    /* ── Apple-style frosted glass ──
-       Subtle blur (not heavy) + semi-transparent fill
-       so the content behind shows through softly          */
-    background: rgba(242, 244, 248, 0.60);
-    backdrop-filter: blur(10px) saturate(1.25);
-    -webkit-backdrop-filter: blur(10px) saturate(1.25);
-
-    /* Apple layered border: bright top specular + soft outer rim */
-    border: 1px solid rgba(255, 255, 255, 0.55);
-
-    /* Apple’s signature 3-layer shadow system */
+    /* Container owns all spacing — children never need margin */
+    display: flex;
+    align-items: stretch;
+    padding: 6px;
+    gap: 4px;
+    /* Frosted glass: low opacity so blur shows clearly */
+    background: rgba(255, 255, 255, 0.38);
+    backdrop-filter: blur(18px) saturate(1.6) !important;
+    -webkit-backdrop-filter: blur(18px) saturate(1.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.60);
     box-shadow:
-      0 1px 2px  rgba(15, 23, 42, 0.04),   /* micro lift */
-      0 4px 12px rgba(15, 23, 42, 0.08),   /* mid shadow */
-      0 16px 40px rgba(15, 23, 42, 0.07),  /* ambient */
-      inset 0 1px 0 rgba(255, 255, 255, 0.90),  /* top specular */
-      inset 0 -1px 0 rgba(255, 255, 255, 0.30); /* bottom rim */
-
+      0 2px 8px  rgba(15, 23, 42, 0.08),
+      0 8px 28px rgba(15, 23, 42, 0.10),
+      inset 0 1px 0 rgba(255, 255, 255, 0.85);
     will-change: transform;
     transform: translateZ(0);
   }
 
   :global(.dark) .float-nav {
-    background: rgba(18, 22, 34, 0.72);
-    border-color: rgba(255, 255, 255, 0.07);
+    background: rgba(13, 18, 30, 0.60);
+    border-color: rgba(255, 255, 255, 0.08);
     box-shadow:
-      0 1px 2px  rgba(0, 0, 0, 0.20),
-      0 4px 12px rgba(0, 0, 0, 0.28),
-      0 16px 40px rgba(0, 0, 0, 0.22),
-      inset 0 1px 0 rgba(255, 255, 255, 0.06),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+      0 2px 8px  rgba(0, 0, 0, 0.25),
+      0 8px 28px rgba(0, 0, 0, 0.30),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
 
+  /* Items — NO margin, NO transform, NO position, NO box-shadow in transition */
   .float-nav-item {
     flex: 1;
     display: flex;
@@ -99,94 +94,49 @@
     align-items: center;
     justify-content: center;
     gap: 3px;
-    /* Inset from nav edges so the active pill has breathing room */
-    height: calc(100% - 14px);
-    margin: 7px 3px;
-    padding: 6px 8px;
-    border-radius: 16px;
+    border-radius: 14px;
     text-decoration: none;
-    color: var(--muted-foreground);
-    /* No transform in base transition — prevents any hover movement */
-    transition: color 0.2s ease,
-                background 0.22s ease-out,
-                box-shadow 0.22s ease-out,
-                opacity 0.15s ease;
-    position: relative;
+    color: rgba(100, 116, 139, 0.85);
+    /* ONLY these two — zero geometry/layout changes */
+    transition: color 0.18s ease, background-color 0.18s ease;
     -webkit-tap-highlight-color: transparent;
-    transform-origin: center center;
+    outline: none;
+    user-select: none;
   }
 
-  /* Press feedback only on real pointer devices (not touch) */
-  @media (hover: hover) and (pointer: fine) {
-    .float-nav-item:active {
-      opacity: 0.75;
-    }
-  }
-
-  /* Touch press: subtle down nudge only on touch devices */
-  @media (hover: none) {
-    .float-nav-item:active {
-      transform: translateY(1px);
-      opacity: 0.8;
-      transition: transform 0.08s ease, opacity 0.08s ease;
-    }
-  }
-
-  /* ── ACTIVE: full-item solid pill (icon + label covered) ──
-     Matches the Apple tab bar pattern from the reference image  */
+  /* Active: full-item solid white pill */
   .float-nav-item.float-active {
-    color: #0d1526;                          /* dark text on white pill */
-    background: rgba(255, 255, 255, 0.96);
-    box-shadow:
-      0 1px 3px rgba(15, 23, 42, 0.10),
-      0 4px 14px rgba(15, 23, 42, 0.10),
-      inset 0 1px 0 rgba(255, 255, 255, 1); /* top specular */
+    color: #0f172a;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.10), 0 3px 10px rgba(15, 23, 42, 0.08);
   }
 
   :global(.dark) .float-nav-item.float-active {
-    color: #e8edf5;
-    background: rgba(255, 255, 255, 0.13);
-    box-shadow:
-      0 1px 3px rgba(0, 0, 0, 0.25),
-      0 4px 14px rgba(0, 0, 0, 0.20),
-      inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    color: #f1f5f9;
+    background-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.20), 0 3px 10px rgba(0, 0, 0, 0.15);
   }
 
-  /* Icon bubble — just a centred container, no own background */
   .float-nav-bubble {
-    width: 28px;
-    height: 28px;
+    width: 22px;
+    height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transform-origin: center center;
   }
 
   .float-nav-label {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.58rem;
+    font-size: 0.57rem;
     font-weight: 600;
-    letter-spacing: 0.005em;
+    letter-spacing: 0.01em;
     line-height: 1;
     white-space: nowrap;
-    transition: color 0.2s ease, font-weight 0.2s ease;
   }
 
-  /* Bold label when active */
-  .float-nav-item.float-active .float-nav-label {
-    font-weight: 800;
-  }
-
-  @keyframes pip-pop {
-    from { transform: translateX(-50%) scale(0); opacity: 0; }
-    to   { transform: translateX(-50%) scale(1); opacity: 1; }
-  }
-
-  /* Hard-hide on tablet/desktop — belt AND suspenders alongside md:hidden */
+  /* Hard-hide on tablet/desktop */
   @media (min-width: 768px) {
-    .float-nav {
-      display: none !important;
-    }
+    .float-nav { display: none !important; }
   }
 </style>
 
