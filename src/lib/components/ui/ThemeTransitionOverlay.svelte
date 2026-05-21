@@ -18,6 +18,8 @@
   <!-- Backdrop -->
   <div
     class="backdrop"
+    class:backdrop-dark={isDark}
+    class:backdrop-light={!isDark}
     in:fade={{ duration: 180, easing: cubicInOut }}
     out:fade={{ duration: 300, easing: cubicInOut }}
   >
@@ -89,8 +91,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.65); /* simple dimming, no frosted glass */
   }
+
+  /* Solid full-screen color — matches the target theme */
+  .backdrop-dark  { background: #07101f; }
+  .backdrop-light { background: #ede8da; }
 
   /* ── Card ─────────────────────────────────────────────────── */
   .card {
