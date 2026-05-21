@@ -14,15 +14,25 @@
     if (path.startsWith('/dashboard')) return '/dashboard';
     return '';
   });
+
+  let activeIndex = $derived(links.findIndex(l => l.href === activeHref));
 </script>
 
 <nav class="md:hidden fixed bottom-3 left-4 right-4 h-[68px] bg-white/75 dark:bg-slate-900/75 backdrop-blur-2xl border border-slate-200/70 dark:border-slate-700/50 shadow-[0_20px_40px_-8px_rgba(15,23,42,0.15),0_0_24px_rgba(15,23,42,0.08)] dark:shadow-[0_20px_40px_-8px_rgba(0,0,0,0.4),0_0_24px_rgba(0,0,0,0.2)] rounded-full flex z-50 p-1.5 gap-1" aria-label="Mobile navigation">
-  {#each links as link}
-    {@const isActive = activeHref === link.href}
+  <!-- Sliding Background Pill -->
+  <div class="absolute inset-y-1.5 left-1.5 right-1.5 pointer-events-none transition-opacity duration-200" style="opacity: {activeIndex === -1 ? 0 : 1}">
+    <div 
+      class="h-full rounded-full bg-gradient-to-br from-primary to-blue-600 shadow-sm shadow-primary/20 transition-transform duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
+      style="width: calc((100% - 8px) / 3); transform: translateX(calc({activeIndex} * 100% + {activeIndex * 4}px));"
+    ></div>
+  </div>
+
+  {#each links as link, i}
+    {@const isActive = activeIndex === i}
     <a
       href={link.href}
-      class="flex-1 flex flex-col items-center justify-center gap-1 rounded-full transition-colors duration-200 select-none overflow-hidden min-w-0
-        {isActive ? 'bg-gradient-to-br from-primary to-blue-600 text-white shadow-sm shadow-primary/20' : 'text-slate-500 hover:bg-slate-100/60 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-white'}"
+      class="flex-1 flex flex-col items-center justify-center gap-1 rounded-full transition-colors duration-200 select-none overflow-hidden min-w-0 relative z-10
+        {isActive ? 'text-white' : 'text-slate-500 hover:bg-slate-100/60 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-white'}"
       aria-current={isActive ? 'page' : undefined}
     >
       <div class="w-6 h-6 flex items-center justify-center">
