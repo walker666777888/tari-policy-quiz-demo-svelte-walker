@@ -82,33 +82,36 @@
       
       <!-- Profile Card -->
       <div in:fly={{ y: 15, duration: 400, delay: 0 }} class="bg-surface rounded-2xl border border-border shadow-sm p-6 group">
-        <h3 class="text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest mb-6">Personal Details</h3>
+        <div class="flex items-center gap-2.5 mb-6">
+          <span class="w-1.5 h-6 bg-gradient-to-b from-primary to-blue-600 rounded-full"></span>
+          <h3 class="text-base sm:text-lg font-extrabold text-foreground tracking-tight" style="font-family:'Bricolage Grotesque',sans-serif;">Personal Details</h3>
+        </div>
         
         <form onsubmit={handleUpdateProfile} class="space-y-4">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="space-y-1.5">
-              <label class="text-[10px] font-bold text-slate-450 uppercase tracking-wider" for="firstName">First Name</label>
-              <input type="text" id="firstName" bind:value={employeeProfile.firstName} class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted/50 /50 text-foreground font-semibold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all duration-200" />
+              <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest" for="firstName">First Name</label>
+              <input type="text" id="firstName" bind:value={employeeProfile.firstName} class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted/50 text-foreground font-semibold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all duration-200" />
             </div>
             <div class="space-y-1.5">
-              <label class="text-[10px] font-bold text-slate-450 uppercase tracking-wider" for="lastName">Last Name</label>
-              <input type="text" id="lastName" bind:value={employeeProfile.lastName} class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted/50 /50 text-foreground font-semibold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all duration-200" />
+              <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest" for="lastName">Last Name</label>
+              <input type="text" id="lastName" bind:value={employeeProfile.lastName} class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted/50 text-foreground font-semibold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all duration-200" />
             </div>
           </div>
 
           <div class="space-y-1.5">
-            <label class="text-[10px] font-bold text-slate-455 uppercase tracking-wider" for="email">Work Email</label>
+            <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest" for="email">Work Email</label>
             <input type="email" id="email" bind:value={employeeProfile.email} disabled class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted text-muted-foreground font-semibold cursor-not-allowed select-none opacity-80" />
-            <span class="text-[9.5px] text-muted-foreground font-semibold leading-tight inline-block">Email changes must be formally requested through HR.</span>
+            <span class="text-[10px] text-muted-foreground/90 font-semibold leading-tight inline-block">Email changes must be formally requested through HR.</span>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="space-y-1.5">
-              <label class="text-[10px] font-bold text-slate-455 uppercase tracking-wider" for="department">Department</label>
+              <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest" for="department">Department</label>
               <input type="text" id="department" bind:value={employeeProfile.department} disabled class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted text-muted-foreground font-semibold cursor-not-allowed select-none opacity-80" />
             </div>
             <div class="space-y-1.5">
-              <label class="text-[10px] font-bold text-slate-455 uppercase tracking-wider" for="role">Corporate Role</label>
+              <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest" for="role">Corporate Role</label>
               <input type="text" id="role" bind:value={employeeProfile.role} disabled class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted text-muted-foreground font-semibold cursor-not-allowed select-none opacity-80" />
             </div>
           </div>
@@ -123,22 +126,25 @@
 
       <!-- Password Security Card -->
       <div in:fly={{ y: 15, duration: 400, delay: 80 }} class="bg-surface rounded-2xl border border-border shadow-sm p-6">
-        <h3 class="text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest mb-6">Security & Authentication</h3>
+        <div class="flex items-center gap-2.5 mb-6">
+          <span class="w-1.5 h-6 bg-gradient-to-b from-primary to-blue-600 rounded-full"></span>
+          <h3 class="text-base sm:text-lg font-extrabold text-foreground tracking-tight" style="font-family:'Bricolage Grotesque',sans-serif;">Security & Authentication</h3>
+        </div>
         
         <form onsubmit={handleUpdatePassword} class="space-y-4">
           <div class="space-y-1.5">
-            <label class="text-[10px] font-bold text-slate-450 uppercase tracking-wider" for="currPassword">Current Password</label>
-            <input type="password" id="currPassword" bind:value={currentPassword} required class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted/50 /50 text-foreground font-semibold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm max-w-sm transition-all duration-200" />
+            <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest" for="currPassword">Current Password</label>
+            <input type="password" id="currPassword" bind:value={currentPassword} required class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted/50 text-foreground font-semibold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm max-w-sm transition-all duration-200" />
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
             <div class="space-y-1.5">
-              <label class="text-[10px] font-bold text-slate-450 uppercase tracking-wider" for="newPassword">New Password</label>
-              <input type="password" id="newPassword" bind:value={newPassword} required class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted/50 /50 text-foreground font-semibold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all duration-200" />
+              <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest" for="newPassword">New Password</label>
+              <input type="password" id="newPassword" bind:value={newPassword} required class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted/50 text-foreground font-semibold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all duration-200" />
             </div>
             <div class="space-y-1.5">
-              <label class="text-[10px] font-bold text-slate-450 uppercase tracking-wider" for="confirmPassword">Confirm Password</label>
-              <input type="password" id="confirmPassword" bind:value={confirmPassword} required class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted/50 /50 text-foreground font-semibold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all duration-200" />
+              <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest" for="confirmPassword">Confirm Password</label>
+              <input type="password" id="confirmPassword" bind:value={confirmPassword} required class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted/50 text-foreground font-semibold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all duration-200" />
             </div>
           </div>
           
@@ -158,16 +164,19 @@
       <!-- Notifications -->
       <div in:fly={{ y: 15, duration: 400, delay: 160 }} class="bg-surface rounded-2xl border border-border p-6 shadow-sm flex flex-col h-full space-y-6">
         <div>
-          <h3 class="text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest">Email Preferences</h3>
-          <p class="text-[10px] text-muted-foreground font-semibold mt-1">Control which compliance notifications hit your inbox.</p>
+          <div class="flex items-center gap-2.5 mb-4">
+            <span class="w-1.5 h-6 bg-gradient-to-b from-primary to-blue-600 rounded-full"></span>
+            <h3 class="text-base sm:text-lg font-extrabold text-foreground tracking-tight" style="font-family:'Bricolage Grotesque',sans-serif;">Email Preferences</h3>
+          </div>
+          <p class="text-xs text-muted-foreground/90 font-semibold mt-1">Control which compliance notifications hit your inbox.</p>
         </div>
 
         <div class="space-y-6 flex-1">
           <!-- Reminder Toggles with bouncy spring animations -->
           <div class="flex items-start justify-between gap-4">
             <div class="space-y-0.5">
-              <span class="text-xs font-bold text-foreground">Exam Reminders</span>
-              <p class="text-[9.5px] text-muted-foreground leading-relaxed">Receive emails when assigned a module with a due date.</p>
+              <span class="text-xs font-extrabold text-foreground">Exam Reminders</span>
+              <p class="text-[10px] text-muted-foreground leading-relaxed">Receive emails when assigned a module with a due date.</p>
             </div>
             <button onclick={() => emailReminders = !emailReminders} class="w-10 h-5.5 rounded-full p-0.5 transition-all duration-300 relative border shrink-0 mt-0.5 cursor-pointer {emailReminders ? 'bg-primary border-primary/20 shadow-inner' : 'bg-border border-border dark:border-slate-750'}">
               <div class="w-4 h-4 rounded-full bg-surface shadow-md transition-all duration-350 transform {emailReminders ? 'translate-x-4.5 scale-105' : 'translate-x-0'}"></div>
@@ -176,8 +185,8 @@
 
           <div class="flex items-start justify-between gap-4">
             <div class="space-y-0.5">
-              <span class="text-xs font-bold text-foreground">New Module Alerts</span>
-              <p class="text-[9.5px] text-muted-foreground leading-relaxed">Notify me instantly when new policies are launched.</p>
+              <span class="text-xs font-extrabold text-foreground">New Module Alerts</span>
+              <p class="text-[10px] text-muted-foreground leading-relaxed">Notify me instantly when new policies are launched.</p>
             </div>
             <button onclick={() => newModuleAlerts = !newModuleAlerts} class="w-10 h-5.5 rounded-full p-0.5 transition-all duration-300 relative border shrink-0 mt-0.5 cursor-pointer {newModuleAlerts ? 'bg-primary border-primary/20 shadow-inner' : 'bg-border border-border dark:border-slate-750'}">
               <div class="w-4 h-4 rounded-full bg-surface shadow-md transition-all duration-350 transform {newModuleAlerts ? 'translate-x-4.5 scale-105' : 'translate-x-0'}"></div>
@@ -186,8 +195,8 @@
 
           <div class="flex items-start justify-between gap-4">
             <div class="space-y-0.5">
-              <span class="text-xs font-bold text-foreground">Expiry Warnings</span>
-              <p class="text-[9.5px] text-muted-foreground leading-relaxed">Alert me 30 days before a certificate expires.</p>
+              <span class="text-xs font-extrabold text-foreground">Expiry Warnings</span>
+              <p class="text-[10px] text-muted-foreground leading-relaxed">Alert me 30 days before a certificate expires.</p>
             </div>
             <button onclick={() => certificateExpiryAlerts = !certificateExpiryAlerts} class="w-10 h-5.5 rounded-full p-0.5 transition-all duration-300 relative border shrink-0 mt-0.5 cursor-pointer {certificateExpiryAlerts ? 'bg-primary border-primary/20 shadow-inner' : 'bg-border border-border dark:border-slate-750'}">
               <div class="w-4 h-4 rounded-full bg-surface shadow-md transition-all duration-350 transform {certificateExpiryAlerts ? 'translate-x-4.5 scale-105' : 'translate-x-0'}"></div>

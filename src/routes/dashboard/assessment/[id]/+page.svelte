@@ -237,16 +237,19 @@
         Back to Dashboard
       </a>
 
-      <div class="bg-surface p-8 md:p-12 rounded-2xl shadow-xl shadow-slate-200/50 max-w-xl w-full text-center border border-border">
-        <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6 text-primary">
+      <div class="bg-surface p-8 md:p-12 rounded-2xl shadow-xl shadow-slate-200/50 max-w-xl w-full text-center border border-border relative overflow-hidden">
+        <!-- Gradient top indicator bar -->
+        <div class="absolute left-0 top-0 right-0 h-1.5 bg-gradient-to-r from-primary via-indigo-500 to-blue-600"></div>
+        
+        <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6 text-primary border border-primary/20">
           <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
         </div>
-        <h2 class="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Certification Module</h2>
-        <h1 class="text-3xl font-extrabold text-foreground tracking-tight mb-4">{moduleName}</h1>
-        <p class="text-muted-foreground font-medium mb-8">This assessment contains exactly 10 unique, randomly selected questions covering various sub-topics. You need a minimum score of 80% to pass.</p>
+        <span class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest mb-2 block">Certification Module</span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight mb-4" style="font-family:'Bricolage Grotesque',sans-serif;">{moduleName}</h1>
+        <p class="text-muted-foreground font-semibold mb-8 text-sm sm:text-base leading-relaxed">This assessment contains exactly 10 unique, randomly selected questions covering various sub-topics. You need a minimum score of 80% to pass.</p>
         
         <div class="space-y-4">
-          <button onclick={startExam} class="w-full py-4 bg-primary hover:opacity-95 text-white text-sm font-extrabold rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-95">
+          <button onclick={startExam} class="w-full py-4 bg-primary hover:opacity-95 text-white text-sm font-extrabold rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-95 cursor-pointer">
             Begin Certification Exam
           </button>
         </div>
@@ -255,49 +258,53 @@
   
   {:else if currentView === 'exam'}
     <!-- EXAM INTERFACE SCREEN -->
-    <div transition:fade class="min-h-screen flex flex-col p-4 md:p-8 max-w-3xl mx-auto w-full">
+    <div transition:fade class="min-h-screen flex flex-col p-4 md:p-8 max-w-3xl mx-auto w-full relative z-10">
       
       <!-- Exam Header -->
-      <div class="flex items-center justify-between mb-8">
+      <div class="flex items-center justify-between mb-6">
         <div>
-          <h2 class="text-xs font-extrabold text-muted-foreground uppercase tracking-wider">{moduleName}</h2>
-          <div class="text-2xl font-black text-foreground tracking-tight mt-1">Question {currentQuestionIndex + 1} of {mockQuestions.length}</div>
+          <span class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest mb-1.5 block">{moduleName}</span>
+          <div class="text-2xl sm:text-3xl font-black text-foreground tracking-tight" style="font-family:'Bricolage Grotesque',sans-serif;">
+            Question {currentQuestionIndex + 1} <span class="text-muted-foreground/70 text-lg font-medium">/ {mockQuestions.length}</span>
+          </div>
         </div>
-        <a href="/dashboard" class="text-xs font-bold text-rose-500 hover:text-rose-700 bg-destructive/10 px-3 py-1.5 rounded-lg transition-colors">
+        <a href="/dashboard" class="text-xs font-bold text-rose-500 hover:text-rose-700 bg-destructive/10 px-4 py-2 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]">
           Exit Exam
         </a>
       </div>
 
       <!-- Progress Bar -->
-      <div class="h-2 w-full bg-border rounded-full mb-8 overflow-hidden">
-        <div class="h-full bg-primary rounded-full transition-all duration-500 ease-out" style="width: {progressPercentage}%"></div>
+      <div class="h-2 w-full bg-muted rounded-full mb-8 overflow-hidden border border-border/30">
+        <div class="h-full bg-primary rounded-full transition-all duration-500 ease-out relative" style="width: {progressPercentage}%">
+          <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-[shimmer_2s_infinite] w-[40%]"></div>
+        </div>
       </div>
 
       <!-- Question Card -->
-      <div class="bg-surface rounded-2xl border border-border shadow-lg shadow-slate-200/50 p-6 md:p-10 flex-1 flex flex-col relative min-h-[500px]">
+      <div class="bg-surface rounded-2xl border border-border shadow-xl shadow-slate-200/40 p-5 sm:p-8 md:p-10 flex-1 flex flex-col relative min-h-[500px]">
         {#key currentQuestionIndex}
-          <div in:fly={{ y: 10, duration: 350, delay: 100 }} out:fade={{ duration: 100 }} class="flex-1 flex flex-col justify-between">
+          <div in:fly={{ y: 12, duration: 350, delay: 100 }} out:fade={{ duration: 100 }} class="flex-1 flex flex-col justify-between">
             <div>
-              <span class="inline-block px-3 py-1 bg-muted text-muted-foreground text-[10px] font-extrabold uppercase rounded border border-border/50 mb-6 self-start tracking-wider">
+              <span class="inline-block px-2.5 py-1 bg-muted text-muted-foreground/80 text-[11px] font-bold uppercase rounded border border-border/50 mb-6 tracking-widest">
                 {currentQuestion.subTopic}
               </span>
               
-              <h3 class="text-xl md:text-2xl font-bold text-foreground leading-snug mb-8">
+              <h3 class="text-xl md:text-2xl font-extrabold text-foreground leading-snug mb-8" style="font-family:'Bricolage Grotesque',sans-serif;">
                 {currentQuestion.text}
               </h3>
 
               <!-- Options Grid -->
-              <div class="space-y-3 mb-8">
+              <div class="space-y-3.5 mb-8">
                 {#each currentQuestion.options as opt, i}
                   <button 
                     disabled={hasAnswered}
                     onclick={() => handleSelectOption(opt.id)}
                     in:fly={{ y: 8, duration: 250, delay: i * 35 }}
                     class="w-full text-left p-4 rounded-xl border-2 transition-all duration-200 group flex items-center justify-between cursor-pointer
-                      { !hasAnswered ? 'border-border bg-surface hover:border-primary/50 hover:bg-muted hover:-translate-y-[1px] hover:shadow-sm' : '' }
-                      { hasAnswered && opt.id === currentQuestion.correctId ? 'border-emerald-500 bg-success/10/50 text-emerald-900 shadow-sm' : '' }
-                      { hasAnswered && opt.id === selectedOptionId && opt.id !== currentQuestion.correctId ? 'border-rose-500 bg-destructive/10 text-rose-900 shadow-sm' : '' }
-                      { hasAnswered && opt.id !== selectedOptionId && opt.id !== currentQuestion.correctId ? 'border-border bg-muted opacity-50' : '' }
+                      { !hasAnswered ? 'border-border bg-surface hover:border-primary/50 hover:bg-muted/50 hover:-translate-y-[0.5px] hover:shadow-sm' : '' }
+                      { hasAnswered && opt.id === currentQuestion.correctId ? 'border-emerald-500 bg-emerald-500/10 text-emerald-800 font-extrabold shadow-sm' : '' }
+                      { hasAnswered && opt.id === selectedOptionId && opt.id !== currentQuestion.correctId ? 'border-rose-500 bg-rose-500/10 text-rose-850 font-extrabold shadow-sm' : '' }
+                      { hasAnswered && opt.id !== selectedOptionId && opt.id !== currentQuestion.correctId ? 'border-border/60 bg-muted/30 opacity-40 text-muted-foreground' : '' }
                     "
                   >
                     <div class="flex items-center gap-4">
@@ -305,22 +312,22 @@
                         { !hasAnswered ? 'bg-muted text-muted-foreground group-hover:bg-primary group-hover:text-white' : '' }
                         { hasAnswered && opt.id === currentQuestion.correctId ? 'bg-emerald-500 text-white' : '' }
                         { hasAnswered && opt.id === selectedOptionId && opt.id !== currentQuestion.correctId ? 'bg-rose-500 text-white' : '' }
-                        { hasAnswered && opt.id !== selectedOptionId && opt.id !== currentQuestion.correctId ? 'bg-muted text-muted-foreground' : '' }
-                        transition-colors
+                        { hasAnswered && opt.id !== selectedOptionId && opt.id !== currentQuestion.correctId ? 'bg-muted/40 text-muted-foreground/60' : '' }
+                        transition-colors shrink-0
                       ">
                         {opt.id}
                       </div>
-                      <span class="font-semibold {hasAnswered && opt.id === currentQuestion.correctId ? 'text-emerald-800' : 'text-foreground/90'}">{opt.text}</span>
+                      <span class="font-bold text-sm sm:text-base {hasAnswered && opt.id === currentQuestion.correctId ? 'text-emerald-900 dark:text-emerald-300' : hasAnswered && opt.id === selectedOptionId ? 'text-rose-900 dark:text-rose-350' : 'text-foreground/90'}">{opt.text}</span>
                     </div>
                     
                     <!-- Result Icon Indicator -->
                     {#if hasAnswered}
                       {#if opt.id === currentQuestion.correctId}
-                        <div transition:scale class="text-emerald-500">
+                        <div transition:scale class="text-emerald-500 shrink-0">
                           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                         </div>
                       {:else if opt.id === selectedOptionId}
-                        <div transition:scale class="text-rose-500">
+                        <div transition:scale class="text-rose-500 shrink-0">
                           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
                         </div>
                       {/if}
@@ -333,16 +340,19 @@
             <!-- Explanation Block -->
             {#if hasAnswered}
               <div transition:slide={{axis: 'y'}} class="mt-auto border-t border-border pt-6">
-                <h4 class="text-xs font-extrabold text-foreground uppercase tracking-wider mb-2 flex items-center gap-2 font-sans">
+                <h4 class="text-[11px] font-extrabold uppercase tracking-widest mb-3 flex items-center gap-2">
                   {#if selectedOptionId === currentQuestion.correctId}
-                    <span class="text-success">✓ Correct Answer</span>
+                    <span class="text-emerald-600 bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20">✓ Correct Answer</span>
                   {:else}
-                    <span class="text-destructive">✗ Incorrect Answer</span>
+                    <span class="text-rose-600 bg-rose-500/10 px-2.5 py-1 rounded-lg border border-rose-500/20">✗ Incorrect Answer</span>
                   {/if}
                 </h4>
-                <p class="text-sm font-medium text-muted-foreground leading-relaxed mb-6 bg-muted p-4 rounded-xl border border-border">
-                  {currentQuestion.explanation}
-                </p>
+                <div class="bg-muted/65 p-4 sm:p-5 rounded-xl border border-border/80 mb-6">
+                  <span class="text-[10px] font-extrabold text-muted-foreground/80 uppercase tracking-widest block mb-1.5">Official Policy Explanation</span>
+                  <p class="text-sm text-foreground/90 font-medium leading-relaxed">
+                    {currentQuestion.explanation}
+                  </p>
+                </div>
                 
                 <button onclick={nextQuestion} class="w-full py-4 bg-slate-900 hover:bg-black text-white text-sm font-extrabold rounded-xl shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer">
                   {currentQuestionIndex < mockQuestions.length - 1 ? 'Next Question' : 'View Final Results'}
@@ -357,22 +367,25 @@
   
   {:else if currentView === 'results'}
     <!-- RESULTS SCREEN -->
-    <div transition:fade class="min-h-screen p-4 md:p-8 max-w-4xl mx-auto w-full pb-20">
+    <div transition:fade class="min-h-screen p-4 md:p-8 max-w-4xl mx-auto w-full pb-20 relative z-10">
       
       <!-- Results Header -->
       <div class="text-center mb-10">
-        <h2 class="text-xs font-extrabold text-muted-foreground uppercase tracking-wider mb-2">Certification Results</h2>
-        <h1 class="text-3xl font-extrabold text-foreground tracking-tight">{moduleName}</h1>
+        <span class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest mb-1.5 block">Certification Results</span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-foreground tracking-tight" style="font-family:'Bricolage Grotesque',sans-serif;">{moduleName}</h1>
       </div>
 
       <!-- Main Score Card -->
-      <div class="bg-surface rounded-3xl border border-border shadow-xl shadow-slate-200/50 p-8 md:p-12 text-center relative overflow-hidden mb-8">
+      <div class="bg-surface rounded-3xl border border-border shadow-xl shadow-slate-200/40 p-8 md:p-12 text-center relative overflow-hidden mb-8">
+        <!-- Gradient top indicator bar -->
+        <div class="absolute left-0 top-0 right-0 h-1.5 bg-gradient-to-r {isPassing ? 'from-emerald-500 via-teal-500 to-emerald-600' : 'from-rose-500 via-red-500 to-rose-600'}"></div>
+
         <!-- Confetti / Status Decoration -->
         <div class="text-7xl mb-6 transform hover:scale-110 transition-transform cursor-default">
           {isPassing ? '🏆' : '📖'}
         </div>
         
-        <h3 class="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-2">
+        <h3 class="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-2" style="font-family:'Bricolage Grotesque',sans-serif;">
           {scorePercentage}%
         </h3>
         <p class="text-lg font-bold text-muted-foreground mb-8">You scored {totalScore} out of {mockQuestions.length} correct.</p>
@@ -391,49 +404,51 @@
 
         <!-- Progress Bar Visualizer -->
         <div class="max-w-md mx-auto mt-8 relative">
-          <div class="h-3 w-full bg-muted rounded-full overflow-hidden">
+          <div class="h-3 w-full bg-muted rounded-full overflow-hidden border border-border/30">
             <div class="h-full rounded-full transition-all duration-1000 
               {scorePercentage >= 80 ? 'bg-emerald-500' : scorePercentage >= 60 ? 'bg-amber-400' : 'bg-rose-500'}"
               style="width: {scorePercentage}%">
             </div>
           </div>
-          <div class="absolute -bottom-6 left-0 right-0 flex justify-between text-[10px] font-bold text-muted-foreground uppercase">
+          <div class="absolute -bottom-6 left-0 right-0 flex justify-between text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
             <span>0%</span>
-            <span>Passing Threshold (80%)</span>
+            <span>Passing (80%)</span>
             <span>100%</span>
           </div>
           <div class="absolute top-0 bottom-0 left-[80%] w-0.5 bg-slate-800/20 h-6 -mt-1.5"></div>
         </div>
 
         <div class="flex flex-col sm:flex-row justify-center gap-4 mt-14 relative z-10">
-          <button onclick={retakeExam} class="px-8 py-3.5 bg-muted hover:bg-muted text-muted-foreground font-extrabold rounded-xl border border-border transition-all active:scale-95">
+          <button onclick={retakeExam} class="px-8 py-3.5 bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground font-extrabold rounded-xl border border-border transition-all active:scale-95 cursor-pointer">
             Retake Module Exam
           </button>
-          <a href="/dashboard" class="px-8 py-3.5 bg-primary hover:opacity-95 text-white font-extrabold rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-95">
+          <a href="/dashboard" class="px-8 py-3.5 bg-primary hover:opacity-95 text-white font-extrabold rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-95 text-center">
             Return to Dashboard
           </a>
         </div>
       </div>
 
       <!-- Question Review Log -->
-      <h3 class="text-sm font-extrabold text-foreground uppercase tracking-wider mb-6 text-center">Comprehensive Audit Review</h3>
+      <h3 class="text-lg font-extrabold text-foreground uppercase tracking-wider mb-6 text-center" style="font-family:'Bricolage Grotesque',sans-serif;">
+        Comprehensive Audit Review
+      </h3>
       
       <div class="space-y-6">
         {#each examHistory as hist, i}
-          <div class="bg-surface rounded-2xl border {hist.isCorrect ? 'border-success/20' : 'border-destructive/20'} shadow-sm p-6 relative overflow-hidden">
+          <div class="bg-surface rounded-2xl border {hist.isCorrect ? 'border-emerald-500/20' : 'border-rose-500/20'} shadow-sm p-5 sm:p-6 relative overflow-hidden">
             <!-- Correct/Wrong strip -->
-            <div class="absolute left-0 top-0 bottom-0 w-1.5 {hist.isCorrect ? 'bg-emerald-400' : 'bg-rose-400'}"></div>
+            <div class="absolute left-0 top-0 bottom-0 w-1.5 {hist.isCorrect ? 'bg-emerald-500' : 'bg-rose-500'}"></div>
             
             <div class="flex items-start justify-between gap-4 mb-4 pl-3">
-              <h4 class="text-base font-bold text-foreground leading-snug">
+              <h4 class="text-base font-extrabold text-foreground leading-snug" style="font-family:'Bricolage Grotesque',sans-serif;">
                 <span class="text-muted-foreground font-mono text-sm mr-2">{i + 1}.</span>
                 {hist.question.text}
               </h4>
               <div class="shrink-0 pt-0.5">
                 {#if hist.isCorrect}
-                  <span class="px-2 py-1 bg-success/10 text-success text-[10px] font-extrabold uppercase rounded border border-success/20">Correct</span>
+                  <span class="px-2.5 py-1 bg-emerald-500/10 text-emerald-600 text-[10px] font-extrabold uppercase rounded border border-emerald-500/20">Correct</span>
                 {:else}
-                  <span class="px-2 py-1 bg-destructive/10 text-destructive text-[10px] font-extrabold uppercase rounded border border-destructive/20">Wrong</span>
+                  <span class="px-2.5 py-1 bg-rose-500/10 text-rose-600 text-[10px] font-extrabold uppercase rounded border border-rose-500/20">Wrong</span>
                 {/if}
               </div>
             </div>
@@ -442,21 +457,21 @@
               <!-- Selected / Correct Answers -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {#if !hist.isCorrect}
-                  <div class="bg-destructive/10/50 border border-destructive/20/50 rounded-lg p-3">
-                    <span class="text-[9px] font-bold text-rose-400 uppercase tracking-wider block mb-1">You Selected ({hist.selectedId})</span>
-                    <span class="text-sm font-semibold text-rose-800">{hist.question.options.find(o => o.id === hist.selectedId)?.text}</span>
+                  <div class="bg-rose-500/5 border border-rose-500/20 rounded-xl p-4">
+                    <span class="text-[11px] font-bold text-rose-500/90 uppercase tracking-widest block mb-1">You Selected ({hist.selectedId})</span>
+                    <span class="text-sm font-bold text-rose-900 dark:text-rose-350">{hist.question.options.find(o => o.id === hist.selectedId)?.text}</span>
                   </div>
                 {/if}
-                <div class="bg-success/10/50 border border-success/20/50 rounded-lg p-3 {hist.isCorrect ? 'sm:col-span-2' : ''}">
-                  <span class="text-[9px] font-bold text-emerald-500 uppercase tracking-wider block mb-1">Correct Answer ({hist.question.correctId})</span>
-                  <span class="text-sm font-semibold text-emerald-900">{hist.question.options.find(o => o.id === hist.question.correctId)?.text}</span>
+                <div class="bg-emerald-500/5 border border-emerald-500/20 rounded-xl p-4 {hist.isCorrect ? 'sm:col-span-2' : ''}">
+                  <span class="text-[11px] font-bold text-emerald-600/90 uppercase tracking-widest block mb-1">Correct Answer ({hist.question.correctId})</span>
+                  <span class="text-sm font-bold text-emerald-900 dark:text-emerald-300">{hist.question.options.find(o => o.id === hist.question.correctId)?.text}</span>
                 </div>
               </div>
 
               <!-- Explanation block -->
-              <div class="bg-muted border border-border rounded-lg p-4">
-                <span class="text-[9px] font-bold text-muted-foreground uppercase tracking-wider block mb-1">Official Policy Explanation</span>
-                <p class="text-xs font-medium text-muted-foreground leading-relaxed">{hist.question.explanation}</p>
+              <div class="bg-muted/65 border border-border/80 rounded-xl p-4 sm:p-5">
+                <span class="text-[11px] font-extrabold text-muted-foreground/80 uppercase tracking-widest block mb-1.5">Official Policy Explanation</span>
+                <p class="text-xs sm:text-sm font-semibold text-muted-foreground leading-relaxed">{hist.question.explanation}</p>
               </div>
             </div>
 

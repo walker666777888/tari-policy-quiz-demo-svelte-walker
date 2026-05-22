@@ -875,12 +875,12 @@ button, .btn-primary, .btn-secondary, .btn-outline {
 
 .premium-heading-title {
   font-family: 'Bricolage Grotesque', sans-serif !important;
-  font-size: 1.85rem !important; /* text-2xl/3xl */
-  font-weight: 900 !important;
-  letter-spacing: -0.04em !important;
+  font-size: 2.35rem !important; /* increased from 1.85rem for premium punchy look */
+  font-weight: 850 !important; /* slightly smoother font weight for better readability */
+  letter-spacing: -0.03em !important; /* slightly relaxed tracking for larger sizes */
   line-height: 1.15 !important;
   color: var(--foreground) !important;
-  background: linear-gradient(135deg, var(--foreground) 30%, color-mix(in srgb, var(--foreground) 75%, var(--primary)) 100%);
+  background: linear-gradient(135deg, var(--foreground) 55%, color-mix(in srgb, var(--foreground) 80%, var(--primary)) 100%) !important; /* higher percentage of foreground for crisp contrast */
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
@@ -888,12 +888,76 @@ button, .btn-primary, .btn-secondary, .btn-outline {
 
 .premium-heading-subtitle {
   font-family: 'Plus Jakarta Sans', sans-serif !important;
-  font-size: 0.78rem !important; /* text-xs */
+  font-size: 0.94rem !important; /* significantly increased from 0.78rem to make it highly legible */
   font-weight: 500 !important;
-  color: var(--muted-foreground) !important;
+  color: color-mix(in srgb, var(--foreground) 82%, var(--muted-foreground)) !important; /* much less muted, high contrast against background */
+  letter-spacing: -0.012em !important;
+  margin-top: 0.45rem !important;
+  opacity: 1 !important; /* removed opacity reduction so it's fully crisp and readable */
+  line-height: 1.45 !important;
+}
+
+/* =========================================================
+   PREMIUM CARD & TILE ACCESSIBILITY ENHANCEMENTS
+   Increases the size and contrast of small labels, subtexts,
+   and descriptions within stats cards and module tiles.
+   ========================================================= */
+
+/* Stat Card and Module Tile Top uppercase labels (e.g. text-[10px], text-[9px], text-xs) */
+.bg-surface span.uppercase,
+.bg-surface div.uppercase,
+.bg-primary span.uppercase,
+.bg-muted span.uppercase,
+.card-enterprise span.uppercase,
+.bg-surface .text-\[10px\],
+.bg-surface .text-\[9px\] {
+  font-size: 0.74rem !important; /* Raised from 9px/10px (approx 0.6rem) to ~12px */
+  letter-spacing: 0.05em !important;
+  font-weight: 700 !important;
+  color: color-mix(in srgb, var(--foreground) 78%, var(--muted-foreground)) !important; /* Brighter, high-contrast */
+  opacity: 1 !important;
+}
+
+/* Specific highlight label text color in primary theme colored cards */
+.bg-primary span.uppercase {
+  color: rgba(255, 255, 255, 0.88) !important;
+}
+
+/* Card metrics numeric values (make them even more premium and readable) */
+.bg-surface .text-3xl,
+.bg-surface .text-4xl {
+  letter-spacing: -0.03em !important;
+}
+
+/* Subtext/Descriptions inside tiles/cards (e.g. text-[11px] or text-xs font-medium/semibold) */
+.bg-surface div.text-muted-foreground.font-medium,
+.bg-surface div.text-muted-foreground.font-semibold,
+.bg-surface div.text-\[11px\].text-muted-foreground,
+.bg-surface p.text-muted-foreground {
+  font-size: 0.84rem !important; /* Increased to ~13.5px */
+  color: color-mix(in srgb, var(--foreground) 80%, var(--muted-foreground)) !important; /* High readability slate */
+  opacity: 1 !important;
+  line-height: 1.45 !important;
+}
+
+/* Module tile main headings (e.g. text-sm font-extrabold text-foreground group-hover:text-primary) */
+.bg-surface h4.text-sm.font-extrabold,
+.bg-surface h4.text-sm {
+  font-size: 0.96rem !important; /* Raised to ~15.5px */
+  letter-spacing: -0.015em !important;
+  font-weight: 800 !important;
+}
+
+/* Table and grid label values */
+.bg-surface table th,
+.bg-surface table tr td {
   letter-spacing: -0.01em !important;
-  margin-top: 0.35rem !important; /* mt-1.5 */
-  opacity: 0.85;
+}
+
+.bg-surface table th {
+  font-size: 0.74rem !important; /* ~12px */
+  font-weight: 750 !important;
+  color: color-mix(in srgb, var(--foreground) 82%, var(--muted-foreground)) !important;
 }
 
 /* =========================================================
@@ -962,6 +1026,9 @@ main,
     padding-left: 0.875rem;
   }
   .premium-heading-title {
-    font-size: 1.45rem !important;
+    font-size: 1.75rem !important; /* increased from 1.45rem to match desktop prominence */
+  }
+  .premium-heading-subtitle {
+    font-size: 0.85rem !important; /* increased from 0.78rem for better legibility on mobile */
   }
 }

@@ -53,21 +53,21 @@
 
   <!-- Top Metrics with Staggered Fade-in -->
   <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-    <div in:fly={{ y: 12, duration: 400, delay: 0 }} class="bg-surface rounded-2xl border border-border p-6 shadow-sm hover:shadow-md transition-all duration-300 hover:border-primary/25 text-center group">
-      <div class="text-[10px] font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest mb-1">Exams Taken</div>
-      <div class="text-3xl font-black text-foreground group-hover:scale-105 transition-transform duration-300">{metrics.totalExamsTaken}</div>
+    <div in:fly={{ y: 12, duration: 400, delay: 0 }} class="bg-surface rounded-2xl border border-border p-5 sm:p-6 shadow-sm transition-all duration-350 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between min-h-[7.5rem] relative overflow-hidden group text-center">
+      <div class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest mb-1 block">Exams Taken</div>
+      <div class="text-4xl font-black text-foreground tracking-tight mt-1 group-hover:scale-[1.02] transition-transform duration-300">{metrics.totalExamsTaken}</div>
     </div>
-    <div in:fly={{ y: 12, duration: 400, delay: 60 }} class="bg-surface rounded-2xl border border-border p-6 shadow-sm hover:shadow-md transition-all duration-300 hover:border-primary/25 text-center group">
-      <div class="text-[10px] font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest mb-1">Questions Seen</div>
-      <div class="text-3xl font-black text-primary group-hover:scale-105 transition-transform duration-300">{metrics.totalQuestionsSeen}</div>
+    <div in:fly={{ y: 12, duration: 400, delay: 60 }} class="bg-surface rounded-2xl border border-border p-5 sm:p-6 shadow-sm transition-all duration-350 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between min-h-[7.5rem] relative overflow-hidden group text-center">
+      <div class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest mb-1 block">Questions Seen</div>
+      <div class="text-4xl font-black text-primary tracking-tight mt-1 group-hover:scale-[1.02] transition-transform duration-300">{metrics.totalQuestionsSeen}</div>
     </div>
-    <div in:fly={{ y: 12, duration: 400, delay: 120 }} class="bg-surface rounded-2xl border border-border p-6 shadow-sm hover:shadow-md transition-all duration-300 hover:border-primary/25 text-center group">
-      <div class="text-[10px] font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest mb-1">Average Score</div>
-      <div class="text-3xl font-black text-emerald-550 group-hover:scale-105 transition-transform duration-300">{metrics.averageScore}%</div>
+    <div in:fly={{ y: 12, duration: 400, delay: 120 }} class="bg-surface rounded-2xl border border-border p-5 sm:p-6 shadow-sm transition-all duration-350 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between min-h-[7.5rem] relative overflow-hidden group text-center">
+      <div class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest mb-1 block">Average Score</div>
+      <div class="text-4xl font-black text-emerald-600 tracking-tight mt-1 group-hover:scale-[1.02] transition-transform duration-300">{metrics.averageScore}%</div>
     </div>
-    <div in:fly={{ y: 12, duration: 400, delay: 180 }} class="bg-surface rounded-2xl border border-border p-6 shadow-sm hover:shadow-md transition-all duration-300 hover:border-primary/25 text-center group">
-      <div class="text-[10px] font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest mb-1">Perfect 100%s</div>
-      <div class="text-3xl font-black text-amber-550 group-hover:scale-105 transition-transform duration-300">{metrics.perfectScores}</div>
+    <div in:fly={{ y: 12, duration: 400, delay: 180 }} class="bg-surface rounded-2xl border border-border p-5 sm:p-6 shadow-sm transition-all duration-350 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between min-h-[7.5rem] relative overflow-hidden group text-center">
+      <div class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest mb-1 block">Perfect 100%s</div>
+      <div class="text-4xl font-black text-amber-600 tracking-tight mt-1 group-hover:scale-[1.02] transition-transform duration-300">{metrics.perfectScores}</div>
     </div>
   </div>
 
@@ -76,11 +76,14 @@
     
     <!-- Score Improvement Chart -->
     <div in:fly={{ y: 15, duration: 500, delay: 240 }} class="bg-surface rounded-2xl border border-border p-6 shadow-sm lg:col-span-2 relative overflow-hidden group">
-      <h3 class="text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest mb-6">Score Improvement Over Time</h3>
+      <div class="flex items-center gap-2.5 mb-6">
+        <span class="w-1.5 h-6 bg-gradient-to-b from-primary to-blue-600 rounded-full"></span>
+        <h3 class="text-base sm:text-lg font-extrabold text-foreground tracking-tight" style="font-family:'Bricolage Grotesque',sans-serif;">Score Improvement Over Time</h3>
+      </div>
       
       <div class="h-48 flex items-end justify-between gap-3 border-b border-border pb-2 relative">
         <div class="absolute left-0 right-0 bottom-1/2 border-b border-dashed border-border/80 z-0"></div>
-        <div class="absolute left-0 right-0 top-1/4 border-b border-dashed border-border/80 z-0 text-[8px] text-muted-foreground dark:text-muted-foreground font-bold uppercase tracking-widest text-right pr-1">80% Passing</div>
+        <div class="absolute left-0 right-0 top-1/4 border-b border-dashed border-border/80 z-0 text-[9px] text-muted-foreground/80 font-bold uppercase tracking-widest text-right pr-1">80% Passing</div>
         
         {#each chartData as data, i}
           <div class="flex flex-col items-center flex-1 z-10 group/bar relative h-full justify-end">
@@ -109,7 +112,10 @@
 
     <!-- Achievements -->
     <div in:fly={{ y: 15, duration: 500, delay: 300 }} class="bg-surface rounded-2xl border border-border p-6 shadow-sm">
-      <h3 class="text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest mb-5">Milestone Badges</h3>
+      <div class="flex items-center gap-2.5 mb-5">
+        <span class="w-1.5 h-6 bg-gradient-to-b from-amber-500 to-amber-600 rounded-full"></span>
+        <h3 class="text-base sm:text-lg font-extrabold text-foreground tracking-tight" style="font-family:'Bricolage Grotesque',sans-serif;">Milestone Badges</h3>
+      </div>
       <div class="space-y-4">
         {#each achievements as badge, i}
           <div 
@@ -125,7 +131,7 @@
             </div>
             <div>
               <div class="text-xs font-bold text-foreground leading-tight">{badge.title}</div>
-              <div class="text-[9.5px] text-muted-foreground leading-tight mt-0.5">{badge.desc}</div>
+              <div class="text-[11px] font-semibold text-muted-foreground/90 leading-tight mt-1">{badge.desc}</div>
             </div>
           </div>
         {/each}
@@ -137,12 +143,15 @@
   <!-- Exam History Table -->
   <div in:fly={{ y: 20, duration: 550, delay: 400 }} class="bg-surface rounded-2xl border border-border shadow-sm overflow-hidden mt-8">
     <div class="p-6 border-b border-border">
-      <h3 class="text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest">Complete Exam Timeline</h3>
+      <div class="flex items-center gap-2.5">
+        <span class="w-1.5 h-6 bg-gradient-to-b from-primary to-emerald-500 rounded-full"></span>
+        <h3 class="text-base sm:text-lg font-extrabold text-foreground tracking-tight" style="font-family:'Bricolage Grotesque',sans-serif;">Complete Exam Timeline</h3>
+      </div>
     </div>
     <div class="overflow-x-auto">
       <table class="w-full text-left border-collapse text-xs">
         <thead>
-          <tr class="bg-muted border-b border-border text-[9px] font-bold uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
+          <tr class="bg-muted border-b border-border text-[10px] font-extrabold uppercase tracking-widest text-muted-foreground/80">
             <th class="p-4 pl-6 whitespace-nowrap">Certification Module</th>
             <th class="p-4 whitespace-nowrap">Attempt Date</th>
             <th class="p-4 text-center whitespace-nowrap">Final Score</th>
@@ -150,20 +159,20 @@
             <th class="p-4 pr-6 whitespace-nowrap">Result</th>
           </tr>
         </thead>
-        <tbody class="font-medium text-muted-foreground dark:text-slate-455 divide-y divide-border">
+        <tbody class="font-semibold text-muted-foreground/90 divide-y divide-border">
           {#each examHistory as exam, i}
             <tr class="hover:bg-muted/40 transition-colors duration-200">
               <td class="p-4 pl-6 font-extrabold text-foreground whitespace-nowrap">{exam.module}</td>
               <td class="p-4 text-muted-foreground whitespace-nowrap">{exam.date}</td>
               <td class="p-4 text-center whitespace-nowrap">
-                <span class="font-black {exam.score >= 80 ? 'text-emerald-550' : 'text-rose-500'}">{exam.score}%</span>
+                <span class="font-black {exam.score >= 80 ? 'text-emerald-600' : 'text-rose-500'}">{exam.score}%</span>
               </td>
-              <td class="p-4 text-center font-mono whitespace-nowrap">{exam.questions}</td>
+              <td class="p-4 text-center font-mono whitespace-nowrap text-xs font-bold">{exam.questions}</td>
               <td class="p-4 pr-6 whitespace-nowrap">
                 {#if exam.status === 'Pass'}
-                  <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-emerald-500/10 border border-emerald-500/20 text-emerald-550">Pass</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-emerald-500/10 border border-emerald-500/20 text-emerald-600">Pass</span>
                 {:else}
-                  <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-rose-500/10 border border-rose-500/20 text-rose-500">Fail</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-rose-500/10 border border-rose-500/20 text-rose-500">Fail</span>
                 {/if}
               </td>
             </tr>

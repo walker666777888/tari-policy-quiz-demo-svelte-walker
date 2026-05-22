@@ -78,7 +78,7 @@
   <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-5">
     <div class="premium-heading-group">
       <h1 class="premium-heading-title">Platform Health</h1>
-      <p class="premium-heading-subtitle">Global orchestrator dashboard and tenant health metrics.</p>
+      <p class="premium-heading-subtitle">Global platform overview and client organization metrics.</p>
     </div>
     <div class="flex items-center gap-3">
       <!-- 🔄 Sandbox Mode Toggle (With Rich Hover Interactions) -->
@@ -130,40 +130,40 @@
     
     <!-- Total Clients Card -->
     <div class="bg-surface p-6 rounded-xl border border-border shadow-sm flex flex-col justify-between min-h-[120px] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-md hover:border-primary/30">
-      <div class="text-xs font-bold text-muted-foreground uppercase tracking-wider">Total Clients</div>
+      <div class="text-xs font-bold text-muted-foreground uppercase tracking-wider">Registered Client Companies</div>
       <div class="mt-4 flex items-baseline justify-between">
         {#if totalClients !== null}
           <span class="text-3xl font-extrabold text-foreground tracking-tight animate-fade-in">{totalClients}</span>
         {:else}
           <span class="text-3xl font-light text-muted-foreground opacity-30 select-none">—</span>
         {/if}
-        <span class="text-[10px] font-medium text-primary bg-primary/5 px-2 py-0.5 rounded border border-primary/10 transition-colors duration-200 hover:bg-primary/10">public.tenants</span>
+        <span class="text-[10px] font-medium text-primary bg-primary/5 px-2 py-0.5 rounded border border-primary/10 transition-colors duration-200 hover:bg-primary/10">Active Tenancies</span>
       </div>
     </div>
 
     <!-- Active Tests Card -->
     <div class="bg-surface p-6 rounded-xl border border-border shadow-sm flex flex-col justify-between min-h-[120px] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-md hover:border-primary/30">
-      <div class="text-xs font-bold text-muted-foreground uppercase tracking-wider">Active Tests</div>
+      <div class="text-xs font-bold text-muted-foreground uppercase tracking-wider">Active Quizzes</div>
       <div class="mt-4 flex items-baseline justify-between">
         {#if activeTests !== null}
           <span class="text-3xl font-extrabold text-foreground tracking-tight animate-fade-in">{activeTests}</span>
         {:else}
           <span class="text-3xl font-light text-muted-foreground opacity-30 select-none">—</span>
         {/if}
-        <span class="text-[10px] font-medium text-primary bg-primary/5 px-2 py-0.5 rounded border border-primary/10 transition-colors duration-200 hover:bg-primary/10">public.assessments</span>
+        <span class="text-[10px] font-medium text-primary bg-primary/5 px-2 py-0.5 rounded border border-primary/10 transition-colors duration-200 hover:bg-primary/10">Global Templates</span>
       </div>
     </div>
 
     <!-- Compliance Rate Card -->
     <div class="bg-surface p-6 rounded-xl border border-border shadow-sm flex flex-col justify-between min-h-[120px] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-md hover:border-primary/30">
-      <div class="text-xs font-bold text-muted-foreground uppercase tracking-wider">Compliance Rate</div>
+      <div class="text-xs font-bold text-muted-foreground uppercase tracking-wider">Platform Compliance Rate</div>
       <div class="mt-4 flex items-baseline justify-between">
         {#if complianceRate !== null}
           <span class="text-3xl font-extrabold text-foreground tracking-tight animate-fade-in">{complianceRate}%</span>
         {:else}
           <span class="text-3xl font-light text-muted-foreground opacity-30 select-none">—</span>
         {/if}
-        <span class="text-[10px] font-medium text-primary bg-primary/5 px-2 py-0.5 rounded border border-primary/10 transition-colors duration-200 hover:bg-primary/10">Global Average</span>
+        <span class="text-[10px] font-medium text-primary bg-primary/5 px-2 py-0.5 rounded border border-primary/10 transition-colors duration-200 hover:bg-primary/10">Platform Average</span>
       </div>
     </div>
 
@@ -339,7 +339,7 @@
       <!-- Offline analysis state -->
       <div class="border border-dashed border-border rounded-lg p-8 text-center min-h-[140px] flex flex-col justify-center items-center">
         <p class="text-xs text-muted-foreground">
-          Select a client node from the directory to visualize departmental pass rates, risk telemetry, and enrollment growth.
+          Select a client organization from the directory to visualize departmental pass rates, risk telemetry, and enrollment growth.
         </p>
       </div>
     {/if}
@@ -358,7 +358,7 @@
         class="bg-surface rounded-xl shadow-xl border border-border w-full max-w-md overflow-hidden transition-all duration-300"
       >
         <div class="px-6 py-4 border-b border-border flex justify-between items-center bg-muted/30">
-          <h3 class="text-sm font-bold text-foreground">Add New Organization Node</h3>
+          <h3 class="text-sm font-bold text-foreground">Add New Client Organization</h3>
           <button onclick={() => showModal = false} class="text-muted-foreground hover:text-foreground font-bold text-base transition-colors hover:rotate-90 duration-200">&times;</button>
         </div>
         
@@ -415,7 +415,7 @@
               type="submit" 
               class="px-4 py-2 text-xs font-semibold rounded-lg bg-primary text-white border border-primary/20 hover:bg-primary/95 shadow-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
             >
-              Create Tenant Node
+              Register Organization
             </button>
           </div>
         </form>

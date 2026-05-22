@@ -177,10 +177,14 @@
   {/if}
 
   <!-- Header block -->
-  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border pb-5">
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-border pb-5">
     <div class="premium-heading-group">
-      <h1 class="premium-heading-title">Employee Directory</h1>
-      <p class="premium-heading-subtitle">Provision user nodes, monitor individual certification histories, and track compliant statuses.</p>
+      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground transition-all duration-300" style="font-family:'Bricolage Grotesque',sans-serif;">
+        Employee Directory
+      </h1>
+      <p class="text-sm text-muted-foreground font-medium mt-1.5 leading-relaxed max-w-2xl">
+        Add and manage employee profiles, monitor individual certification histories, and track compliant statuses.
+      </p>
     </div>
     
     <!-- Header buttons -->
@@ -189,14 +193,14 @@
       <!-- CSV Bulk import simulation trigger -->
       <button 
         onclick={handleCsvImport}
-        class="inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 border border-border bg-surface text-muted-foreground rounded-lg shadow-sm transition-all hover:bg-muted active:scale-95 disabled:opacity-50"
+        class="inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 border border-border bg-surface text-muted-foreground rounded-xl shadow-sm transition-all hover:bg-muted active:scale-95 disabled:opacity-50 cursor-pointer"
         disabled={csvImportingState !== 'idle'}
       >
         {#if csvImportingState === 'idle'}
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1M12 12v-8m0 8l-4-4m4 4l4-4"></path></svg>
           Bulk CSV Import
         {:else if csvImportingState === 'staged'}
-          <span class="w-3.5 h-3.5 border-2 border-slate-400 border-t-transparent rounded-full animate-spin"></span>
+          <span class="w-3.5 h-3.5 border-2 border-slate-400 border-t-transparent rounded-full animate-spin shrink-0"></span>
           Parsing CSV...
         {:else}
           ✨ Success!
@@ -206,7 +210,7 @@
       <!-- Add employee button -->
       <button 
         onclick={() => isAddModalOpen = true}
-        class="inline-flex items-center gap-1.5 text-xs font-bold px-4 py-2 bg-primary text-white rounded-lg shadow-md shadow-primary/10 transition-all hover:opacity-95 active:scale-95"
+        class="inline-flex items-center gap-1.5 text-xs font-bold px-4 py-2 bg-primary text-white rounded-xl shadow-md shadow-primary/10 transition-all hover:opacity-95 active:scale-95 cursor-pointer"
       >
         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path></svg>
         Add Employee
@@ -218,7 +222,10 @@
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
     
     <!-- Chart Card 1: Compliant Activity Rings -->
-    <div class="bg-surface border border-border rounded-xl p-5 shadow-sm flex flex-col sm:flex-row gap-6 items-center">
+    <div class="bg-surface border border-border rounded-2xl p-6 shadow-sm flex flex-col sm:flex-row gap-6 items-center min-h-[14rem] sm:min-h-[15rem] relative overflow-hidden group">
+      <!-- Gradient top indicator bar -->
+      <div class="absolute left-0 top-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-amber-500 to-rose-500"></div>
+
       <div class="relative w-36 h-36 flex items-center justify-center shrink-0">
         <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
           <!-- Background track circles -->
@@ -269,60 +276,63 @@
           />
         </svg>
         <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
-          <span class="text-base font-black text-foreground">{compliantPercent}%</span>
-          <span class="text-[8px] font-bold text-muted-foreground uppercase tracking-wider">Compliant</span>
+          <span class="text-xl font-black text-foreground" style="font-family:'Bricolage Grotesque',sans-serif;">{compliantPercent}%</span>
+          <span class="text-[9px] font-extrabold text-muted-foreground/95 uppercase tracking-widest mt-0.5">Compliant</span>
         </div>
       </div>
 
       <div class="flex-1 space-y-3.5 w-full">
         <div>
-          <h3 class="text-xs font-extrabold text-foreground uppercase tracking-wider">Registry Compliance Breakdown</h3>
-          <p class="text-[9px] text-muted-foreground font-medium">Visualizing overall tenant audit thresholds</p>
+          <h3 class="text-sm font-extrabold text-foreground tracking-tight" style="font-family:'Bricolage Grotesque',sans-serif;">Registry Compliance Breakdown</h3>
+          <p class="text-[10px] text-muted-foreground/80 font-bold uppercase tracking-wider mt-0.5">Visualizing overall tenant audit thresholds</p>
         </div>
 
         <div class="space-y-2">
           <div class="flex items-center justify-between text-xs">
             <div class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>
-              <span class="font-bold text-muted-foreground">Compliant</span>
+              <span class="font-extrabold text-muted-foreground">Compliant</span>
             </div>
-            <span class="font-mono font-bold text-foreground/90">{compliantCount} <span class="text-muted-foreground font-medium font-semibold">({compliantPercent}%)</span></span>
+            <span class="font-mono font-extrabold text-foreground/90">{compliantCount} <span class="text-muted-foreground/75 font-semibold">({compliantPercent}%)</span></span>
           </div>
 
           <div class="flex items-center justify-between text-xs">
             <div class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0"></span>
-              <span class="font-bold text-muted-foreground">Pending Setup</span>
+              <span class="font-extrabold text-muted-foreground">Pending Setup</span>
             </div>
-            <span class="font-mono font-bold text-foreground/90">{pendingCount} <span class="text-muted-foreground font-medium font-semibold">({pendingPercent}%)</span></span>
+            <span class="font-mono font-extrabold text-foreground/90">{pendingCount} <span class="text-muted-foreground/75 font-semibold">({pendingPercent}%)</span></span>
           </div>
 
           <div class="flex items-center justify-between text-xs">
             <div class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-red-500 shrink-0"></span>
-              <span class="font-bold text-muted-foreground">At Risk</span>
+              <span class="font-extrabold text-muted-foreground">At Risk</span>
             </div>
-            <span class="font-mono font-bold text-foreground/90">{atRiskCount} <span class="text-muted-foreground font-medium font-semibold">({atRiskPercent}%)</span></span>
+            <span class="font-mono font-extrabold text-foreground/90">{atRiskCount} <span class="text-muted-foreground/75 font-semibold">({atRiskPercent}%)</span></span>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Chart Card 2: Department Compliance Overview -->
-    <div class="bg-surface border border-border rounded-xl p-5 shadow-sm space-y-4">
+    <div class="bg-surface border border-border rounded-2xl p-6 shadow-sm space-y-4 min-h-[14rem] sm:min-h-[15rem] relative overflow-hidden group">
+      <!-- Gradient top indicator bar -->
+      <div class="absolute left-0 top-0 right-0 h-1 bg-gradient-to-r from-primary to-indigo-600"></div>
+
       <div>
-        <h3 class="text-xs font-extrabold text-foreground uppercase tracking-wider">Department Performance Overview</h3>
-        <p class="text-[9px] text-muted-foreground font-medium">Compliance threshold ratios per corporate sector</p>
+        <h3 class="text-sm font-extrabold text-foreground tracking-tight" style="font-family:'Bricolage Grotesque',sans-serif;">Department Performance Overview</h3>
+        <p class="text-[10px] text-muted-foreground/80 font-bold uppercase tracking-wider mt-0.5">Compliance threshold ratios per corporate sector</p>
       </div>
 
       <div class="space-y-3">
         {#each deptMetrics as dept}
           <div class="space-y-1">
-            <div class="flex justify-between items-center text-[10px] font-bold">
-              <span class="text-muted-foreground">{dept.name} <span class="text-muted-foreground font-medium font-mono font-semibold">({dept.count} active)</span></span>
-              <span class="text-foreground/90 font-mono">{dept.percent}%</span>
+            <div class="flex justify-between items-center text-xs">
+              <span class="font-extrabold text-foreground/95">{dept.name} <span class="text-muted-foreground/75 font-bold font-mono text-[9px] uppercase tracking-wider ml-1">({dept.count} active)</span></span>
+              <span class="text-foreground font-mono font-extrabold text-xs">{dept.percent}%</span>
             </div>
-            <div class="h-2 w-full bg-muted rounded-full overflow-hidden">
+            <div class="h-2 w-full bg-muted rounded-full overflow-hidden border border-border/10">
               <div 
                 class="h-full rounded-full transition-all duration-500 ease-out 
                   {dept.percent >= 80 ? 'bg-emerald-500' : dept.percent >= 50 ? 'bg-amber-500' : 'bg-red-500'}"
@@ -337,27 +347,27 @@
   </div>
 
   <!-- Filters Segment Card -->
-  <div class="bg-surface rounded-xl border border-border shadow-sm p-4 grid grid-cols-1 md:grid-cols-4 gap-4">
+  <div class="bg-surface rounded-2xl border border-border shadow-sm p-5 grid grid-cols-1 md:grid-cols-4 gap-4">
     
     <!-- Search -->
     <div class="space-y-1.5">
-      <label class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider" for="search">Search Employee</label>
+      <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest block" for="search">Search Employee</label>
       <input 
         id="search"
         type="text" 
         placeholder="Search by name or email..." 
         bind:value={searchQuery}
-        class="w-full border border-border rounded-lg px-3 py-1.5 text-xs bg-muted text-foreground/90 placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm transition-all hover:border-border"
+        class="w-full border border-border rounded-xl px-3 py-2 text-xs bg-muted/65 text-foreground/90 placeholder:text-muted-foreground focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all hover:border-border/80 duration-200"
       />
     </div>
 
     <!-- Filter Department -->
     <div class="space-y-1.5">
-      <label class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider" for="dept">Filter Department</label>
+      <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest block" for="dept">Filter Department</label>
       <select 
         id="dept"
         bind:value={selectedDept}
-        class="w-full border border-border rounded-lg px-2.5 py-1.5 text-xs bg-muted text-foreground/90 font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm transition-all hover:bg-muted cursor-pointer"
+        class="w-full border border-border rounded-xl px-2.5 py-2 text-xs bg-muted/65 text-foreground/90 font-bold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all hover:bg-muted/80 cursor-pointer duration-200"
       >
         <option value="All">All Departments</option>
         <option value="Finance">Finance</option>
@@ -370,11 +380,11 @@
 
     <!-- Filter Compliance Status -->
     <div class="space-y-1.5">
-      <label class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider" for="status">Compliance Status</label>
+      <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest block" for="status">Compliance Status</label>
       <select 
         id="status"
         bind:value={selectedStatus}
-        class="w-full border border-border rounded-lg px-2.5 py-1.5 text-xs bg-muted text-foreground/90 font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm transition-all hover:bg-muted cursor-pointer"
+        class="w-full border border-border rounded-xl px-2.5 py-2 text-xs bg-muted/65 text-foreground/90 font-bold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all hover:bg-muted/80 cursor-pointer duration-200"
       >
         <option value="All">All Statuses</option>
         <option value="Compliant">Compliant</option>
@@ -385,11 +395,11 @@
 
     <!-- Filter Employee Category -->
     <div class="space-y-1.5">
-      <label class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider" for="category">Employee Role Category</label>
+      <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest block" for="category">Employee Role Category</label>
       <select 
         id="category"
         bind:value={selectedCategory}
-        class="w-full border border-border rounded-lg px-2.5 py-1.5 text-xs bg-muted text-foreground/90 font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm transition-all hover:bg-muted cursor-pointer"
+        class="w-full border border-border rounded-xl px-2.5 py-2 text-xs bg-muted/65 text-foreground/90 font-bold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all hover:bg-muted/80 cursor-pointer duration-200"
       >
         <option value="All">All Roles</option>
         <option value="General">General Category</option>
@@ -401,11 +411,11 @@
   </div>
 
   <!-- Primary Employees List Registry Grid -->
-  <div class="bg-surface rounded-xl border border-border shadow-sm overflow-hidden">
+  <div class="bg-surface rounded-2xl border border-border shadow-sm overflow-hidden">
     <div class="overflow-x-auto">
       <table class="w-full text-left border-collapse">
         <thead>
-          <tr class="bg-muted/70 border-b border-border text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+          <tr class="bg-muted/70 border-b border-border text-[11px] font-bold uppercase tracking-wider text-muted-foreground/80">
             <th class="p-4 pl-5 whitespace-nowrap">Employee Name & Profile</th>
             <th class="p-4 whitespace-nowrap">Department</th>
             <th class="p-4 whitespace-nowrap">Category</th>
@@ -422,31 +432,31 @@
               onclick={() => selectedEmployee = employee}
               class="hover:bg-muted/70 cursor-pointer transition-colors duration-150 group"
             >
-              <td class="p-4 pl-5 flex items-center gap-3 whitespace-nowrap min-w-[200px]">
+              <td class="py-5 px-4 pl-5 flex items-center gap-3 whitespace-nowrap min-w-[200px]">
                 <div class="w-8 h-8 rounded-full bg-muted flex items-center justify-center font-bold text-muted-foreground border border-border/50 group-hover:scale-105 transition-all">
                   {employee.name.charAt(0)}
                 </div>
                 <div>
-                  <div class="font-bold text-foreground group-hover:text-primary transition-colors">{employee.name}</div>
-                  <div class="text-[9px] text-muted-foreground font-mono mt-0.5">{employee.email}</div>
+                  <div class="font-extrabold text-foreground group-hover:text-primary transition-colors text-sm">{employee.name}</div>
+                  <div class="text-[10px] text-muted-foreground/80 font-mono mt-0.5">{employee.email}</div>
                 </div>
               </td>
-              <td class="p-4 whitespace-nowrap">{employee.dept}</td>
-              <td class="p-4 whitespace-nowrap">
-                <span class="px-2 py-0.5 rounded text-[9px] font-bold bg-muted border border-border/40 text-muted-foreground">{employee.role}</span>
+              <td class="py-5 px-4 whitespace-nowrap font-bold text-foreground/90">{employee.dept}</td>
+              <td class="py-5 px-4 whitespace-nowrap">
+                <span class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold bg-muted border border-border/40 text-muted-foreground/90 tracking-wide uppercase">{employee.role}</span>
               </td>
-              <td class="p-4 text-center font-mono text-muted-foreground font-bold whitespace-nowrap">{employee.assigned}</td>
-              <td class="p-4 text-center font-mono text-foreground/90 font-extrabold whitespace-nowrap">{employee.completed}/{employee.assigned}</td>
-              <td class="p-4 whitespace-nowrap">
+              <td class="py-5 px-4 text-center font-mono text-muted-foreground/80 font-bold whitespace-nowrap">{employee.assigned}</td>
+              <td class="py-5 px-4 text-center font-mono text-foreground font-black text-sm whitespace-nowrap">{employee.completed}<span class="text-muted-foreground/60 text-xs font-normal"> / {employee.assigned}</span></td>
+              <td class="py-5 px-4 whitespace-nowrap">
                 {#if employee.status === 'Compliant'}
-                  <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-success/10 border border-success/20 text-success">Compliant</span>
+                  <span class="px-2.5 py-1 rounded-xl text-[9px] font-extrabold uppercase bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 tracking-wider">Compliant</span>
                 {:else if employee.status === 'Pending'}
-                  <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-warning/10 border border-warning/20 text-warning">Pending</span>
+                  <span class="px-2.5 py-1 rounded-xl text-[9px] font-extrabold uppercase bg-amber-500/10 border border-amber-500/20 text-amber-600 tracking-wider">Pending</span>
                 {:else}
-                  <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-destructive/10 border border-destructive/20 text-destructive animate-pulse">At Risk</span>
+                  <span class="px-2.5 py-1 rounded-xl text-[9px] font-extrabold uppercase bg-rose-500/10 border border-rose-500/20 text-rose-600 tracking-wider animate-pulse">At Risk</span>
                 {/if}
               </td>
-              <td class="p-4 pr-5 text-muted-foreground font-semibold whitespace-nowrap">{employee.lastActive}</td>
+              <td class="py-5 px-4 pr-5 text-muted-foreground/80 font-bold whitespace-nowrap">{employee.lastActive}</td>
             </tr>
           {/each}
         </tbody>
@@ -463,7 +473,7 @@
     >
       <div 
         transition:slide={{axis: 'x'}}
-        class="w-full max-w-lg bg-surface h-screen shadow-2xl p-6 overflow-y-auto space-y-6 flex flex-col justify-between"
+        class="w-full max-w-lg bg-surface h-screen shadow-2xl p-6 overflow-y-auto space-y-6 flex flex-col justify-between border-l border-border relative"
         onclick={(e) => e.stopPropagation()}
       >
         <div class="space-y-6">
@@ -471,17 +481,17 @@
           <!-- Drawer Header -->
           <div class="flex items-center justify-between border-b border-border pb-4">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center font-extrabold text-primary border border-primary/20">
+              <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center font-extrabold text-primary border border-primary/20 shrink-0">
                 {selectedEmployee.name.charAt(0)}
               </div>
               <div>
-                <h3 class="text-sm font-bold text-foreground">{selectedEmployee.name}</h3>
+                <h3 class="text-base font-extrabold text-foreground" style="font-family:'Bricolage Grotesque',sans-serif;">{selectedEmployee.name}</h3>
                 <p class="text-[10px] text-muted-foreground font-mono mt-0.5">{selectedEmployee.email}</p>
               </div>
             </div>
             <button 
               onclick={() => selectedEmployee = null}
-              class="w-8 h-8 rounded-full bg-muted border border-border/50 flex items-center justify-center text-muted-foreground hover:text-muted-foreground active:scale-95 transition-all"
+              class="w-8 h-8 rounded-full bg-muted border border-border/50 flex items-center justify-center text-muted-foreground hover:text-foreground active:scale-95 transition-all cursor-pointer"
             >
               ✕
             </button>
@@ -489,24 +499,24 @@
 
           <!-- Metadata info cards -->
           <div class="grid grid-cols-2 gap-4">
-            <div class="bg-muted border border-border p-3 rounded-lg text-center space-y-1">
-              <span class="text-[9px] font-bold text-muted-foreground uppercase">Department</span>
-              <div class="text-xs font-bold text-foreground/90">{selectedEmployee.dept}</div>
+            <div class="bg-muted/65 border border-border/80 p-4 rounded-xl text-center space-y-1">
+              <span class="text-[10px] font-bold text-muted-foreground/80 uppercase tracking-wider block">Department</span>
+              <div class="text-sm font-extrabold text-foreground">{selectedEmployee.dept}</div>
             </div>
-            <div class="bg-muted border border-border p-3 rounded-lg text-center space-y-1">
-              <span class="text-[9px] font-bold text-muted-foreground uppercase">Role category</span>
-              <div class="text-xs font-bold text-foreground/90">{selectedEmployee.role} Category</div>
+            <div class="bg-muted/65 border border-border/80 p-4 rounded-xl text-center space-y-1">
+              <span class="text-[10px] font-bold text-muted-foreground/80 uppercase tracking-wider block">Role category</span>
+              <div class="text-sm font-extrabold text-foreground">{selectedEmployee.role} Category</div>
             </div>
           </div>
 
           <!-- Module Attempts Table -->
           <div class="space-y-3">
-            <h4 class="text-[11px] font-extrabold text-muted-foreground uppercase tracking-wider">Assigned Exam & Certification Log</h4>
+            <h4 class="text-xs font-extrabold text-foreground uppercase tracking-widest" style="font-family:'Bricolage Grotesque',sans-serif;">Assigned Exam & Certification Log</h4>
             
-            <div class="overflow-hidden border border-border rounded-lg">
+            <div class="overflow-hidden border border-border rounded-xl">
               <table class="w-full text-left border-collapse text-xs">
                 <thead>
-                  <tr class="bg-muted/70 border-b border-border text-[9px] font-bold uppercase text-muted-foreground">
+                  <tr class="bg-muted/70 border-b border-border text-[10px] font-bold uppercase tracking-wider text-muted-foreground/80">
                     <th class="p-3 pl-4">Policy Module</th>
                     <th class="p-3 text-center">Score</th>
                     <th class="p-3">Completion Date</th>
@@ -516,16 +526,16 @@
                 <tbody class="font-semibold text-muted-foreground divide-y divide-border">
                   {#each selectedEmployee.history as hist}
                     <tr>
-                      <td class="p-3 pl-4 font-semibold text-foreground">{hist.exam}</td>
-                      <td class="p-3 text-center font-mono font-bold text-muted-foreground">{hist.score > 0 ? `${hist.score}%` : '—'}</td>
-                      <td class="p-3 text-muted-foreground font-semibold">{hist.date}</td>
+                      <td class="p-3 pl-4 font-bold text-foreground/95">{hist.exam}</td>
+                      <td class="p-3 text-center font-mono font-black text-foreground">{hist.score > 0 ? `${hist.score}%` : '—'}</td>
+                      <td class="p-3 text-foreground/80 font-bold">{hist.date}</td>
                       <td class="p-3 pr-4">
                         {#if hist.status === 'Pass'}
-                          <span class="px-2 py-0.5 text-[8px] font-extrabold uppercase rounded bg-success/10 text-success border border-success/20">Pass</span>
+                          <span class="px-2 py-0.5 text-[9px] font-extrabold uppercase rounded bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">Pass</span>
                         {:else if hist.status === 'Pending'}
-                          <span class="px-2 py-0.5 text-[8px] font-extrabold uppercase rounded bg-warning/10 text-warning border border-warning/20">Pending</span>
+                          <span class="px-2 py-0.5 text-[9px] font-extrabold uppercase rounded bg-amber-500/10 text-amber-600 border border-amber-500/20">Pending</span>
                         {:else}
-                          <span class="px-2 py-0.5 text-[8px] font-extrabold uppercase rounded bg-destructive/10 text-destructive border border-destructive/20">Fail</span>
+                          <span class="px-2 py-0.5 text-[9px] font-extrabold uppercase rounded bg-rose-500/10 text-rose-600 border border-rose-500/20 animate-pulse">Fail</span>
                         {/if}
                       </td>
                     </tr>
@@ -540,7 +550,7 @@
         <!-- Action footer -->
         <button 
           onclick={() => selectedEmployee = null}
-          class="w-full text-center py-2 bg-muted hover:bg-muted text-xs font-semibold text-muted-foreground border border-border/50 rounded-lg transition-all active:scale-[0.98]"
+          class="w-full text-center py-3 bg-muted hover:bg-muted/80 text-xs font-bold text-muted-foreground hover:text-foreground border border-border rounded-xl transition-all active:scale-[0.98] cursor-pointer"
         >
           Close Detail View
         </button>
@@ -557,14 +567,17 @@
     >
       <div 
         transition:slide={{axis: 'y'}}
-        class="bg-surface rounded-xl border border-border/60 shadow-2xl w-full max-w-md p-6 space-y-6"
+        class="bg-surface rounded-2xl border border-border/60 shadow-2xl w-full max-w-md p-6 space-y-6 relative overflow-hidden"
         onclick={(e) => e.stopPropagation()}
       >
+        <!-- Gradient top indicator bar -->
+        <div class="absolute left-0 top-0 right-0 h-1 bg-gradient-to-r from-primary to-indigo-600"></div>
+
         <div class="flex items-center justify-between border-b border-border pb-3">
-          <h3 class="text-sm font-bold text-foreground">Add New Employee Profile</h3>
+          <h3 class="text-base font-extrabold text-foreground" style="font-family:'Bricolage Grotesque',sans-serif;">Add New Employee Profile</h3>
           <button 
             onclick={() => isAddModalOpen = false}
-            class="text-muted-foreground hover:text-muted-foreground font-semibold"
+            class="text-muted-foreground hover:text-foreground font-semibold cursor-pointer"
           >
             ✕
           </button>
@@ -573,38 +586,38 @@
         <form onsubmit={handleAddEmployee} class="space-y-4">
           <!-- Name -->
           <div class="space-y-1.5">
-            <label class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider" for="employeeName">Full Name *</label>
+            <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest block" for="employeeName">Full Name *</label>
             <input 
               id="employeeName"
               type="text" 
               placeholder="e.g. Bruce Wayne" 
               bind:value={newName}
               required
-              class="w-full border border-border rounded-lg px-3 py-2 text-xs bg-muted text-foreground/90 placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm"
+              class="w-full border border-border rounded-xl px-3 py-2 text-xs bg-muted/65 text-foreground/90 placeholder:text-muted-foreground focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all hover:border-border/80 duration-200"
             />
           </div>
 
           <!-- Email -->
           <div class="space-y-1.5">
-            <label class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider" for="employeeEmail">Work Email Address *</label>
+            <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest block" for="employeeEmail">Work Email Address *</label>
             <input 
               id="employeeEmail"
               type="email" 
               placeholder="e.g. bruce@acme.corp" 
               bind:value={newEmail}
               required
-              class="w-full border border-border rounded-lg px-3 py-2 text-xs bg-muted text-foreground/90 placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm"
+              class="w-full border border-border rounded-xl px-3 py-2 text-xs bg-muted/65 text-foreground/90 placeholder:text-muted-foreground focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all hover:border-border/80 duration-200"
             />
           </div>
 
           <div class="grid grid-cols-2 gap-4">
             <!-- Department -->
             <div class="space-y-1.5">
-              <label class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider" for="employeeDept">Department</label>
+              <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest block" for="employeeDept">Department</label>
               <select 
                 id="employeeDept"
                 bind:value={newDept}
-                class="w-full border border-border rounded-lg px-2.5 py-1.5 text-xs bg-muted text-foreground/90 font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm cursor-pointer"
+                class="w-full border border-border rounded-xl px-2.5 py-2 text-xs bg-muted/65 text-foreground/90 font-bold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm cursor-pointer transition-all duration-200 hover:bg-muted"
               >
                 <option value="Engineering">Engineering</option>
                 <option value="Finance">Finance</option>
@@ -616,11 +629,11 @@
 
             <!-- Role category -->
             <div class="space-y-1.5">
-              <label class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider" for="employeeRole">Role category</label>
+              <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest block" for="employeeRole">Role category</label>
               <select 
                 id="employeeRole"
                 bind:value={newRole}
-                class="w-full border border-border rounded-lg px-2.5 py-1.5 text-xs bg-muted text-foreground/90 font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm cursor-pointer"
+                class="w-full border border-border rounded-xl px-2.5 py-2 text-xs bg-muted/65 text-foreground/90 font-bold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm cursor-pointer transition-all duration-200 hover:bg-muted"
               >
                 <option value="General">General</option>
                 <option value="Manager">Manager</option>
@@ -633,13 +646,13 @@
             <button 
               type="button" 
               onclick={() => isAddModalOpen = false}
-              class="flex-1 py-2 border border-border bg-surface hover:bg-muted text-xs font-semibold text-muted-foreground rounded-lg transition-all active:scale-95"
+              class="flex-1 py-2.5 border border-border bg-surface hover:bg-muted text-xs font-bold text-muted-foreground rounded-xl transition-all active:scale-95 cursor-pointer"
             >
               Cancel
             </button>
             <button 
               type="submit"
-              class="flex-1 py-2 bg-primary hover:opacity-95 text-xs font-bold text-white rounded-lg shadow-md shadow-primary/10 transition-all active:scale-95"
+              class="flex-1 py-2.5 bg-primary hover:opacity-95 text-xs font-bold text-white rounded-xl shadow-md shadow-primary/10 transition-all active:scale-95 cursor-pointer"
             >
               Create Account
             </button>
