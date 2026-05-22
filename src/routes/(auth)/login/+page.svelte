@@ -214,7 +214,7 @@
               <h1 class="text-[38px] xl:text-[46px] font-extrabold tracking-tight leading-[1.1] text-white">
                 {@html slides[currentSlide].title.replace("enterprise compliance", '<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-primary to-indigo-400">enterprise compliance</span>').replace("real-time", '<span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-emerald-400 to-cyan-400">real-time</span>').replace("role-based security", '<span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">role-based security</span>')}
               </h1>
-              <p class="text-sm xl:text-base text-slate-455 font-medium leading-relaxed max-w-md">
+              <p class="text-sm xl:text-base text-slate-400 font-medium leading-relaxed max-w-md">
                 {slides[currentSlide].desc}
               </p>
             </div>

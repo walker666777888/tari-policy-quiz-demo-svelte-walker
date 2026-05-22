@@ -50,13 +50,13 @@
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
     
     <!-- Total Employees -->
-    <div class="bg-surface rounded-2xl border border-border p-5 sm:p-6 shadow-sm transition-all duration-350 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between min-h-[8.5rem] sm:min-h-[9rem] relative overflow-hidden group">
+    <div class="bg-surface rounded-2xl border border-border p-5 sm:p-6 shadow-sm transition-all duration-350 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between min-h-[11.5rem] sm:min-h-[12.5rem] relative overflow-hidden group">
       <div>
-        <span class="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Enrolled Employees</span>
-        <div class="text-4xl font-black text-foreground tracking-tight mt-1">{stats.totalEmployees}</div>
+        <span class="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 block">Enrolled Employees</span>
+        <div class="text-4xl font-black text-foreground tracking-tight mt-2">{stats.totalEmployees}</div>
       </div>
-      <div class="text-[11px] text-muted-foreground font-semibold mt-auto flex items-center gap-1.5">
-        <span class="text-emerald-500 font-bold">100%</span> active and registered employee accounts
+      <div class="text-[11px] text-muted-foreground font-semibold mt-auto pt-4 z-10 leading-relaxed max-w-[85%]">
+        <span class="text-emerald-500 font-bold mr-1">100%</span> active and registered employee accounts
       </div>
       <div class="absolute right-4 bottom-4 text-primary/10 group-hover:text-primary/20 group-hover:scale-110 transition-all duration-300 pointer-events-none">
         <svg class="w-14 h-14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
@@ -64,18 +64,18 @@
     </div>
 
     <!-- Compliance Rate -->
-    <div class="bg-surface rounded-2xl border border-border p-5 sm:p-6 shadow-sm transition-all duration-350 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between min-h-[8.5rem] sm:min-h-[9rem] relative overflow-hidden group">
+    <div class="bg-surface rounded-2xl border border-border p-5 sm:p-6 shadow-sm transition-all duration-350 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between min-h-[11.5rem] sm:min-h-[12.5rem] relative overflow-hidden group">
       <div>
-        <span class="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Compliance Rate</span>
-        <div class="text-4xl font-black text-foreground tracking-tight mt-1 flex items-baseline gap-1">
+        <span class="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 block">Compliance Rate</span>
+        <div class="text-4xl font-black text-foreground tracking-tight mt-2 flex items-baseline gap-1">
           {stats.complianceRate}%
         </div>
       </div>
-      <div class="w-full space-y-2 mt-auto">
-        <div class="h-2 w-full bg-muted rounded-full overflow-hidden relative">
+      <div class="w-full space-y-3.5 mt-auto pt-4">
+        <div class="h-1.5 w-full bg-muted rounded-full overflow-hidden relative">
           <div class="h-full bg-primary rounded-full transition-all duration-1000 relative" style="width: {stats.complianceRate}%"></div>
         </div>
-        <div class="flex justify-between text-[9px] text-muted-foreground font-bold uppercase tracking-wider">
+        <div class="flex justify-between text-[10px] text-muted-foreground/80 font-medium max-w-[95%]">
           <span>Target: 95%</span>
           <span>Diff: -10.5%</span>
         </div>
@@ -83,14 +83,14 @@
     </div>
 
     <!-- Assigned vs Completed -->
-    <div class="bg-surface rounded-2xl border border-border p-5 sm:p-6 shadow-sm transition-all duration-350 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between min-h-[8.5rem] sm:min-h-[9rem] relative overflow-hidden group">
+    <div class="bg-surface rounded-2xl border border-border p-5 sm:p-6 shadow-sm transition-all duration-355 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between min-h-[11.5rem] sm:min-h-[12.5rem] relative overflow-hidden group">
       <div>
-        <span class="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Quiz Completions</span>
-        <div class="text-4xl font-black text-foreground tracking-tight mt-1">
+        <span class="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 block">Quiz Completions</span>
+        <div class="text-4xl font-black text-foreground tracking-tight mt-2">
           {stats.completedAttempts}<span class="text-muted-foreground text-xl font-medium">/{stats.totalAttempts}</span>
         </div>
       </div>
-      <div class="text-[11px] text-muted-foreground font-semibold mt-auto">
+      <div class="text-[11px] text-muted-foreground font-semibold mt-auto pt-4 z-10 leading-relaxed">
         Active: <span class="font-bold text-primary">{stats.assignedModules} company policies</span>
       </div>
       <div class="absolute right-4 bottom-4 text-emerald-500/10 group-hover:text-emerald-500/20 group-hover:scale-110 transition-all duration-300 pointer-events-none">
@@ -99,15 +99,15 @@
     </div>
 
     <!-- Overdue Assessments -->
-    <div class="bg-surface rounded-2xl border border-border p-5 sm:p-6 shadow-sm transition-all duration-350 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between min-h-[8.5rem] sm:min-h-[9rem] relative overflow-hidden group">
+    <div class="bg-surface rounded-2xl border border-border p-5 sm:p-6 shadow-sm transition-all duration-350 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between min-h-[11.5rem] sm:min-h-[12.5rem] relative overflow-hidden group">
       <div>
-        <span class="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Overdue Quizzes</span>
-        <div class="flex items-center gap-3 mt-1">
+        <span class="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-1.5 block">Overdue Quizzes</span>
+        <div class="flex items-center gap-3 mt-2">
           <div class="text-4xl font-black text-foreground tracking-tight">{stats.overdueCount}</div>
           <span class="px-2 py-0.5 text-[9px] font-extrabold uppercase rounded bg-rose-500/10 border border-rose-500/20 text-rose-500 animate-pulse">At Risk</span>
         </div>
       </div>
-      <div class="text-[11px] text-muted-foreground font-semibold mt-auto">
+      <div class="text-[11px] text-muted-foreground font-semibold mt-auto pt-4 z-10 leading-relaxed">
         Requires overdue compliance reminders
       </div>
       <div class="absolute right-4 bottom-4 text-rose-500/10 group-hover:text-rose-500/20 group-hover:scale-110 transition-all duration-300 pointer-events-none">
@@ -163,7 +163,7 @@
       <!-- Gorgeous SVG Pie Chart Representation -->
       <div class="flex items-center justify-center py-4 relative">
         <svg class="w-36 h-36 transform -rotate-90" viewBox="0 0 36 36">
-          <circle cx="18" cy="18" r="15.915" fill="none" stroke="#F1F5F9" stroke-width="3"></circle>
+          <circle cx="18" cy="18" r="15.915" fill="none" stroke="currentColor" class="text-slate-200 dark:text-slate-800/60" stroke-width="3"></circle>
           <!-- Compliant portion (84.5%) -->
           <circle cx="18" cy="18" r="15.915" fill="none" stroke="rgb(var(--color-primary))" stroke-width="3" stroke-dasharray="84.5 15.5" stroke-dashoffset="0"></circle>
           <!-- Pending portion (10%) -->

@@ -228,21 +228,21 @@
 
       <div class="relative w-36 h-36 flex items-center justify-center shrink-0">
         <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-          <!-- Background track circles -->
-          <circle cx="50" cy="50" r="38" stroke="#f1f5f9" stroke-width="6" fill="transparent" />
-          <circle cx="50" cy="50" r="28" stroke="#f1f5f9" stroke-width="6" fill="transparent" />
-          <circle cx="50" cy="50" r="18" stroke="#f1f5f9" stroke-width="6" fill="transparent" />
+          <!-- Background track circles (responsive stroke) -->
+          <circle cx="50" cy="50" r="47" stroke="currentColor" class="text-slate-200 dark:text-slate-800/60" stroke-width="4.5" fill="transparent" />
+          <circle cx="50" cy="50" r="40" stroke="currentColor" class="text-slate-200 dark:text-slate-800/60" stroke-width="4.5" fill="transparent" />
+          <circle cx="50" cy="50" r="33" stroke="currentColor" class="text-slate-200 dark:text-slate-800/60" stroke-width="4.5" fill="transparent" />
 
           <!-- Dynamic Compliant Ring (Green) -->
           <circle 
             cx="50" 
             cy="50" 
-            r="38" 
+            r="47" 
             stroke="#10b981" 
-            stroke-width="6" 
+            stroke-width="4.5" 
             fill="transparent" 
-            stroke-dasharray="238.7" 
-            stroke-dashoffset={238.7 - (238.7 * compliantPercent) / 100}
+            stroke-dasharray="295.3" 
+            stroke-dashoffset={295.3 - (295.3 * compliantPercent) / 100}
             stroke-linecap="round"
             class="transition-all duration-700 ease-out"
           />
@@ -251,12 +251,12 @@
           <circle 
             cx="50" 
             cy="50" 
-            r="28" 
+            r="40" 
             stroke="#f59e0b" 
-            stroke-width="6" 
+            stroke-width="4.5" 
             fill="transparent" 
-            stroke-dasharray="175.9" 
-            stroke-dashoffset={175.9 - (175.9 * pendingPercent) / 100}
+            stroke-dasharray="251.3" 
+            stroke-dashoffset={251.3 - (251.3 * pendingPercent) / 100}
             stroke-linecap="round"
             class="transition-all duration-700 ease-out"
           />
@@ -265,19 +265,19 @@
           <circle 
             cx="50" 
             cy="50" 
-            r="18" 
+            r="33" 
             stroke="#ef4444" 
-            stroke-width="6" 
+            stroke-width="4.5" 
             fill="transparent" 
-            stroke-dasharray="113.1" 
-            stroke-dashoffset={113.1 - (113.1 * atRiskPercent) / 100}
+            stroke-dasharray="207.3" 
+            stroke-dashoffset={207.3 - (207.3 * atRiskPercent) / 100}
             stroke-linecap="round"
             class="transition-all duration-700 ease-out"
           />
         </svg>
-        <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
-          <span class="text-xl font-black text-foreground" style="font-family:'Bricolage Grotesque',sans-serif;">{compliantPercent}%</span>
-          <span class="text-[9px] font-extrabold text-muted-foreground/95 uppercase tracking-widest mt-0.5">Compliant</span>
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-center leading-none select-none">
+          <span class="text-xl font-black text-foreground leading-none" style="font-family:'Bricolage Grotesque',sans-serif;">{compliantPercent}%</span>
+          <span class="text-[7.2px] font-black text-muted-foreground/95 uppercase tracking-wider mt-1">Compliant</span>
         </div>
       </div>
 
@@ -347,7 +347,7 @@
   </div>
 
   <!-- Filters Segment Card -->
-  <div class="bg-surface rounded-2xl border border-border shadow-sm p-5 grid grid-cols-1 md:grid-cols-4 gap-4">
+  <div class="bg-surface rounded-2xl border border-border shadow-sm p-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
     
     <!-- Search -->
     <div class="space-y-1.5">
@@ -357,7 +357,7 @@
         type="text" 
         placeholder="Search by name or email..." 
         bind:value={searchQuery}
-        class="w-full border border-border rounded-xl px-3 py-2 text-xs bg-muted/65 text-foreground/90 placeholder:text-muted-foreground focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all hover:border-border/80 duration-200"
+        class="w-full border border-border rounded-xl px-3 py-2 text-xs bg-muted text-foreground/90 placeholder:text-muted-foreground focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all hover:border-border/80 duration-200"
       />
     </div>
 
@@ -367,7 +367,7 @@
       <select 
         id="dept"
         bind:value={selectedDept}
-        class="w-full border border-border rounded-xl px-2.5 py-2 text-xs bg-muted/65 text-foreground/90 font-bold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all hover:bg-muted/80 cursor-pointer duration-200"
+        class="w-full border border-border rounded-xl px-2.5 py-2 text-xs bg-muted text-foreground/90 font-bold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all hover:bg-muted/80 cursor-pointer duration-200"
       >
         <option value="All">All Departments</option>
         <option value="Finance">Finance</option>
@@ -384,7 +384,7 @@
       <select 
         id="status"
         bind:value={selectedStatus}
-        class="w-full border border-border rounded-xl px-2.5 py-2 text-xs bg-muted/65 text-foreground/90 font-bold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all hover:bg-muted/80 cursor-pointer duration-200"
+        class="w-full border border-border rounded-xl px-2.5 py-2 text-xs bg-muted text-foreground/90 font-bold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all hover:bg-muted/80 cursor-pointer duration-200"
       >
         <option value="All">All Statuses</option>
         <option value="Compliant">Compliant</option>
@@ -399,7 +399,7 @@
       <select 
         id="category"
         bind:value={selectedCategory}
-        class="w-full border border-border rounded-xl px-2.5 py-2 text-xs bg-muted/65 text-foreground/90 font-bold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all hover:bg-muted/80 cursor-pointer duration-200"
+        class="w-full border border-border rounded-xl px-2.5 py-2 text-xs bg-muted text-foreground/90 font-bold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all hover:bg-muted/80 cursor-pointer duration-200"
       >
         <option value="All">All Roles</option>
         <option value="General">General Category</option>
@@ -593,7 +593,7 @@
               placeholder="e.g. Bruce Wayne" 
               bind:value={newName}
               required
-              class="w-full border border-border rounded-xl px-3 py-2 text-xs bg-muted/65 text-foreground/90 placeholder:text-muted-foreground focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all hover:border-border/80 duration-200"
+              class="w-full border border-border rounded-xl px-3 py-2 text-xs bg-muted text-foreground/90 placeholder:text-muted-foreground focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all hover:border-border/80 duration-200"
             />
           </div>
 
@@ -606,7 +606,7 @@
               placeholder="e.g. bruce@acme.corp" 
               bind:value={newEmail}
               required
-              class="w-full border border-border rounded-xl px-3 py-2 text-xs bg-muted/65 text-foreground/90 placeholder:text-muted-foreground focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all hover:border-border/80 duration-200"
+              class="w-full border border-border rounded-xl px-3 py-2 text-xs bg-muted text-foreground/90 placeholder:text-muted-foreground focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all hover:border-border/80 duration-200"
             />
           </div>
 
@@ -617,7 +617,7 @@
               <select 
                 id="employeeDept"
                 bind:value={newDept}
-                class="w-full border border-border rounded-xl px-2.5 py-2 text-xs bg-muted/65 text-foreground/90 font-bold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm cursor-pointer transition-all duration-200 hover:bg-muted"
+                class="w-full border border-border rounded-xl px-2.5 py-2 text-xs bg-muted text-foreground/90 font-bold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm cursor-pointer transition-all duration-200 hover:bg-muted"
               >
                 <option value="Engineering">Engineering</option>
                 <option value="Finance">Finance</option>
@@ -633,7 +633,7 @@
               <select 
                 id="employeeRole"
                 bind:value={newRole}
-                class="w-full border border-border rounded-xl px-2.5 py-2 text-xs bg-muted/65 text-foreground/90 font-bold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm cursor-pointer transition-all duration-200 hover:bg-muted"
+                class="w-full border border-border rounded-xl px-2.5 py-2 text-xs bg-muted text-foreground/90 font-bold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm cursor-pointer transition-all duration-200 hover:bg-muted"
               >
                 <option value="General">General</option>
                 <option value="Manager">Manager</option>

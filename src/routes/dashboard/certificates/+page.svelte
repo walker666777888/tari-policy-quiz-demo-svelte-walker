@@ -76,37 +76,82 @@
     
     <!-- Score Improvement Chart -->
     <div in:fly={{ y: 15, duration: 500, delay: 240 }} class="bg-surface rounded-2xl border border-border p-6 shadow-sm lg:col-span-2 relative overflow-hidden group">
-      <div class="flex items-center gap-2.5 mb-6">
-        <span class="w-1.5 h-6 bg-gradient-to-b from-primary to-blue-600 rounded-full"></span>
-        <h3 class="text-base sm:text-lg font-extrabold text-foreground tracking-tight" style="font-family:'Bricolage Grotesque',sans-serif;">Score Improvement Over Time</h3>
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+        <div class="flex items-center gap-2.5">
+          <span class="w-1.5 h-6 bg-gradient-to-b from-primary to-blue-600 rounded-full"></span>
+          <h3 class="text-base sm:text-lg font-extrabold text-foreground tracking-tight" style="font-family:'Bricolage Grotesque',sans-serif;">Score Improvement Over Time</h3>
+        </div>
+        <span class="text-[10px] font-extrabold bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 px-2.5 py-1 rounded-full uppercase tracking-wider self-start sm:self-auto shadow-sm">80% Passing Threshold</span>
       </div>
       
-      <div class="h-48 flex items-end justify-between gap-3 border-b border-border pb-2 relative">
-        <div class="absolute left-0 right-0 bottom-1/2 border-b border-dashed border-border/80 z-0"></div>
-        <div class="absolute left-0 right-0 top-1/4 border-b border-dashed border-border/80 z-0 text-[9px] text-muted-foreground/80 font-bold uppercase tracking-widest text-right pr-1">80% Passing</div>
-        
-        {#each chartData as data, i}
-          <div class="flex flex-col items-center flex-1 z-10 group/bar relative h-full justify-end">
-            <!-- Tooltip -->
-            <div class="absolute -top-10 opacity-0 group-hover/bar:opacity-100 transition-opacity bg-[#0d1526]/90 backdrop-blur-sm text-white text-[10px] font-bold py-1.5 px-3 rounded-lg border border-white/10 shadow-lg whitespace-nowrap pointer-events-none z-30">
-              {data.score}% - {data.module}
+      <!-- Chart Area -->
+      <div class="flex items-stretch gap-4 h-64 mb-6 relative">
+        <!-- Y-Axis Labels Gutter -->
+        <div class="flex flex-col justify-between text-[9px] font-extrabold text-muted-foreground/40 select-none text-right w-8 shrink-0 relative py-1">
+          <span>100%</span>
+          <span class="absolute right-0 bottom-[80%] -translate-y-1/2 text-emerald-500 font-extrabold bg-surface px-1">80%</span>
+          <span>75%</span>
+          <span>50%</span>
+          <span>25%</span>
+          <span class="text-muted-foreground/30">0%</span>
+        </div>
+
+        <!-- Main Chart Grid -->
+        <div class="flex-1 h-full flex items-end justify-between gap-3 border-b border-border/70 relative">
+          <!-- Subtle Grid Lines -->
+          <div class="absolute left-0 right-0 bottom-[100%] border-b border-slate-200/5 dark:border-slate-800/10 z-0"></div>
+          <div class="absolute left-0 right-0 bottom-[80%] border-b border-dashed border-emerald-500/20 z-0"></div>
+          <div class="absolute left-0 right-0 bottom-[75%] border-b border-dashed border-border/20 z-0"></div>
+          <div class="absolute left-0 right-0 bottom-[50%] border-b border-dashed border-border/20 z-0"></div>
+          <div class="absolute left-0 right-0 bottom-[25%] border-b border-dashed border-border/20 z-0"></div>
+          
+          {#each chartData as data, i}
+            <div class="flex flex-col items-center flex-1 z-10 group/bar relative h-full justify-end">
+              <!-- Tooltip -->
+              <div class="absolute -top-10 opacity-0 group-hover/bar:opacity-100 transition-opacity bg-[#0d1526]/95 backdrop-blur-sm text-white text-[10px] font-bold py-1.5 px-3 rounded-lg border border-white/10 shadow-xl whitespace-nowrap pointer-events-none z-30">
+                {data.score}% - {data.module}
+              </div>
+              
+              <!-- Animated Bar Grow -->
+              <div 
+                in:fly={{ y: 50, duration: 600, delay: 350 + (i * 50) }}
+                class="w-full max-w-[26px] sm:max-w-[34px] md:max-w-[40px] rounded-t-xl transition-all duration-300 group-hover/bar:scale-x-105 hover:opacity-95 relative overflow-hidden
+                  {data.pass 
+                    ? 'bg-gradient-to-t from-primary/80 via-primary to-blue-400 shadow-[0_4px_16px_rgba(14,165,233,0.15)] group-hover/bar:shadow-[0_4px_24px_rgba(14,165,233,0.25)]' 
+                    : 'bg-gradient-to-t from-rose-600 via-rose-500 to-rose-450 shadow-[0_4px_16px_rgba(244,63,94,0.15)] group-hover/bar:shadow-[0_4px_24px_rgba(244,63,94,0.25)]'}"
+                style="height: {data.score}%"
+              >
+                <!-- Glass reflect shimmer -->
+                <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent w-[50%]"></div>
+              </div>
+              
+              <!-- Absolutely Positioned X-Axis Label -->
+              <div class="absolute -bottom-6 text-[9px] font-extrabold text-muted-foreground/80 tracking-wider truncate w-full text-center">{data.label}</div>
             </div>
-            
-            <!-- Animated bar grow -->
-            <div 
-              in:fly={{ y: 50, duration: 600, delay: 350 + (i * 50) }}
-              class="w-full max-w-[32px] rounded-t-lg transition-all duration-300 group-hover/bar:scale-x-105 hover:opacity-90 relative overflow-hidden
-                {data.pass 
-                  ? 'bg-gradient-to-t from-primary to-blue-500 shadow-md shadow-primary/10' 
-                  : 'bg-gradient-to-t from-rose-500 to-rose-455 shadow-md shadow-rose-500/10'}"
-              style="height: {data.score}%"
-            >
-              <!-- Glass reflect shimmer -->
-              <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent w-[50%]"></div>
-            </div>
-            <div class="text-[8px] font-bold text-muted-foreground dark:text-muted-foreground mt-2 truncate w-full text-center tracking-wider">{data.label}</div>
-          </div>
-        {/each}
+          {/each}
+        </div>
+      </div>
+      
+      <!-- Elegant horizontal divider -->
+      <div class="border-t border-border/60 my-6"></div>
+      
+      <!-- Premium Analytics Summary Grid to fill space beautifully -->
+      <div class="grid grid-cols-3 gap-4 pt-2">
+        <div class="space-y-1 text-center sm:text-left">
+          <div class="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest">Peak Score</div>
+          <div class="text-xl sm:text-2xl font-black text-foreground">{Math.max(...examHistory.map(h => h.score))}%</div>
+          <div class="text-[10px] font-extrabold text-emerald-500 uppercase tracking-wider">{metrics.perfectScores} Perfect Modules</div>
+        </div>
+        <div class="space-y-1 text-center sm:text-left border-x border-border/60 px-4">
+          <div class="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest">Average Rate</div>
+          <div class="text-xl sm:text-2xl font-black text-emerald-600 dark:text-emerald-500">{metrics.averageScore}%</div>
+          <div class="text-[10px] font-extrabold text-muted-foreground/85 uppercase tracking-wider">Exceeds Target</div>
+        </div>
+        <div class="space-y-1 text-center sm:text-left">
+          <div class="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest">Improvement</div>
+          <div class="text-xl sm:text-2xl font-black text-primary font-mono">+{chartData[chartData.length - 1].score - chartData[0].score}%</div>
+          <div class="text-[10px] font-extrabold text-primary uppercase tracking-wider">Exam 1 to Exam 6</div>
+        </div>
       </div>
     </div>
 

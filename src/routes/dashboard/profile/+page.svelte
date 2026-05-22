@@ -91,11 +91,11 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="space-y-1.5">
               <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest" for="firstName">First Name</label>
-              <input type="text" id="firstName" bind:value={employeeProfile.firstName} class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted/50 text-foreground font-semibold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all duration-200" />
+              <input type="text" id="firstName" bind:value={employeeProfile.firstName} class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted text-foreground font-semibold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all duration-200" />
             </div>
             <div class="space-y-1.5">
               <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest" for="lastName">Last Name</label>
-              <input type="text" id="lastName" bind:value={employeeProfile.lastName} class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted/50 text-foreground font-semibold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all duration-200" />
+              <input type="text" id="lastName" bind:value={employeeProfile.lastName} class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted text-foreground font-semibold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all duration-200" />
             </div>
           </div>
 
@@ -134,17 +134,17 @@
         <form onsubmit={handleUpdatePassword} class="space-y-4">
           <div class="space-y-1.5">
             <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest" for="currPassword">Current Password</label>
-            <input type="password" id="currPassword" bind:value={currentPassword} required class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted/50 text-foreground font-semibold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm max-w-sm transition-all duration-200" />
+            <input type="password" id="currPassword" bind:value={currentPassword} required class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted text-foreground font-semibold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm max-w-sm transition-all duration-200" />
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl">
             <div class="space-y-1.5">
               <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest" for="newPassword">New Password</label>
-              <input type="password" id="newPassword" bind:value={newPassword} required class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted/50 text-foreground font-semibold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all duration-200" />
+              <input type="password" id="newPassword" bind:value={newPassword} required class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted text-foreground font-semibold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all duration-200" />
             </div>
             <div class="space-y-1.5">
               <label class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest" for="confirmPassword">Confirm Password</label>
-              <input type="password" id="confirmPassword" bind:value={confirmPassword} required class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted/50 text-foreground font-semibold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all duration-200" />
+              <input type="password" id="confirmPassword" bind:value={confirmPassword} required class="w-full border border-border rounded-xl px-4 py-3 text-xs bg-muted text-foreground font-semibold focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all duration-200" />
             </div>
           </div>
           

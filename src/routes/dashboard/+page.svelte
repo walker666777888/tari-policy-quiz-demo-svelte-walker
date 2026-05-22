@@ -111,20 +111,20 @@
     <!-- 1. Personal Compliance Score -->
     <div 
       in:fly={{ y: 15, duration: 450, delay: 0 }}
-      class="bg-surface rounded-2xl border border-border p-5 sm:p-6 shadow-sm transition-all duration-350 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between min-h-[8.5rem] sm:min-h-[9rem] relative overflow-hidden group"
+      class="bg-surface rounded-2xl border border-border p-5 sm:p-6 shadow-sm transition-all duration-350 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between min-h-[11.5rem] sm:min-h-[12.5rem] relative overflow-hidden group"
     >
       <div>
-        <span class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest mb-1 block">Compliance Score</span>
-        <div class="text-4xl font-black text-foreground tracking-tight mt-1 group-hover:scale-[1.02] transition-transform duration-300">{employee.overallScore}%</div>
+        <span class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest mb-1.5 block">Compliance Score</span>
+        <div class="text-4xl font-black text-foreground tracking-tight mt-2 group-hover:scale-[1.02] transition-transform duration-300">{employee.overallScore}%</div>
       </div>
-      <div class="w-full space-y-2 mt-auto">
-        <div class="h-2 w-full bg-muted rounded-full overflow-hidden relative">
+      <div class="w-full space-y-3.5 mt-auto pt-4">
+        <div class="h-1.5 w-full bg-muted rounded-full overflow-hidden relative">
           <div class="h-full bg-primary rounded-full transition-all duration-1000 relative" style="width: {employee.overallScore}%">
             <!-- Shimmer sweep effect on loading progress -->
             <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-[shimmer_2s_infinite] w-[40%]"></div>
           </div>
         </div>
-        <div class="text-[10px] text-muted-foreground font-bold uppercase text-right tracking-wider">Excellent Standing! Keep it up.</div>
+        <div class="text-xs text-muted-foreground/80 font-medium max-w-[85%] leading-relaxed">Excellent standing! Keep it up.</div>
       </div>
       <div class="absolute right-4 bottom-4 text-primary/10 group-hover:text-primary/20 group-hover:scale-110 transition-all duration-300 pointer-events-none">
         <svg class="w-14 h-14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
@@ -134,16 +134,16 @@
     <!-- 2. Assigned vs Completed -->
     <div 
       in:fly={{ y: 15, duration: 450, delay: 80 }}
-      class="bg-surface rounded-2xl border border-border p-5 sm:p-6 shadow-sm transition-all duration-355 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between min-h-[8.5rem] sm:min-h-[9rem] relative overflow-hidden group"
+      class="bg-surface rounded-2xl border border-border p-5 sm:p-6 shadow-sm transition-all duration-355 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between min-h-[11.5rem] sm:min-h-[12.5rem] relative overflow-hidden group"
     >
       <div>
-        <span class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest mb-1 block">Completed Quizzes</span>
-        <div class="text-4xl font-black text-foreground tracking-tight mt-1 group-hover:scale-[1.02] transition-transform duration-300">
+        <span class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest mb-1.5 block">Completed Quizzes</span>
+        <div class="text-4xl font-black text-foreground tracking-tight mt-2 group-hover:scale-[1.02] transition-transform duration-300">
           {employee.completedTotal}<span class="text-muted-foreground text-xl font-medium">/{employee.assignedTotal}</span>
         </div>
       </div>
-      <div class="text-xs font-semibold text-muted-foreground/90 mt-auto flex items-center gap-1.5 z-10">
-        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+      <div class="text-xs font-semibold text-muted-foreground/90 mt-auto pt-4 flex items-start gap-1.5 z-10 max-w-[85%] leading-relaxed">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 mt-[3px] shrink-0"></span>
         Fully certified policies
       </div>
       <div class="absolute right-4 bottom-4 text-emerald-500/10 group-hover:text-emerald-500/20 group-hover:scale-110 transition-all duration-300 pointer-events-none">
@@ -154,19 +154,19 @@
     <!-- 3. Pending / Overdue -->
     <div 
       in:fly={{ y: 15, duration: 450, delay: 160 }}
-      class="bg-surface rounded-2xl border border-border p-5 sm:p-6 shadow-sm transition-all duration-360 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between min-h-[8.5rem] sm:min-h-[9rem] relative overflow-hidden group"
+      class="bg-surface rounded-2xl border border-border p-5 sm:p-6 shadow-sm transition-all duration-360 hover:-translate-y-1 hover:shadow-md hover:border-primary/30 flex flex-col justify-between min-h-[11.5rem] sm:min-h-[12.5rem] relative overflow-hidden group"
     >
       <div>
-        <span class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest mb-1 block">Pending Quizzes</span>
-        <div class="flex items-center gap-3 mt-1">
+        <span class="text-[11px] font-bold text-muted-foreground/80 uppercase tracking-widest mb-1.5 block">Pending Quizzes</span>
+        <div class="flex items-center gap-3 mt-2">
           <div class="text-4xl font-black text-foreground tracking-tight group-hover:scale-[1.02] transition-transform duration-300">{employee.assignedTotal - employee.completedTotal}</div>
           {#if employee.overdueTotal > 0}
             <span class="px-2.5 py-0.5 text-[10px] font-extrabold uppercase rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-500 animate-pulse z-10">{employee.overdueTotal} Overdue</span>
           {/if}
         </div>
       </div>
-      <div class="text-xs font-semibold text-muted-foreground/90 mt-auto flex items-center gap-1.5 z-10">
-        <span class="w-2.5 h-2.5 rounded-full {employee.overdueTotal > 0 ? 'bg-rose-500' : 'bg-amber-400'}"></span>
+      <div class="text-xs font-semibold text-muted-foreground/90 mt-auto pt-4 flex items-start gap-1.5 z-10 max-w-[85%] leading-relaxed">
+        <span class="w-2.5 h-2.5 rounded-full {employee.overdueTotal > 0 ? 'bg-rose-500' : 'bg-amber-400'} mt-[3px] shrink-0"></span>
         Review soon to stay compliant
       </div>
       <div class="absolute right-4 bottom-4 {employee.overdueTotal > 0 ? 'text-rose-500/10 group-hover:text-rose-500/20' : 'text-amber-500/10 group-hover:text-amber-500/20'} group-hover:scale-110 transition-all duration-300 pointer-events-none">
@@ -177,19 +177,19 @@
     <!-- 4. Next Due Highlight -->
     <div 
       in:fly={{ y: 15, duration: 450, delay: 240 }}
-      class="bg-primary rounded-2xl border border-primary p-5 sm:p-6 shadow-md shadow-primary/20 flex flex-col justify-between min-h-[8.5rem] sm:min-h-[9rem] relative overflow-hidden group text-white hover:shadow-lg hover:shadow-primary/30 transition-all duration-350"
+      class="bg-primary rounded-2xl border border-primary p-5 sm:p-6 shadow-md shadow-primary/20 flex flex-col justify-between min-h-[11.5rem] sm:min-h-[12.5rem] relative overflow-hidden group text-white hover:shadow-lg hover:shadow-primary/30 transition-all duration-350"
     >
       <div class="z-10">
-        <span class="text-[11px] font-bold text-white/80 uppercase tracking-widest mb-1 block">Next Quiz Due</span>
+        <span class="text-[11px] font-bold text-white/80 uppercase tracking-widest mb-1.5 block">Next Quiz Due</span>
         {#if nextDue}
-          <div class="text-lg sm:text-xl font-extrabold tracking-tight mt-0.5 group-hover:scale-[1.01] transition-transform duration-300 leading-tight line-clamp-2">{nextDue.title}</div>
+          <div class="text-lg sm:text-xl font-extrabold tracking-tight mt-2 group-hover:scale-[1.01] transition-transform duration-300 leading-tight line-clamp-2">{nextDue.title}</div>
         {:else}
-          <div class="text-lg sm:text-xl font-extrabold tracking-tight mt-0.5 group-hover:scale-[1.01] transition-transform duration-300 leading-tight">All Caught Up! 🎉</div>
+          <div class="text-lg sm:text-xl font-extrabold tracking-tight mt-2 group-hover:scale-[1.01] transition-transform duration-300 leading-tight">All Caught Up! 🎉</div>
         {/if}
       </div>
       {#if nextDue}
-        <div class="flex items-center justify-between mt-auto z-10 w-full gap-2">
-          <span class="text-[11px] font-bold {nextDue.urgency === 'red' ? 'text-rose-200 animate-pulse' : 'text-white/90'} uppercase tracking-wider">Due {formatDate(nextDue.dueDate)}</span>
+        <div class="flex items-center justify-between mt-auto pt-4 z-10 w-full gap-2">
+          <span class="text-[11px] font-bold {nextDue.urgency === 'red' ? 'text-rose-200 animate-pulse' : 'text-white/90'} uppercase tracking-wider leading-relaxed">Due {formatDate(nextDue.dueDate)}</span>
           <a href="/dashboard/assessment/{nextDue.id}" class="text-[11px] font-extrabold bg-white text-primary px-3.5 py-1.5 rounded-xl shadow-sm hover:scale-105 active:scale-95 transition-transform duration-200 shrink-0">Start Now</a>
         </div>
       {/if}

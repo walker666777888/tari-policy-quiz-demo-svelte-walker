@@ -306,6 +306,9 @@
 input:not([type="color"]):not([type="range"]):not([type="file"]):not([type="checkbox"]):not([type="radio"]),
 select,
 textarea {
+  background-color: var(--muted);
+  color: var(--foreground);
+  border-color: var(--border);
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
@@ -909,8 +912,8 @@ button, .btn-primary, .btn-secondary, .btn-outline {
 .bg-primary span.uppercase,
 .bg-muted span.uppercase,
 .card-enterprise span.uppercase,
-.bg-surface .text-\[10px\],
-.bg-surface .text-\[9px\] {
+.bg-surface .text-\[10px\]:not(.absolute):not(.pointer-events-none),
+.bg-surface .text-\[9px\]:not(.absolute):not(.pointer-events-none) {
   font-size: 0.74rem !important; /* Raised from 9px/10px (approx 0.6rem) to ~12px */
   letter-spacing: 0.05em !important;
   font-weight: 700 !important;
