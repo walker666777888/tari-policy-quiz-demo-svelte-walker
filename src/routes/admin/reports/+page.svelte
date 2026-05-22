@@ -96,7 +96,7 @@
   {/if}
 
   <!-- Header block -->
-  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border pb-5">
     <div class="premium-heading-group">
       <h1 class="premium-heading-title">Compliance Reports &amp; Analytics</h1>
       <p class="premium-heading-subtitle">Download legal compliance dossiers, audit exam attempts, and schedule automated employee reminders.</p>
@@ -105,7 +105,7 @@
     <div class="flex gap-2 shrink-0">
       <button 
         onclick={() => triggerExport('PDF')}
-        class="inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 border border-slate-200 bg-white text-slate-600 rounded-lg shadow-sm transition-all hover:bg-slate-50 active:scale-95"
+        class="inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 border border-border bg-surface text-muted-foreground rounded-lg shadow-sm transition-all hover:bg-muted active:scale-95"
       >
         Download PDF
       </button>
@@ -120,21 +120,21 @@
 
   <!-- Summary Cards -->
   <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-    <div class="bg-white rounded-xl border border-slate-100 p-5 shadow-sm">
-      <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Total Headcount</span>
-      <div class="text-2xl font-extrabold text-slate-800 tracking-tight mt-1">142</div>
+    <div class="bg-surface rounded-xl border border-border p-5 shadow-sm">
+      <span class="text-[9px] font-bold text-muted-foreground uppercase tracking-wider">Total Headcount</span>
+      <div class="text-2xl font-extrabold text-foreground tracking-tight mt-1">142</div>
     </div>
-    <div class="bg-white rounded-xl border border-slate-100 p-5 shadow-sm">
-      <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Completions</span>
-      <div class="text-2xl font-extrabold text-slate-800 tracking-tight mt-1 text-emerald-600">120</div>
+    <div class="bg-surface rounded-xl border border-border p-5 shadow-sm">
+      <span class="text-[9px] font-bold text-muted-foreground uppercase tracking-wider">Completions</span>
+      <div class="text-2xl font-extrabold text-foreground tracking-tight mt-1 text-success">120</div>
     </div>
-    <div class="bg-white rounded-xl border border-slate-100 p-5 shadow-sm">
-      <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Pending Certs</span>
-      <div class="text-2xl font-extrabold text-slate-800 tracking-tight mt-1 text-amber-500">14</div>
+    <div class="bg-surface rounded-xl border border-border p-5 shadow-sm">
+      <span class="text-[9px] font-bold text-muted-foreground uppercase tracking-wider">Pending Certs</span>
+      <div class="text-2xl font-extrabold text-foreground tracking-tight mt-1 text-amber-500">14</div>
     </div>
-    <div class="bg-white rounded-xl border border-slate-100 p-5 shadow-sm">
-      <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Failed Attempts</span>
-      <div class="text-2xl font-extrabold text-slate-800 tracking-tight mt-1 text-rose-600">8</div>
+    <div class="bg-surface rounded-xl border border-border p-5 shadow-sm">
+      <span class="text-[9px] font-bold text-muted-foreground uppercase tracking-wider">Failed Attempts</span>
+      <div class="text-2xl font-extrabold text-foreground tracking-tight mt-1 text-destructive">8</div>
     </div>
   </div>
 
@@ -142,20 +142,20 @@
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     
     <!-- Module-wise completion rates -->
-    <div class="bg-white rounded-xl border border-slate-100 p-6 shadow-sm lg:col-span-2 space-y-4">
+    <div class="bg-surface rounded-xl border border-border p-6 shadow-sm lg:col-span-2 space-y-4">
       <div>
-        <h3 class="text-xs font-extrabold text-slate-800 uppercase tracking-wider">Module Completion Coverage</h3>
-        <p class="text-[10px] text-slate-400 font-medium">Historical pass/fail rate distributions per core policy module.</p>
+        <h3 class="text-xs font-extrabold text-foreground uppercase tracking-wider">Module Completion Coverage</h3>
+        <p class="text-[10px] text-muted-foreground font-medium">Historical pass/fail rate distributions per core policy module.</p>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
         {#each moduleCompletions as mc}
-          <div class="bg-slate-50/50 border border-slate-100 p-3 rounded-lg space-y-2">
-            <div class="flex justify-between items-center text-xs font-semibold text-slate-700">
+          <div class="bg-muted/50 border border-border p-3 rounded-lg space-y-2">
+            <div class="flex justify-between items-center text-xs font-semibold text-foreground/90">
               <span class="truncate pr-2">{mc.name}</span>
               <span class="font-bold font-mono text-primary shrink-0">{mc.rate}%</span>
             </div>
-            <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+            <div class="h-1.5 w-full bg-muted rounded-full overflow-hidden">
               <div 
                 class="h-full rounded-full transition-all duration-1000" 
                 style="width: {mc.rate}%; background-color: var(--color-primary, #0d9488);"
@@ -167,16 +167,16 @@
     </div>
 
     <!-- Notification Warning Panel -->
-    <div class="bg-white rounded-xl border border-slate-100 p-6 shadow-sm space-y-4">
+    <div class="bg-surface rounded-xl border border-border p-6 shadow-sm space-y-4">
       <div class="flex justify-between items-start">
         <div>
-          <h3 class="text-xs font-extrabold text-slate-800 uppercase tracking-wider">Overdue Alerts</h3>
-          <p class="text-[10px] text-slate-400 font-medium">Pending critical certifications.</p>
+          <h3 class="text-xs font-extrabold text-foreground uppercase tracking-wider">Overdue Alerts</h3>
+          <p class="text-[10px] text-muted-foreground font-medium">Pending critical certifications.</p>
         </div>
         
         <button 
           onclick={triggerBulkReminders}
-          class="text-[9px] font-bold text-rose-600 bg-rose-50 border border-rose-100 px-2 py-0.5 rounded transition-all hover:bg-rose-100"
+          class="text-[9px] font-bold text-destructive bg-destructive/10 border border-destructive/20 px-2 py-0.5 rounded transition-all hover:bg-rose-100"
         >
           Remind All
         </button>
@@ -184,17 +184,17 @@
 
       <div class="space-y-3.5 max-h-[180px] overflow-y-auto pr-1">
         {#each overdueList as od}
-          <div class="flex items-center justify-between gap-3 text-xs border-b border-slate-50 pb-2.5">
+          <div class="flex items-center justify-between gap-3 text-xs border-b border-border/60 pb-2.5">
             <div class="min-w-0">
-              <div class="font-bold text-slate-700 truncate">{od.name}</div>
-              <div class="text-[9px] text-slate-400 font-mono truncate">{od.module}</div>
+              <div class="font-bold text-foreground/90 truncate">{od.name}</div>
+              <div class="text-[9px] text-muted-foreground font-mono truncate">{od.module}</div>
             </div>
             
             <div class="flex items-center gap-2 shrink-0">
-              <span class="px-1.5 py-0.5 rounded text-[8px] font-extrabold bg-rose-50 text-rose-600 border border-rose-100 font-mono">{od.daysOverdue}d overdue</span>
+              <span class="px-1.5 py-0.5 rounded text-[8px] font-extrabold bg-destructive/10 text-destructive border border-destructive/20 font-mono">{od.daysOverdue}d overdue</span>
               <button 
                 onclick={() => triggerEmailReminder(od.name, od.email, od.module)}
-                class="w-6 h-6 rounded-full bg-slate-50 hover:bg-slate-100 flex items-center justify-center border border-slate-200 text-slate-500 active:scale-95 transition-all"
+                class="w-6 h-6 rounded-full bg-muted hover:bg-muted flex items-center justify-center border border-border text-muted-foreground active:scale-95 transition-all"
                 title="Send compliance reminder warning email"
               >
                 ✉️
@@ -203,19 +203,19 @@
           </div>
         {/each}
         {#if overdueList.length === 0}
-          <div class="text-center text-slate-400 py-6 text-xs font-semibold">
+          <div class="text-center text-muted-foreground py-6 text-xs font-semibold">
             🎉 All employee certifications current!
           </div>
         {/if}
       </div>
 
       <!-- Automated reminder schedule scheduler configuration -->
-      <div class="border-t border-slate-100 pt-4 space-y-2">
-        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" for="autoRemind">Automatic Schedule Scheduler</label>
+      <div class="border-t border-border pt-4 space-y-2">
+        <label class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider" for="autoRemind">Automatic Schedule Scheduler</label>
         <select 
           id="autoRemind"
           bind:value={reminderSchedule}
-          class="w-full border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs bg-slate-50 text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm cursor-pointer"
+          class="w-full border border-border rounded-lg px-2.5 py-1.5 text-xs bg-muted text-foreground/90 font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm cursor-pointer"
         >
           <option value="7">Send warning 7 days before deadline</option>
           <option value="3">Send warning 3 days before deadline</option>
@@ -229,15 +229,15 @@
   </div>
 
   <!-- Filters Segment Card -->
-  <div class="bg-white rounded-xl border border-slate-100 shadow-sm p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+  <div class="bg-surface rounded-xl border border-border shadow-sm p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
     
     <!-- Filter Module -->
     <div class="space-y-1.5">
-      <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" for="filterMod">Module</label>
+      <label class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider" for="filterMod">Module</label>
       <select 
         id="filterMod"
         bind:value={filterModule}
-        class="w-full border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs bg-slate-50 text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm cursor-pointer"
+        class="w-full border border-border rounded-lg px-2.5 py-1.5 text-xs bg-muted text-foreground/90 font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm cursor-pointer"
       >
         <option value="All">All Modules</option>
         <option value="Code of Conduct">Code of Conduct</option>
@@ -249,11 +249,11 @@
 
     <!-- Filter Department -->
     <div class="space-y-1.5">
-      <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" for="filterDep">Department</label>
+      <label class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider" for="filterDep">Department</label>
       <select 
         id="filterDep"
         bind:value={filterDept}
-        class="w-full border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs bg-slate-50 text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm cursor-pointer"
+        class="w-full border border-border rounded-lg px-2.5 py-1.5 text-xs bg-muted text-foreground/90 font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm cursor-pointer"
       >
         <option value="All">All Departments</option>
         <option value="Finance">Finance</option>
@@ -265,11 +265,11 @@
 
     <!-- Filter Pass / Fail Status -->
     <div class="space-y-1.5">
-      <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" for="filterStat">Status</label>
+      <label class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider" for="filterStat">Status</label>
       <select 
         id="filterStat"
         bind:value={filterStatus}
-        class="w-full border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs bg-slate-50 text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm cursor-pointer"
+        class="w-full border border-border rounded-lg px-2.5 py-1.5 text-xs bg-muted text-foreground/90 font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm cursor-pointer"
       >
         <option value="All">All Statuses</option>
         <option value="Pass">Passed attempts</option>
@@ -280,11 +280,11 @@
   </div>
 
   <!-- Primary attempts results log table -->
-  <div class="bg-white rounded-xl border border-slate-100 shadow-sm overflow-hidden">
+  <div class="bg-surface rounded-xl border border-border shadow-sm overflow-hidden">
     <div class="overflow-x-auto">
       <table class="w-full text-left border-collapse text-xs">
         <thead>
-          <tr class="bg-slate-50/70 border-b border-slate-100 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+          <tr class="bg-muted/70 border-b border-border text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
             <th class="p-4 pl-5 whitespace-nowrap">Employee</th>
             <th class="p-4 whitespace-nowrap">Department</th>
             <th class="p-4 whitespace-nowrap">Policy Module</th>
@@ -293,19 +293,19 @@
             <th class="p-4 pr-5 whitespace-nowrap">Compliance Status</th>
           </tr>
         </thead>
-        <tbody class="font-medium text-slate-600 divide-y divide-slate-100">
+        <tbody class="font-medium text-muted-foreground divide-y divide-border">
           {#each filteredAttempts as attempt}
-            <tr class="hover:bg-slate-50/50 transition-colors">
-              <td class="p-4 pl-5 font-bold text-slate-800 whitespace-nowrap">{attempt.employee}</td>
+            <tr class="hover:bg-muted/50 transition-colors">
+              <td class="p-4 pl-5 font-bold text-foreground whitespace-nowrap">{attempt.employee}</td>
               <td class="p-4 whitespace-nowrap">{attempt.dept}</td>
-              <td class="p-4 font-semibold text-slate-700 whitespace-nowrap">{attempt.module}</td>
-              <td class="p-4 text-center font-mono font-bold text-slate-500 whitespace-nowrap">{attempt.score}%</td>
-              <td class="p-4 text-slate-400 font-semibold whitespace-nowrap">{attempt.date}</td>
+              <td class="p-4 font-semibold text-foreground/90 whitespace-nowrap">{attempt.module}</td>
+              <td class="p-4 text-center font-mono font-bold text-muted-foreground whitespace-nowrap">{attempt.score}%</td>
+              <td class="p-4 text-muted-foreground font-semibold whitespace-nowrap">{attempt.date}</td>
               <td class="p-4 pr-5 whitespace-nowrap">
                 {#if attempt.status === 'Pass'}
-                  <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-emerald-50 border border-emerald-100 text-emerald-600">Pass</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-success/10 border border-success/20 text-success">Pass</span>
                 {:else}
-                  <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-rose-50 border border-rose-100 text-rose-600 animate-pulse">Fail</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-destructive/10 border border-destructive/20 text-destructive animate-pulse">Fail</span>
                 {/if}
               </td>
             </tr>

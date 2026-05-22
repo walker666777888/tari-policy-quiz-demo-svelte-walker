@@ -63,7 +63,7 @@
   {/if}
   
   <!-- Header Section -->
-  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-5">
     <div class="premium-heading-group">
       <h1 class="premium-heading-title">System Settings</h1>
       <p class="premium-heading-subtitle">Configure orchestrator parameters, authentication rules, and database gates.</p>
@@ -75,7 +75,7 @@
         class="px-3 py-2 text-xs font-bold rounded-lg border transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2 shadow-sm
           {isSandboxActive 
             ? 'bg-teal-500 text-white border-teal-600 hover:bg-teal-600' 
-            : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50 hover:border-slate-300'}"
+            : 'bg-surface text-muted-foreground border-border hover:bg-muted hover:border-border'}"
       >
         <span>{isSandboxActive ? '🟢 Live Sandbox: ON' : '⚫ Sandbox Mode: OFF'}</span>
       </button>
@@ -83,7 +83,7 @@
       <button 
         onclick={restoreDefaults}
         disabled={!isSandboxActive}
-        class="px-4 py-2 text-xs font-semibold rounded-lg bg-red-50 text-red-700 border border-red-100 shadow-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] hover:bg-red-100/70 disabled:opacity-50 disabled:cursor-not-allowed"
+        class="px-4 py-2 text-xs font-semibold rounded-lg bg-destructive/10 text-destructive border border-destructive/20 shadow-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] hover:bg-red-100/70 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Factory Defaults
       </button>
@@ -93,8 +93,8 @@
   <!-- Database Connection Banner -->
   <div class="p-4 rounded-xl border transition-all duration-300 hover:shadow-sm
     {isSandboxActive 
-      ? 'bg-teal-50/50 border-teal-200/60' 
-      : 'bg-slate-50 border-slate-200/60'}">
+      ? 'bg-success/10/50 border-teal-200/60' 
+      : 'bg-muted border-border/60'}">
     <div class="flex items-center justify-between flex-wrap gap-3">
       <div class="flex items-center gap-3">
         <span class="relative flex h-3 w-3">
@@ -102,29 +102,29 @@
           <span class="relative inline-flex rounded-full h-3 w-3 {isSandboxActive ? 'bg-teal-500' : 'bg-slate-500'}"></span>
         </span>
         <div>
-          <div class="text-sm font-bold text-slate-800">
+          <div class="text-sm font-bold text-foreground">
             {isSandboxActive ? 'Connected to Configuration Engine' : 'Database Connection Pending'}
           </div>
-          <p class="text-xs text-slate-500 leading-relaxed mt-0.5">
+          <p class="text-xs text-muted-foreground leading-relaxed mt-0.5">
             {isSandboxActive 
               ? 'Database simulation active. All setting edits, feature overrides, and platform parameters are live!' 
               : 'Supabase offline. Toggle Sandbox Mode to override orchestrator configurations from public.system_settings.'}
           </p>
         </div>
       </div>
-      <div class="text-[10px] font-mono px-2.5 py-1 rounded bg-white text-slate-500 border border-slate-200 transition-all hover:bg-slate-50">
+      <div class="text-[10px] font-mono px-2.5 py-1 rounded bg-surface text-muted-foreground border border-border transition-all hover:bg-muted">
         {isSandboxActive ? 'public.system_settings [LIVE]' : 'public.system_settings [AWAITING]'}
       </div>
     </div>
   </div>
 
   <!-- Navigation Segments inside the page -->
-  <div class="flex border-b border-slate-100 gap-1.5 overflow-x-auto">
+  <div class="flex border-b border-border gap-1.5 overflow-x-auto">
     {#each ["General", "Security", "Database"] as tab}
       <button 
         onclick={() => activeTab = tab as any}
-        class="px-4 py-2.5 text-xs font-bold border-b-2 transition-all duration-150 whitespace-nowrap hover:text-slate-900 hover:scale-105
-          {activeTab === tab ? 'border-primary text-primary font-bold' : 'border-transparent text-slate-400'}"
+        class="px-4 py-2.5 text-xs font-bold border-b-2 transition-all duration-150 whitespace-nowrap hover:text-foreground hover:scale-105
+          {activeTab === tab ? 'border-primary text-primary font-bold' : 'border-transparent text-muted-foreground'}"
       >
         {tab} Configuration
       </button>
@@ -132,30 +132,30 @@
   </div>
 
   <!-- Main Settings Panel (Interactive Form Layout) -->
-  <div class="bg-white rounded-xl border border-slate-100 shadow-sm p-6 sm:p-8 transition-all duration-300 hover:shadow-sm">
+  <div class="bg-surface rounded-xl border border-border shadow-sm p-6 sm:p-8 transition-all duration-300 hover:shadow-sm">
     <form onsubmit={handleSaveSettings} class="space-y-6">
       
       {#if activeTab === "General"}
         <div class="space-y-6 animate-fade-in">
-          <div class="border-b border-slate-50 pb-3">
-            <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider">General Configurations</h2>
-            <p class="text-[11px] text-slate-500 mt-1">Platform branding parameters and session governance settings.</p>
+          <div class="border-b border-border/60 pb-3">
+            <h2 class="text-xs font-bold text-muted-foreground uppercase tracking-wider">General Configurations</h2>
+            <p class="text-[11px] text-muted-foreground mt-1">Platform branding parameters and session governance settings.</p>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div class="space-y-1">
-              <label class="text-xs font-semibold text-slate-600" for="platformName">Platform Branding Title</label>
+              <label class="text-xs font-semibold text-muted-foreground" for="platformName">Platform Branding Title</label>
               <input 
                 id="platformName"
                 type="text" 
                 bind:value={platformName}
                 disabled={!isSandboxActive}
-                class="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm disabled:opacity-50 transition-all hover:border-slate-355"
+                class="w-full border border-border rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm disabled:opacity-50 transition-all hover:border-slate-355"
               />
             </div>
 
             <div class="space-y-1">
-              <label class="text-xs font-semibold text-slate-600" for="sessionTimeout">Session Idle Timeout (Minutes)</label>
+              <label class="text-xs font-semibold text-muted-foreground" for="sessionTimeout">Session Idle Timeout (Minutes)</label>
               <input 
                 id="sessionTimeout"
                 type="number" 
@@ -163,17 +163,17 @@
                 disabled={!isSandboxActive}
                 min="5" 
                 max="120"
-                class="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm disabled:opacity-50 transition-all hover:border-slate-355"
+                class="w-full border border-border rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm disabled:opacity-50 transition-all hover:border-slate-355"
               />
             </div>
 
             <div class="space-y-1">
-              <label class="text-xs font-semibold text-slate-600" for="regMode">Client Onboarding Portal State</label>
+              <label class="text-xs font-semibold text-muted-foreground" for="regMode">Client Onboarding Portal State</label>
               <select 
                 id="regMode"
                 bind:value={registrationMode}
                 disabled={!isSandboxActive}
-                class="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm bg-white disabled:opacity-50 transition-all hover:border-slate-300"
+                class="w-full border border-border rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm bg-surface disabled:opacity-50 transition-all hover:border-border"
               >
                 <option value="Invite Only">Invite Only (Secure Orchestrator Control)</option>
                 <option value="Public">Public Access (Client Self-registration)</option>
@@ -181,17 +181,17 @@
             </div>
 
             <!-- Maintenance Mode Toggle -->
-            <div class="flex items-center justify-between p-4 border border-slate-100 bg-slate-50/50 rounded-lg group transition-all duration-200 hover:border-slate-200 hover:bg-slate-50">
+            <div class="flex items-center justify-between p-4 border border-border bg-muted/50 rounded-lg group transition-all duration-200 hover:border-border hover:bg-muted">
               <div>
-                <label class="text-xs font-bold text-slate-700 select-none cursor-pointer" for="mMode">System Maintenance Mode</label>
-                <p class="text-[10px] text-slate-400 mt-0.5 leading-normal max-w-[250px]">Locks downstream admin and employee portals during upgrades.</p>
+                <label class="text-xs font-bold text-foreground/90 select-none cursor-pointer" for="mMode">System Maintenance Mode</label>
+                <p class="text-[10px] text-muted-foreground mt-0.5 leading-normal max-w-[250px]">Locks downstream admin and employee portals during upgrades.</p>
               </div>
               <input 
                 id="mMode"
                 type="checkbox" 
                 bind:checked={maintenanceMode}
                 disabled={!isSandboxActive}
-                class="h-4.5 w-4.5 rounded text-primary focus:ring-primary/30 border-slate-300 disabled:opacity-50 transition-all cursor-pointer scale-105 active:scale-95"
+                class="h-4.5 w-4.5 rounded text-primary focus:ring-primary/30 border-border disabled:opacity-50 transition-all cursor-pointer scale-105 active:scale-95"
               />
             </div>
           </div>
@@ -199,26 +199,26 @@
 
       {:else if activeTab === "Security"}
         <div class="space-y-6 animate-fade-in">
-          <div class="border-b border-slate-50 pb-3">
-            <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Identity & Security Governance</h2>
-            <p class="text-[11px] text-slate-500 mt-1">Configure multi-factor criteria and secure token lifetimes.</p>
+          <div class="border-b border-border/60 pb-3">
+            <h2 class="text-xs font-bold text-muted-foreground uppercase tracking-wider">Identity & Security Governance</h2>
+            <p class="text-[11px] text-muted-foreground mt-1">Configure multi-factor criteria and secure token lifetimes.</p>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div class="space-y-1">
-              <label class="text-xs font-semibold text-slate-600" for="jwtExp">JWT Authorization Expiration (Seconds)</label>
+              <label class="text-xs font-semibold text-muted-foreground" for="jwtExp">JWT Authorization Expiration (Seconds)</label>
               <input 
                 id="jwtExp"
                 type="number" 
                 bind:value={jwtExpiration}
                 disabled={!isSandboxActive}
                 step="60"
-                class="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm disabled:opacity-50 transition-all hover:border-slate-355"
+                class="w-full border border-border rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm disabled:opacity-50 transition-all hover:border-slate-355"
               />
             </div>
 
             <div class="space-y-1">
-              <label class="text-xs font-semibold text-slate-600" for="maxLogin">Max Failed Credentials Limit</label>
+              <label class="text-xs font-semibold text-muted-foreground" for="maxLogin">Max Failed Credentials Limit</label>
               <input 
                 id="maxLogin"
                 type="number" 
@@ -226,22 +226,22 @@
                 disabled={!isSandboxActive}
                 min="3" 
                 max="10"
-                class="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm disabled:opacity-50 transition-all hover:border-slate-355"
+                class="w-full border border-border rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm disabled:opacity-50 transition-all hover:border-slate-355"
               />
             </div>
 
             <!-- MFA Policy -->
-            <div class="flex items-center justify-between p-4 border border-slate-100 bg-slate-50/50 rounded-lg sm:col-span-2 group transition-all duration-200 hover:border-slate-200 hover:bg-slate-50">
+            <div class="flex items-center justify-between p-4 border border-border bg-muted/50 rounded-lg sm:col-span-2 group transition-all duration-200 hover:border-border hover:bg-muted">
               <div>
-                <label class="text-xs font-bold text-slate-700 select-none cursor-pointer" for="forceMFA">Enforce Multi-Factor Authentication (MFA)</label>
-                <p class="text-[10px] text-slate-400 mt-0.5 leading-normal max-w-md">Enforces authentication loops for all administrative accounts immediately upon logging in.</p>
+                <label class="text-xs font-bold text-foreground/90 select-none cursor-pointer" for="forceMFA">Enforce Multi-Factor Authentication (MFA)</label>
+                <p class="text-[10px] text-muted-foreground mt-0.5 leading-normal max-w-md">Enforces authentication loops for all administrative accounts immediately upon logging in.</p>
               </div>
               <input 
                 id="forceMFA"
                 type="checkbox" 
                 bind:checked={forceMfa}
                 disabled={!isSandboxActive}
-                class="h-4.5 w-4.5 rounded text-primary focus:ring-primary/30 border-slate-300 disabled:opacity-50 transition-all cursor-pointer scale-105 active:scale-95"
+                class="h-4.5 w-4.5 rounded text-primary focus:ring-primary/30 border-border disabled:opacity-50 transition-all cursor-pointer scale-105 active:scale-95"
               />
             </div>
           </div>
@@ -249,30 +249,30 @@
 
       {:else if activeTab === "Database"}
         <div class="space-y-6 animate-fade-in">
-          <div class="border-b border-slate-50 pb-3">
-            <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Database Connection Parameters</h2>
-            <p class="text-[11px] text-slate-500 mt-1">Configure security layers and routing ports for postgres adapters.</p>
+          <div class="border-b border-border/60 pb-3">
+            <h2 class="text-xs font-bold text-muted-foreground uppercase tracking-wider">Database Connection Parameters</h2>
+            <p class="text-[11px] text-muted-foreground mt-1">Configure security layers and routing ports for postgres adapters.</p>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div class="space-y-1">
-              <label class="text-xs font-semibold text-slate-600" for="dbPort">Master PostgreSQL Port</label>
+              <label class="text-xs font-semibold text-muted-foreground" for="dbPort">Master PostgreSQL Port</label>
               <input 
                 id="dbPort"
                 type="number" 
                 bind:value={dbPort}
                 disabled={!isSandboxActive}
-                class="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm disabled:opacity-50 transition-all hover:border-slate-355"
+                class="w-full border border-border rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm disabled:opacity-50 transition-all hover:border-slate-355"
               />
             </div>
 
             <div class="space-y-1">
-              <label class="text-xs font-semibold text-slate-600" for="sslMode">Database SSL Mode Connection</label>
+              <label class="text-xs font-semibold text-muted-foreground" for="sslMode">Database SSL Mode Connection</label>
               <select 
                 id="sslMode"
                 bind:value={dbSslMode}
                 disabled={!isSandboxActive}
-                class="w-full border border-slate-200 rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm bg-white disabled:opacity-50 transition-all hover:border-slate-300"
+                class="w-full border border-border rounded-lg px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm bg-surface disabled:opacity-50 transition-all hover:border-border"
               >
                 <option value="require">Require (Encrypted Loop)</option>
                 <option value="disable">Disable (Unencrypted Internal Only)</option>
@@ -284,7 +284,7 @@
       {/if}
 
       <!-- Submit / Save configurations (Only Enabled in Sandbox Mode) -->
-      <div class="pt-6 border-t border-slate-100 flex justify-end gap-3">
+      <div class="pt-6 border-t border-border flex justify-end gap-3">
         <button 
           type="submit" 
           disabled={!isSandboxActive}

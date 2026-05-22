@@ -142,7 +142,7 @@
       <!-- Dynamic Showcase Showcase Card -->
       <div class="w-full space-y-12 my-auto">
         <!-- Key-Triggered Interactive Graphical Card -->
-        <div class="relative w-full h-[180px] bg-white/[0.03] rounded-2xl border border-white/10 overflow-hidden backdrop-blur-md flex items-center justify-center shadow-2xl">
+        <div class="relative w-full h-[180px] bg-surface/[0.03] rounded-2xl border border-white/10 overflow-hidden backdrop-blur-md flex items-center justify-center shadow-2xl">
           <div class="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none"></div>
           {#key currentSlide}
             <div in:fade={{duration: 400}} out:fade={{duration: 200}} class="absolute inset-0 flex items-center justify-center p-6">
@@ -155,10 +155,10 @@
                   </div>
                   <!-- Satellite nodes -->
                   <div class="flex flex-col gap-6 z-10">
-                    <div class="w-9 h-9 rounded-xl bg-slate-800/90 border border-white/10 flex items-center justify-center text-slate-350 shadow-lg animate-[bounce_3.2s_ease-in-out_infinite]">
+                    <div class="w-9 h-9 rounded-xl bg-slate-800/90 border border-white/10 flex items-center justify-center text-muted-foreground shadow-lg animate-[bounce_3.2s_ease-in-out_infinite]">
                       <span class="text-xs">💼</span>
                     </div>
-                    <div class="w-9 h-9 rounded-xl bg-slate-800/90 border border-white/10 flex items-center justify-center text-slate-350 shadow-lg animate-[bounce_3.2s_ease-in-out_infinite_1s]">
+                    <div class="w-9 h-9 rounded-xl bg-slate-800/90 border border-white/10 flex items-center justify-center text-muted-foreground shadow-lg animate-[bounce_3.2s_ease-in-out_infinite_1s]">
                       <span class="text-xs">⚖️</span>
                     </div>
                   </div>
@@ -226,11 +226,11 @@
       <div class="grid grid-cols-2 gap-8 pt-10 border-t border-white/10" in:fade={{duration: 1000, delay: 400}}>
         <div>
           <div class="text-3xl font-black text-white mb-1">99.9%</div>
-          <div class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Uptime SLA</div>
+          <div class="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">Uptime SLA</div>
         </div>
         <div>
           <div class="text-3xl font-black text-white mb-1">500+</div>
-          <div class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Enterprise Clients</div>
+          <div class="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">Enterprise Clients</div>
         </div>
       </div>
 
@@ -261,7 +261,7 @@
         <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-blue-600 flex items-center justify-center shadow-lg shadow-primary/30">
           <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
         </div>
-        <span class="text-lg font-extrabold tracking-tight text-slate-900">CompliancePro<span class="text-primary">.</span></span>
+        <span class="text-lg font-extrabold tracking-tight text-foreground">CompliancePro<span class="text-primary">.</span></span>
       </div>
 
       <div class="text-left relative z-10">
@@ -286,13 +286,13 @@
             class="flex items-center justify-between w-full bg-surface hover:bg-muted border border-border hover:border-primary/20 p-2.5 rounded-xl transition-all duration-200 group/btn shadow-sm active:scale-[0.99] cursor-pointer"
           >
             <div class="flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-lg bg-violet-50 text-violet-600 flex items-center justify-center font-extrabold text-[10px] border border-violet-100 group-hover/btn:bg-violet-100 transition-colors shrink-0">SA</div>
+              <div class="w-8 h-8 rounded-lg bg-primary/10 text-violet-600 flex items-center justify-center font-extrabold text-[10px] border border-primary/20 group-hover/btn:bg-violet-100 transition-colors shrink-0">SA</div>
               <div class="text-left">
                 <div class="text-[11px] font-extrabold text-foreground leading-none">Super Admin</div>
                 <div class="text-[9.5px] text-muted-foreground font-mono mt-1">super@compliancepro.com</div>
               </div>
             </div>
-            <span class="text-xs text-slate-300 group-hover/btn:text-primary transition-colors pr-1">→</span>
+            <span class="text-xs text-muted-foreground group-hover/btn:text-primary transition-colors pr-1">→</span>
           </button>
 
           <!-- Client Admin -->
@@ -302,13 +302,13 @@
             class="flex items-center justify-between w-full bg-surface hover:bg-muted border border-border hover:border-primary/20 p-2.5 rounded-xl transition-all duration-200 group/btn shadow-sm active:scale-[0.99] cursor-pointer"
           >
             <div class="flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center font-extrabold text-[10px] border border-teal-100 group-hover/btn:bg-teal-100 transition-colors shrink-0">CA</div>
+              <div class="w-8 h-8 rounded-lg bg-success/10 text-success flex items-center justify-center font-extrabold text-[10px] border border-success/20 group-hover/btn:bg-teal-100 transition-colors shrink-0">CA</div>
               <div class="text-left">
                 <div class="text-[11px] font-extrabold text-foreground leading-none">Client Admin</div>
                 <div class="text-[9.5px] text-muted-foreground font-mono mt-1">admin@compliancepro.com</div>
               </div>
             </div>
-            <span class="text-xs text-slate-300 group-hover/btn:text-primary transition-colors pr-1">→</span>
+            <span class="text-xs text-muted-foreground group-hover/btn:text-primary transition-colors pr-1">→</span>
           </button>
 
           <!-- Employee -->
@@ -318,13 +318,13 @@
             class="flex items-center justify-between w-full bg-surface hover:bg-muted border border-border hover:border-primary/20 p-2.5 rounded-xl transition-all duration-200 group/btn shadow-sm active:scale-[0.99] cursor-pointer"
           >
             <div class="flex items-center gap-2.5">
-              <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center font-extrabold text-[10px] border border-indigo-100 group-hover/btn:bg-indigo-100 transition-colors shrink-0">JD</div>
+              <div class="w-8 h-8 rounded-lg bg-primary/10 text-indigo-600 flex items-center justify-center font-extrabold text-[10px] border border-primary/20 group-hover/btn:bg-indigo-100 transition-colors shrink-0">JD</div>
               <div class="text-left">
                 <div class="text-[11px] font-extrabold text-foreground leading-none">Employee User</div>
                 <div class="text-[9.5px] text-muted-foreground font-mono mt-1">john.doe@acme.corp</div>
               </div>
             </div>
-            <span class="text-xs text-slate-300 group-hover/btn:text-primary transition-colors pr-1">→</span>
+            <span class="text-xs text-muted-foreground group-hover/btn:text-primary transition-colors pr-1">→</span>
           </button>
         </div>
       </div>
@@ -347,7 +347,7 @@
               placeholder="name@company.com"
               class="w-full bg-surface border border-border rounded-xl pl-11 pr-4 py-3 text-sm text-foreground placeholder:text-muted-foreground font-medium focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all hover:border-border/80 disabled:opacity-50"
             />
-            <span class="absolute left-4 top-3.5 text-slate-400 pointer-events-none z-10">
+            <span class="absolute left-4 top-3.5 text-muted-foreground pointer-events-none z-10">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
             </span>
           </div>
@@ -373,13 +373,13 @@
               placeholder="••••••••"
               class="w-full bg-surface border border-border rounded-xl pl-11 pr-11 py-3 text-sm text-foreground placeholder:text-muted-foreground font-medium focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary shadow-sm transition-all hover:border-border/80 disabled:opacity-50"
             />
-            <span class="absolute left-4 top-3.5 text-slate-400 pointer-events-none z-10">
+            <span class="absolute left-4 top-3.5 text-muted-foreground pointer-events-none z-10">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
             </span>
             <button
               type="button"
               onclick={() => showPassword = !showPassword}
-              class="absolute right-3.5 top-3 text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
+              class="absolute right-3.5 top-3 text-muted-foreground hover:text-muted-foreground transition-colors cursor-pointer"
               aria-label="Toggle password visibility"
             >
               {#if showPassword}
@@ -399,7 +399,7 @@
             class="w-full rounded-xl py-3.5 font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 transform group active:scale-[0.98] disabled:active:scale-100 disabled:cursor-not-allowed
               {isBtnActive 
                 ? 'bg-gradient-to-r from-blue-600 via-primary to-indigo-600 hover:from-blue-700 hover:via-blue-600 hover:to-indigo-700 text-white shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/35 hover:-translate-y-0.5 cursor-pointer' 
-                : 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-200/50 dark:border-slate-700 shadow-none cursor-not-allowed opacity-75'}"
+                : 'bg-muted text-muted-foreground dark:text-muted-foreground border border-border/50 shadow-none cursor-not-allowed opacity-75'}"
           >
             {#if loading}
               <svg class="animate-spin h-4 w-4 text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

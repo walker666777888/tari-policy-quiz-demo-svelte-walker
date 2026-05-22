@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores';
-  import { fade, slide, scale } from 'svelte/transition';
+  import { fade, slide, scale, fly } from 'svelte/transition';
 
   // Extract ID
   const moduleId = $page.params.id;
@@ -232,18 +232,18 @@
   {#if currentView === 'intro'}
     <!-- INTRO SCREEN -->
     <div transition:fade class="min-h-screen flex flex-col items-center justify-center p-6 relative">
-      <a href="/dashboard" class="absolute top-6 left-6 text-sm font-bold text-slate-400 hover:text-slate-700 flex items-center gap-1">
+      <a href="/dashboard" class="absolute top-6 left-6 text-sm font-bold text-muted-foreground hover:text-foreground/90 flex items-center gap-1">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
         Back to Dashboard
       </a>
 
-      <div class="bg-white p-8 md:p-12 rounded-2xl shadow-xl shadow-slate-200/50 max-w-xl w-full text-center border border-slate-100">
+      <div class="bg-surface p-8 md:p-12 rounded-2xl shadow-xl shadow-slate-200/50 max-w-xl w-full text-center border border-border">
         <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6 text-primary">
           <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
         </div>
-        <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Certification Module</h2>
-        <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight mb-4">{moduleName}</h1>
-        <p class="text-slate-500 font-medium mb-8">This assessment contains exactly 10 unique, randomly selected questions covering various sub-topics. You need a minimum score of 80% to pass.</p>
+        <h2 class="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Certification Module</h2>
+        <h1 class="text-3xl font-extrabold text-foreground tracking-tight mb-4">{moduleName}</h1>
+        <p class="text-muted-foreground font-medium mb-8">This assessment contains exactly 10 unique, randomly selected questions covering various sub-topics. You need a minimum score of 80% to pass.</p>
         
         <div class="space-y-4">
           <button onclick={startExam} class="w-full py-4 bg-primary hover:opacity-95 text-white text-sm font-extrabold rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-95">
@@ -260,29 +260,29 @@
       <!-- Exam Header -->
       <div class="flex items-center justify-between mb-8">
         <div>
-          <h2 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">{moduleName}</h2>
-          <div class="text-2xl font-black text-slate-800 tracking-tight mt-1">Question {currentQuestionIndex + 1} of {mockQuestions.length}</div>
+          <h2 class="text-xs font-extrabold text-muted-foreground uppercase tracking-wider">{moduleName}</h2>
+          <div class="text-2xl font-black text-foreground tracking-tight mt-1">Question {currentQuestionIndex + 1} of {mockQuestions.length}</div>
         </div>
-        <a href="/dashboard" class="text-xs font-bold text-rose-500 hover:text-rose-700 bg-rose-50 px-3 py-1.5 rounded-lg transition-colors">
+        <a href="/dashboard" class="text-xs font-bold text-rose-500 hover:text-rose-700 bg-destructive/10 px-3 py-1.5 rounded-lg transition-colors">
           Exit Exam
         </a>
       </div>
 
       <!-- Progress Bar -->
-      <div class="h-2 w-full bg-slate-200 rounded-full mb-8 overflow-hidden">
+      <div class="h-2 w-full bg-border rounded-full mb-8 overflow-hidden">
         <div class="h-full bg-primary rounded-full transition-all duration-500 ease-out" style="width: {progressPercentage}%"></div>
       </div>
 
       <!-- Question Card -->
-      <div class="bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-200/50 p-6 md:p-10 flex-1 flex flex-col relative min-h-[500px]">
+      <div class="bg-surface rounded-2xl border border-border shadow-lg shadow-slate-200/50 p-6 md:p-10 flex-1 flex flex-col relative min-h-[500px]">
         {#key currentQuestionIndex}
           <div in:fly={{ y: 10, duration: 350, delay: 100 }} out:fade={{ duration: 100 }} class="flex-1 flex flex-col justify-between">
             <div>
-              <span class="inline-block px-3 py-1 bg-slate-100 text-slate-500 text-[10px] font-extrabold uppercase rounded border border-slate-200/50 mb-6 self-start tracking-wider">
+              <span class="inline-block px-3 py-1 bg-muted text-muted-foreground text-[10px] font-extrabold uppercase rounded border border-border/50 mb-6 self-start tracking-wider">
                 {currentQuestion.subTopic}
               </span>
               
-              <h3 class="text-xl md:text-2xl font-bold text-slate-800 leading-snug mb-8">
+              <h3 class="text-xl md:text-2xl font-bold text-foreground leading-snug mb-8">
                 {currentQuestion.text}
               </h3>
 
@@ -294,23 +294,23 @@
                     onclick={() => handleSelectOption(opt.id)}
                     in:fly={{ y: 8, duration: 250, delay: i * 35 }}
                     class="w-full text-left p-4 rounded-xl border-2 transition-all duration-200 group flex items-center justify-between cursor-pointer
-                      { !hasAnswered ? 'border-slate-200 bg-white hover:border-primary/50 hover:bg-slate-50 hover:-translate-y-[1px] hover:shadow-sm' : '' }
-                      { hasAnswered && opt.id === currentQuestion.correctId ? 'border-emerald-500 bg-emerald-50/50 text-emerald-900 shadow-sm' : '' }
-                      { hasAnswered && opt.id === selectedOptionId && opt.id !== currentQuestion.correctId ? 'border-rose-500 bg-rose-50 text-rose-900 shadow-sm' : '' }
-                      { hasAnswered && opt.id !== selectedOptionId && opt.id !== currentQuestion.correctId ? 'border-slate-200 bg-slate-50 opacity-50' : '' }
+                      { !hasAnswered ? 'border-border bg-surface hover:border-primary/50 hover:bg-muted hover:-translate-y-[1px] hover:shadow-sm' : '' }
+                      { hasAnswered && opt.id === currentQuestion.correctId ? 'border-emerald-500 bg-success/10/50 text-emerald-900 shadow-sm' : '' }
+                      { hasAnswered && opt.id === selectedOptionId && opt.id !== currentQuestion.correctId ? 'border-rose-500 bg-destructive/10 text-rose-900 shadow-sm' : '' }
+                      { hasAnswered && opt.id !== selectedOptionId && opt.id !== currentQuestion.correctId ? 'border-border bg-muted opacity-50' : '' }
                     "
                   >
                     <div class="flex items-center gap-4">
                       <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm
-                        { !hasAnswered ? 'bg-slate-100 text-slate-500 group-hover:bg-primary group-hover:text-white' : '' }
+                        { !hasAnswered ? 'bg-muted text-muted-foreground group-hover:bg-primary group-hover:text-white' : '' }
                         { hasAnswered && opt.id === currentQuestion.correctId ? 'bg-emerald-500 text-white' : '' }
                         { hasAnswered && opt.id === selectedOptionId && opt.id !== currentQuestion.correctId ? 'bg-rose-500 text-white' : '' }
-                        { hasAnswered && opt.id !== selectedOptionId && opt.id !== currentQuestion.correctId ? 'bg-slate-100 text-slate-400' : '' }
+                        { hasAnswered && opt.id !== selectedOptionId && opt.id !== currentQuestion.correctId ? 'bg-muted text-muted-foreground' : '' }
                         transition-colors
                       ">
                         {opt.id}
                       </div>
-                      <span class="font-semibold {hasAnswered && opt.id === currentQuestion.correctId ? 'text-emerald-800' : 'text-slate-700'}">{opt.text}</span>
+                      <span class="font-semibold {hasAnswered && opt.id === currentQuestion.correctId ? 'text-emerald-800' : 'text-foreground/90'}">{opt.text}</span>
                     </div>
                     
                     <!-- Result Icon Indicator -->
@@ -332,15 +332,15 @@
 
             <!-- Explanation Block -->
             {#if hasAnswered}
-              <div transition:slide={{axis: 'y'}} class="mt-auto border-t border-slate-100 pt-6">
-                <h4 class="text-xs font-extrabold text-slate-800 uppercase tracking-wider mb-2 flex items-center gap-2 font-sans">
+              <div transition:slide={{axis: 'y'}} class="mt-auto border-t border-border pt-6">
+                <h4 class="text-xs font-extrabold text-foreground uppercase tracking-wider mb-2 flex items-center gap-2 font-sans">
                   {#if selectedOptionId === currentQuestion.correctId}
-                    <span class="text-emerald-600">✓ Correct Answer</span>
+                    <span class="text-success">✓ Correct Answer</span>
                   {:else}
-                    <span class="text-rose-600">✗ Incorrect Answer</span>
+                    <span class="text-destructive">✗ Incorrect Answer</span>
                   {/if}
                 </h4>
-                <p class="text-sm font-medium text-slate-600 leading-relaxed mb-6 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                <p class="text-sm font-medium text-muted-foreground leading-relaxed mb-6 bg-muted p-4 rounded-xl border border-border">
                   {currentQuestion.explanation}
                 </p>
                 
@@ -361,25 +361,25 @@
       
       <!-- Results Header -->
       <div class="text-center mb-10">
-        <h2 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider mb-2">Certification Results</h2>
-        <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">{moduleName}</h1>
+        <h2 class="text-xs font-extrabold text-muted-foreground uppercase tracking-wider mb-2">Certification Results</h2>
+        <h1 class="text-3xl font-extrabold text-foreground tracking-tight">{moduleName}</h1>
       </div>
 
       <!-- Main Score Card -->
-      <div class="bg-white rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/50 p-8 md:p-12 text-center relative overflow-hidden mb-8">
+      <div class="bg-surface rounded-3xl border border-border shadow-xl shadow-slate-200/50 p-8 md:p-12 text-center relative overflow-hidden mb-8">
         <!-- Confetti / Status Decoration -->
         <div class="text-7xl mb-6 transform hover:scale-110 transition-transform cursor-default">
           {isPassing ? '🏆' : '📖'}
         </div>
         
-        <h3 class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-2">
+        <h3 class="text-4xl md:text-5xl font-black text-foreground tracking-tight mb-2">
           {scorePercentage}%
         </h3>
-        <p class="text-lg font-bold text-slate-500 mb-8">You scored {totalScore} out of {mockQuestions.length} correct.</p>
+        <p class="text-lg font-bold text-muted-foreground mb-8">You scored {totalScore} out of {mockQuestions.length} correct.</p>
 
         <!-- Status Badge -->
         <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 
-          {isPassing ? 'bg-emerald-50 border-emerald-100 text-emerald-700' : 'bg-rose-50 border-rose-100 text-rose-700'}">
+          {isPassing ? 'bg-success/10 border-success/20 text-emerald-700' : 'bg-destructive/10 border-destructive/20 text-rose-700'}">
           {#if isPassing}
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
             <span class="font-extrabold uppercase tracking-widest text-xs">Passed</span>
@@ -391,13 +391,13 @@
 
         <!-- Progress Bar Visualizer -->
         <div class="max-w-md mx-auto mt-8 relative">
-          <div class="h-3 w-full bg-slate-100 rounded-full overflow-hidden">
+          <div class="h-3 w-full bg-muted rounded-full overflow-hidden">
             <div class="h-full rounded-full transition-all duration-1000 
               {scorePercentage >= 80 ? 'bg-emerald-500' : scorePercentage >= 60 ? 'bg-amber-400' : 'bg-rose-500'}"
               style="width: {scorePercentage}%">
             </div>
           </div>
-          <div class="absolute -bottom-6 left-0 right-0 flex justify-between text-[10px] font-bold text-slate-400 uppercase">
+          <div class="absolute -bottom-6 left-0 right-0 flex justify-between text-[10px] font-bold text-muted-foreground uppercase">
             <span>0%</span>
             <span>Passing Threshold (80%)</span>
             <span>100%</span>
@@ -406,7 +406,7 @@
         </div>
 
         <div class="flex flex-col sm:flex-row justify-center gap-4 mt-14 relative z-10">
-          <button onclick={retakeExam} class="px-8 py-3.5 bg-slate-50 hover:bg-slate-100 text-slate-600 font-extrabold rounded-xl border border-slate-200 transition-all active:scale-95">
+          <button onclick={retakeExam} class="px-8 py-3.5 bg-muted hover:bg-muted text-muted-foreground font-extrabold rounded-xl border border-border transition-all active:scale-95">
             Retake Module Exam
           </button>
           <a href="/dashboard" class="px-8 py-3.5 bg-primary hover:opacity-95 text-white font-extrabold rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-95">
@@ -416,24 +416,24 @@
       </div>
 
       <!-- Question Review Log -->
-      <h3 class="text-sm font-extrabold text-slate-800 uppercase tracking-wider mb-6 text-center">Comprehensive Audit Review</h3>
+      <h3 class="text-sm font-extrabold text-foreground uppercase tracking-wider mb-6 text-center">Comprehensive Audit Review</h3>
       
       <div class="space-y-6">
         {#each examHistory as hist, i}
-          <div class="bg-white rounded-2xl border {hist.isCorrect ? 'border-emerald-100' : 'border-rose-100'} shadow-sm p-6 relative overflow-hidden">
+          <div class="bg-surface rounded-2xl border {hist.isCorrect ? 'border-success/20' : 'border-destructive/20'} shadow-sm p-6 relative overflow-hidden">
             <!-- Correct/Wrong strip -->
             <div class="absolute left-0 top-0 bottom-0 w-1.5 {hist.isCorrect ? 'bg-emerald-400' : 'bg-rose-400'}"></div>
             
             <div class="flex items-start justify-between gap-4 mb-4 pl-3">
-              <h4 class="text-base font-bold text-slate-800 leading-snug">
-                <span class="text-slate-400 font-mono text-sm mr-2">{i + 1}.</span>
+              <h4 class="text-base font-bold text-foreground leading-snug">
+                <span class="text-muted-foreground font-mono text-sm mr-2">{i + 1}.</span>
                 {hist.question.text}
               </h4>
               <div class="shrink-0 pt-0.5">
                 {#if hist.isCorrect}
-                  <span class="px-2 py-1 bg-emerald-50 text-emerald-600 text-[10px] font-extrabold uppercase rounded border border-emerald-100">Correct</span>
+                  <span class="px-2 py-1 bg-success/10 text-success text-[10px] font-extrabold uppercase rounded border border-success/20">Correct</span>
                 {:else}
-                  <span class="px-2 py-1 bg-rose-50 text-rose-600 text-[10px] font-extrabold uppercase rounded border border-rose-100">Wrong</span>
+                  <span class="px-2 py-1 bg-destructive/10 text-destructive text-[10px] font-extrabold uppercase rounded border border-destructive/20">Wrong</span>
                 {/if}
               </div>
             </div>
@@ -442,21 +442,21 @@
               <!-- Selected / Correct Answers -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {#if !hist.isCorrect}
-                  <div class="bg-rose-50/50 border border-rose-100/50 rounded-lg p-3">
+                  <div class="bg-destructive/10/50 border border-destructive/20/50 rounded-lg p-3">
                     <span class="text-[9px] font-bold text-rose-400 uppercase tracking-wider block mb-1">You Selected ({hist.selectedId})</span>
                     <span class="text-sm font-semibold text-rose-800">{hist.question.options.find(o => o.id === hist.selectedId)?.text}</span>
                   </div>
                 {/if}
-                <div class="bg-emerald-50/50 border border-emerald-100/50 rounded-lg p-3 {hist.isCorrect ? 'sm:col-span-2' : ''}">
+                <div class="bg-success/10/50 border border-success/20/50 rounded-lg p-3 {hist.isCorrect ? 'sm:col-span-2' : ''}">
                   <span class="text-[9px] font-bold text-emerald-500 uppercase tracking-wider block mb-1">Correct Answer ({hist.question.correctId})</span>
                   <span class="text-sm font-semibold text-emerald-900">{hist.question.options.find(o => o.id === hist.question.correctId)?.text}</span>
                 </div>
               </div>
 
               <!-- Explanation block -->
-              <div class="bg-slate-50 border border-slate-100 rounded-lg p-4">
-                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Official Policy Explanation</span>
-                <p class="text-xs font-medium text-slate-600 leading-relaxed">{hist.question.explanation}</p>
+              <div class="bg-muted border border-border rounded-lg p-4">
+                <span class="text-[9px] font-bold text-muted-foreground uppercase tracking-wider block mb-1">Official Policy Explanation</span>
+                <p class="text-xs font-medium text-muted-foreground leading-relaxed">{hist.question.explanation}</p>
               </div>
             </div>
 

@@ -64,7 +64,7 @@
   <!-- Main Nav -->
   <nav class="flex-1 py-5 px-3 flex flex-col gap-0.5 overflow-y-auto">
 
-    <span class="text-[9px] font-bold uppercase tracking-[0.14em] text-slate-400 px-3 mb-2">Navigation</span>
+    <span class="text-[9px] font-bold uppercase tracking-[0.14em] text-muted-foreground px-3 mb-2">Navigation</span>
 
     {#each mainLinks as link}
       {@const segments = link.href.split('/').filter(Boolean).length}
@@ -79,7 +79,7 @@
       >
         <!-- Active dot indicator -->
         <span class="w-1.5 h-1.5 rounded-full shrink-0 transition-all duration-200
-          {isActive ? 'bg-white/70' : 'bg-border group-hover:bg-primary/50'}">
+          {isActive ? 'bg-surface/70' : 'bg-border group-hover:bg-primary/50'}">
         </span>
         <span class="truncate">{link.label}</span>
         {#if isActive}
@@ -96,7 +96,7 @@
   <!-- Settings Footer -->
   {#if settingsLinks.length > 0}
     <div class="px-3 pb-4 pt-3 border-t border-border shrink-0 space-y-0.5">
-      <span class="text-[9px] font-bold uppercase tracking-[0.14em] text-slate-400 px-3 mb-2 block">Preferences</span>
+      <span class="text-[9px] font-bold uppercase tracking-[0.14em] text-muted-foreground px-3 mb-2 block">Preferences</span>
       {#each settingsLinks as link}
         {@const isActive = $page.url.pathname === link.href}
         <a 

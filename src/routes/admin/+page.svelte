@@ -35,12 +35,12 @@
 <div class="animate-fade-in space-y-8 max-w-7xl mx-auto">
   
   <!-- Header block -->
-  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-5">
     <div class="premium-heading-group">
       <h1 class="premium-heading-title">Compliance Overview</h1>
       <p class="premium-heading-subtitle">Real-time health telemetry and auditor-ready compliance coverage metrics.</p>
     </div>
-    <div class="flex items-center gap-2 bg-slate-50 border border-slate-200/50 px-3 py-1.5 rounded-lg shrink-0 text-slate-500 font-semibold text-[11px]">
+    <div class="flex items-center gap-2 bg-muted border border-border/50 px-3 py-1.5 rounded-lg shrink-0 text-muted-foreground font-semibold text-[11px]">
       <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
       Tenant Workspace Active
     </div>
@@ -50,32 +50,32 @@
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
     
     <!-- Total Employees -->
-    <div class="bg-white rounded-xl border border-slate-100 p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-primary/25 flex flex-col justify-between h-32 relative overflow-hidden group">
+    <div class="bg-surface rounded-xl border border-border p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-primary/25 flex flex-col justify-between h-32 relative overflow-hidden group">
       <div>
-        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Enrolled Employees</span>
-        <div class="text-3xl font-extrabold text-slate-800 tracking-tight mt-1">{stats.totalEmployees}</div>
+        <span class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Total Enrolled Employees</span>
+        <div class="text-3xl font-extrabold text-foreground tracking-tight mt-1">{stats.totalEmployees}</div>
       </div>
-      <div class="text-[11px] text-slate-500 font-medium flex items-center gap-1.5">
+      <div class="text-[11px] text-muted-foreground font-medium flex items-center gap-1.5">
         <span class="text-emerald-500 font-bold">100%</span> actively licensed nodes
       </div>
-      <div class="absolute -right-3 -bottom-3 w-16 h-16 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-300 opacity-20 group-hover:scale-110 transition-transform">
+      <div class="absolute -right-3 -bottom-3 w-16 h-16 rounded-full bg-muted border border-border flex items-center justify-center text-muted-foreground opacity-20 group-hover:scale-110 transition-transform">
         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
       </div>
     </div>
 
     <!-- Compliance Rate -->
-    <div class="bg-white rounded-xl border border-slate-100 p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-primary/25 flex flex-col justify-between h-32 relative overflow-hidden group">
+    <div class="bg-surface rounded-xl border border-border p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-primary/25 flex flex-col justify-between h-32 relative overflow-hidden group">
       <div>
-        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Overall Compliance Rate</span>
-        <div class="text-3xl font-extrabold text-slate-800 tracking-tight mt-1 flex items-baseline gap-1">
+        <span class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Overall Compliance Rate</span>
+        <div class="text-3xl font-extrabold text-foreground tracking-tight mt-1 flex items-baseline gap-1">
           {stats.complianceRate}%
         </div>
       </div>
       <div class="w-full space-y-1">
-        <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+        <div class="h-1.5 w-full bg-muted rounded-full overflow-hidden">
           <div class="h-full bg-primary rounded-full transition-all duration-1000" style="width: {stats.complianceRate}%"></div>
         </div>
-        <div class="flex justify-between text-[9px] text-slate-400 font-bold uppercase">
+        <div class="flex justify-between text-[9px] text-muted-foreground font-bold uppercase">
           <span>Target: 95%</span>
           <span>Diff: -10.5%</span>
         </div>
@@ -83,34 +83,34 @@
     </div>
 
     <!-- Assigned vs Completed -->
-    <div class="bg-white rounded-xl border border-slate-100 p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-primary/25 flex flex-col justify-between h-32 relative overflow-hidden group">
+    <div class="bg-surface rounded-xl border border-border p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-primary/25 flex flex-col justify-between h-32 relative overflow-hidden group">
       <div>
-        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Assigned Task Progress</span>
-        <div class="text-3xl font-extrabold text-slate-800 tracking-tight mt-1">
-          {stats.completedAttempts}<span class="text-slate-400 text-lg font-medium">/{stats.totalAttempts}</span>
+        <span class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Assigned Task Progress</span>
+        <div class="text-3xl font-extrabold text-foreground tracking-tight mt-1">
+          {stats.completedAttempts}<span class="text-muted-foreground text-lg font-medium">/{stats.totalAttempts}</span>
         </div>
       </div>
-      <div class="text-[11px] text-slate-500 font-medium">
+      <div class="text-[11px] text-muted-foreground font-medium">
         Active Modules: <span class="font-bold text-primary">{stats.assignedModules} policies</span>
       </div>
-      <div class="absolute -right-3 -bottom-3 w-16 h-16 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-300 opacity-20 group-hover:scale-110 transition-transform">
+      <div class="absolute -right-3 -bottom-3 w-16 h-16 rounded-full bg-muted border border-border flex items-center justify-center text-muted-foreground opacity-20 group-hover:scale-110 transition-transform">
         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
       </div>
     </div>
 
     <!-- Overdue Assessments -->
-    <div class="bg-white rounded-xl border border-slate-100 p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-primary/25 flex flex-col justify-between h-32 relative overflow-hidden group">
+    <div class="bg-surface rounded-xl border border-border p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-primary/25 flex flex-col justify-between h-32 relative overflow-hidden group">
       <div>
-        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Overdue Assessments</span>
+        <span class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Overdue Assessments</span>
         <div class="flex items-center gap-3 mt-1">
-          <div class="text-3xl font-extrabold text-slate-800 tracking-tight">{stats.overdueCount}</div>
-          <span class="px-2 py-0.5 text-[9px] font-extrabold uppercase rounded bg-rose-50 border border-rose-100 text-rose-600 animate-pulse">At Risk</span>
+          <div class="text-3xl font-extrabold text-foreground tracking-tight">{stats.overdueCount}</div>
+          <span class="px-2 py-0.5 text-[9px] font-extrabold uppercase rounded bg-destructive/10 border border-destructive/20 text-destructive animate-pulse">At Risk</span>
         </div>
       </div>
-      <div class="text-[11px] text-slate-500 font-medium">
+      <div class="text-[11px] text-muted-foreground font-medium">
         Requires urgent reminder triggers
       </div>
-      <div class="absolute -right-3 -bottom-3 w-16 h-16 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-300 opacity-20 group-hover:scale-110 transition-transform">
+      <div class="absolute -right-3 -bottom-3 w-16 h-16 rounded-full bg-muted border border-border flex items-center justify-center text-muted-foreground opacity-20 group-hover:scale-110 transition-transform">
         <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
       </div>
     </div>
@@ -121,26 +121,26 @@
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
     
     <!-- Department-wise Bar Chart (Svelte SVG-powered) -->
-    <div class="bg-white rounded-xl border border-slate-100 p-6 shadow-sm lg:col-span-2 flex flex-col justify-between space-y-6">
+    <div class="bg-surface rounded-xl border border-border p-6 shadow-sm lg:col-span-2 flex flex-col justify-between space-y-6">
       <div class="flex justify-between items-center">
         <div>
-          <h3 class="text-sm font-bold text-slate-800">Compliance Rate by Department</h3>
-          <p class="text-[10px] text-slate-400 font-medium">Audited completions across core operational units.</p>
+          <h3 class="text-sm font-bold text-foreground">Compliance Rate by Department</h3>
+          <p class="text-[10px] text-muted-foreground font-medium">Audited completions across core operational units.</p>
         </div>
-        <span class="text-[9px] font-bold text-slate-400 bg-slate-100 px-2 py-0.5 rounded uppercase">Live Analytics</span>
+        <span class="text-[9px] font-bold text-muted-foreground bg-muted px-2 py-0.5 rounded uppercase">Live Analytics</span>
       </div>
 
       <div class="space-y-4">
         {#each departmentData as dept}
           <div class="space-y-1.5">
-            <div class="flex justify-between items-center text-xs font-semibold text-slate-600">
+            <div class="flex justify-between items-center text-xs font-semibold text-muted-foreground">
               <span class="flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-sm bg-primary" style="opacity: {dept.compliance/100}"></span>
-                {dept.name} <span class="text-[9px] font-bold text-slate-400 font-mono">({dept.total} users)</span>
+                {dept.name} <span class="text-[9px] font-bold text-muted-foreground font-mono">({dept.total} users)</span>
               </span>
-              <span class="font-bold text-slate-800">{dept.compliance}%</span>
+              <span class="font-bold text-foreground">{dept.compliance}%</span>
             </div>
-            <div class="h-2 w-full bg-slate-50 border border-slate-100 rounded-full overflow-hidden">
+            <div class="h-2 w-full bg-muted border border-border rounded-full overflow-hidden">
               <div 
                 class="h-full rounded-full transition-all duration-1000 bg-primary" 
                 style="width: {dept.compliance}%;"
@@ -152,11 +152,11 @@
     </div>
 
     <!-- Compliance Donut Chart (SVG Vector Visualizer) -->
-    <div class="bg-white rounded-xl border border-slate-100 p-6 shadow-sm flex flex-col justify-between space-y-6">
+    <div class="bg-surface rounded-xl border border-border p-6 shadow-sm flex flex-col justify-between space-y-6">
       <div class="flex justify-between items-center">
         <div>
-          <h3 class="text-sm font-bold text-slate-800">Assessment Breakdown</h3>
-          <p class="text-[10px] text-slate-400 font-medium">Current completion distribution.</p>
+          <h3 class="text-sm font-bold text-foreground">Assessment Breakdown</h3>
+          <p class="text-[10px] text-muted-foreground font-medium">Current completion distribution.</p>
         </div>
       </div>
 
@@ -173,33 +173,33 @@
         </svg>
 
         <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
-          <span class="text-2xl font-extrabold text-slate-800 tracking-tight">{stats.complianceRate}%</span>
-          <span class="text-[9px] font-bold text-slate-400 uppercase">Compliant</span>
+          <span class="text-2xl font-extrabold text-foreground tracking-tight">{stats.complianceRate}%</span>
+          <span class="text-[9px] font-bold text-muted-foreground uppercase">Compliant</span>
         </div>
       </div>
 
       <!-- Segment swatches -->
-      <div class="grid grid-cols-3 gap-2 border-t border-slate-100 pt-4 text-center">
+      <div class="grid grid-cols-3 gap-2 border-t border-border pt-4 text-center">
         <div class="space-y-0.5">
-          <div class="text-[9px] font-bold text-slate-400 uppercase flex items-center justify-center gap-1">
+          <div class="text-[9px] font-bold text-muted-foreground uppercase flex items-center justify-center gap-1">
             <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
             Pass
           </div>
-          <div class="text-xs font-bold text-slate-700">84.5%</div>
+          <div class="text-xs font-bold text-foreground/90">84.5%</div>
         </div>
         <div class="space-y-0.5">
-          <div class="text-[9px] font-bold text-slate-400 uppercase flex items-center justify-center gap-1">
+          <div class="text-[9px] font-bold text-muted-foreground uppercase flex items-center justify-center gap-1">
             <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
             Pending
           </div>
-          <div class="text-xs font-bold text-slate-700">10.0%</div>
+          <div class="text-xs font-bold text-foreground/90">10.0%</div>
         </div>
         <div class="space-y-0.5">
-          <div class="text-[9px] font-bold text-slate-400 uppercase flex items-center justify-center gap-1">
+          <div class="text-[9px] font-bold text-muted-foreground uppercase flex items-center justify-center gap-1">
             <span class="w-1.5 h-1.5 rounded-full bg-red-600"></span>
             At Risk
           </div>
-          <div class="text-xs font-bold text-slate-700">5.5%</div>
+          <div class="text-xs font-bold text-foreground/90">5.5%</div>
         </div>
       </div>
     </div>
@@ -207,15 +207,15 @@
   </div>
 
   <!-- Recent Activity Employee Table -->
-  <div class="bg-white rounded-xl border border-slate-100 shadow-sm p-6 space-y-4">
+  <div class="bg-surface rounded-xl border border-border shadow-sm p-6 space-y-4">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
-        <h3 class="text-sm font-bold text-slate-800">Operational Dashboard Overview</h3>
-        <p class="text-[10px] text-slate-400 font-medium">Top compliance audit logs and status highlights for recent employees.</p>
+        <h3 class="text-sm font-bold text-foreground">Operational Dashboard Overview</h3>
+        <p class="text-[10px] text-muted-foreground font-medium">Top compliance audit logs and status highlights for recent employees.</p>
       </div>
       <a 
         href="/admin/employees" 
-        class="inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 border border-slate-200 bg-slate-50 text-slate-600 rounded-lg transition-all hover:bg-slate-100 active:scale-95 text-center shrink-0"
+        class="inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 border border-border bg-muted text-muted-foreground rounded-lg transition-all hover:bg-muted active:scale-95 text-center shrink-0"
       >
         Manage Employees 
         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
@@ -223,10 +223,10 @@
     </div>
 
     <!-- Table content -->
-    <div class="overflow-x-auto border border-slate-100 rounded-lg">
+    <div class="overflow-x-auto border border-border rounded-lg">
       <table class="w-full text-left border-collapse">
         <thead>
-          <tr class="bg-slate-50/70 border-b border-slate-100 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+          <tr class="bg-muted/70 border-b border-border text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
             <th class="p-3.5 pl-4 whitespace-nowrap">Employee</th>
             <th class="p-3.5 whitespace-nowrap">Department</th>
             <th class="p-3.5 whitespace-nowrap">Role Category</th>
@@ -235,33 +235,33 @@
             <th class="p-3.5 pr-4 whitespace-nowrap">Last Active</th>
           </tr>
         </thead>
-        <tbody class="text-xs font-medium text-slate-600 divide-y divide-slate-100">
+        <tbody class="text-xs font-medium text-muted-foreground divide-y divide-border">
           {#each recentEmployees as employee}
-            <tr class="hover:bg-slate-50/50 transition-colors duration-150">
+            <tr class="hover:bg-muted/50 transition-colors duration-150">
               <td class="p-3.5 pl-4 flex items-center gap-3 whitespace-nowrap min-w-[180px]">
-                <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center font-bold text-slate-500 border border-slate-200/50 shrink-0">
+                <div class="w-8 h-8 rounded-full bg-muted flex items-center justify-center font-bold text-muted-foreground border border-border/50 shrink-0">
                   {employee.name.charAt(0)}
                 </div>
                 <div>
-                  <div class="font-semibold text-slate-800">{employee.name}</div>
-                  <div class="text-[9px] text-slate-400 font-mono mt-0.5">{employee.email}</div>
+                  <div class="font-semibold text-foreground">{employee.name}</div>
+                  <div class="text-[9px] text-muted-foreground font-mono mt-0.5">{employee.email}</div>
                 </div>
               </td>
               <td class="p-3.5 whitespace-nowrap">{employee.dept}</td>
               <td class="p-3.5 whitespace-nowrap">
-                <span class="px-2 py-0.5 rounded text-[9px] font-bold bg-slate-100 border border-slate-200/40 text-slate-600">{employee.role}</span>
+                <span class="px-2 py-0.5 rounded text-[9px] font-bold bg-muted border border-border/40 text-muted-foreground">{employee.role}</span>
               </td>
-              <td class="p-3.5 font-mono text-slate-500 font-bold whitespace-nowrap">{employee.modules}</td>
+              <td class="p-3.5 font-mono text-muted-foreground font-bold whitespace-nowrap">{employee.modules}</td>
               <td class="p-3.5 whitespace-nowrap">
                 {#if employee.status === 'Compliant'}
-                  <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-emerald-50 border border-emerald-100 text-emerald-600">Compliant</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-success/10 border border-success/20 text-success">Compliant</span>
                 {:else if employee.status === 'Pending'}
-                  <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-amber-50 border border-amber-100 text-amber-600">Pending</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-warning/10 border border-warning/20 text-warning">Pending</span>
                 {:else}
-                  <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-rose-50 border border-rose-100 text-rose-600 animate-pulse">At Risk</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-[9px] font-extrabold uppercase bg-destructive/10 border border-destructive/20 text-destructive animate-pulse">At Risk</span>
                 {/if}
               </td>
-              <td class="p-3.5 pr-4 text-slate-400 font-semibold whitespace-nowrap">{employee.lastActive}</td>
+              <td class="p-3.5 pr-4 text-muted-foreground font-semibold whitespace-nowrap">{employee.lastActive}</td>
             </tr>
           {/each}
         </tbody>

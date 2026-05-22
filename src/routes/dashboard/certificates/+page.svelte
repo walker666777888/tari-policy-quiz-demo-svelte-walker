@@ -54,19 +54,19 @@
   <!-- Top Metrics with Staggered Fade-in -->
   <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
     <div in:fly={{ y: 12, duration: 400, delay: 0 }} class="bg-surface rounded-2xl border border-border p-6 shadow-sm hover:shadow-md transition-all duration-300 hover:border-primary/25 text-center group">
-      <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Exams Taken</div>
+      <div class="text-[10px] font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest mb-1">Exams Taken</div>
       <div class="text-3xl font-black text-foreground group-hover:scale-105 transition-transform duration-300">{metrics.totalExamsTaken}</div>
     </div>
     <div in:fly={{ y: 12, duration: 400, delay: 60 }} class="bg-surface rounded-2xl border border-border p-6 shadow-sm hover:shadow-md transition-all duration-300 hover:border-primary/25 text-center group">
-      <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Questions Seen</div>
+      <div class="text-[10px] font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest mb-1">Questions Seen</div>
       <div class="text-3xl font-black text-primary group-hover:scale-105 transition-transform duration-300">{metrics.totalQuestionsSeen}</div>
     </div>
     <div in:fly={{ y: 12, duration: 400, delay: 120 }} class="bg-surface rounded-2xl border border-border p-6 shadow-sm hover:shadow-md transition-all duration-300 hover:border-primary/25 text-center group">
-      <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Average Score</div>
+      <div class="text-[10px] font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest mb-1">Average Score</div>
       <div class="text-3xl font-black text-emerald-550 group-hover:scale-105 transition-transform duration-300">{metrics.averageScore}%</div>
     </div>
     <div in:fly={{ y: 12, duration: 400, delay: 180 }} class="bg-surface rounded-2xl border border-border p-6 shadow-sm hover:shadow-md transition-all duration-300 hover:border-primary/25 text-center group">
-      <div class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Perfect 100%s</div>
+      <div class="text-[10px] font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest mb-1">Perfect 100%s</div>
       <div class="text-3xl font-black text-amber-550 group-hover:scale-105 transition-transform duration-300">{metrics.perfectScores}</div>
     </div>
   </div>
@@ -76,11 +76,11 @@
     
     <!-- Score Improvement Chart -->
     <div in:fly={{ y: 15, duration: 500, delay: 240 }} class="bg-surface rounded-2xl border border-border p-6 shadow-sm lg:col-span-2 relative overflow-hidden group">
-      <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-6">Score Improvement Over Time</h3>
+      <h3 class="text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest mb-6">Score Improvement Over Time</h3>
       
       <div class="h-48 flex items-end justify-between gap-3 border-b border-border pb-2 relative">
         <div class="absolute left-0 right-0 bottom-1/2 border-b border-dashed border-border/80 z-0"></div>
-        <div class="absolute left-0 right-0 top-1/4 border-b border-dashed border-border/80 z-0 text-[8px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest text-right pr-1">80% Passing</div>
+        <div class="absolute left-0 right-0 top-1/4 border-b border-dashed border-border/80 z-0 text-[8px] text-muted-foreground dark:text-muted-foreground font-bold uppercase tracking-widest text-right pr-1">80% Passing</div>
         
         {#each chartData as data, i}
           <div class="flex flex-col items-center flex-1 z-10 group/bar relative h-full justify-end">
@@ -101,7 +101,7 @@
               <!-- Glass reflect shimmer -->
               <div class="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent w-[50%]"></div>
             </div>
-            <div class="text-[8px] font-bold text-slate-400 dark:text-slate-500 mt-2 truncate w-full text-center tracking-wider">{data.label}</div>
+            <div class="text-[8px] font-bold text-muted-foreground dark:text-muted-foreground mt-2 truncate w-full text-center tracking-wider">{data.label}</div>
           </div>
         {/each}
       </div>
@@ -109,7 +109,7 @@
 
     <!-- Achievements -->
     <div in:fly={{ y: 15, duration: 500, delay: 300 }} class="bg-surface rounded-2xl border border-border p-6 shadow-sm">
-      <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-5">Milestone Badges</h3>
+      <h3 class="text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest mb-5">Milestone Badges</h3>
       <div class="space-y-4">
         {#each achievements as badge, i}
           <div 
@@ -137,12 +137,12 @@
   <!-- Exam History Table -->
   <div in:fly={{ y: 20, duration: 550, delay: 400 }} class="bg-surface rounded-2xl border border-border shadow-sm overflow-hidden mt-8">
     <div class="p-6 border-b border-border">
-      <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Complete Exam Timeline</h3>
+      <h3 class="text-xs font-bold text-muted-foreground dark:text-muted-foreground uppercase tracking-widest">Complete Exam Timeline</h3>
     </div>
     <div class="overflow-x-auto">
       <table class="w-full text-left border-collapse text-xs">
         <thead>
-          <tr class="bg-muted border-b border-border text-[9px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+          <tr class="bg-muted border-b border-border text-[9px] font-bold uppercase tracking-wider text-muted-foreground dark:text-muted-foreground">
             <th class="p-4 pl-6 whitespace-nowrap">Certification Module</th>
             <th class="p-4 whitespace-nowrap">Attempt Date</th>
             <th class="p-4 text-center whitespace-nowrap">Final Score</th>
@@ -150,7 +150,7 @@
             <th class="p-4 pr-6 whitespace-nowrap">Result</th>
           </tr>
         </thead>
-        <tbody class="font-medium text-slate-600 dark:text-slate-455 divide-y divide-border">
+        <tbody class="font-medium text-muted-foreground dark:text-slate-455 divide-y divide-border">
           {#each examHistory as exam, i}
             <tr class="hover:bg-muted/40 transition-colors duration-200">
               <td class="p-4 pl-6 font-extrabold text-foreground whitespace-nowrap">{exam.module}</td>

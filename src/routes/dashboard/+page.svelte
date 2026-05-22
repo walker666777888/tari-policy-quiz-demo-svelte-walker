@@ -188,11 +188,11 @@
       {#if nextDue}
         <div class="flex items-center justify-between mt-auto z-10">
           <span class="text-[10px] font-bold {nextDue.urgency === 'red' ? 'text-rose-250 animate-pulse' : 'text-white/80'} uppercase tracking-wider">Due {formatDate(nextDue.dueDate)}</span>
-          <a href="/dashboard/assessment/{nextDue.id}" class="text-[10px] font-extrabold bg-white text-primary px-3 py-1.5 rounded-lg shadow-sm hover:scale-105 active:scale-95 transition-transform duration-200">Start</a>
+          <a href="/dashboard/assessment/{nextDue.id}" class="text-[10px] font-extrabold bg-surface text-primary px-3 py-1.5 rounded-lg shadow-sm hover:scale-105 active:scale-95 transition-transform duration-200">Start</a>
         </div>
       {/if}
-      <div class="absolute -right-3 -top-3 w-20 h-20 rounded-full bg-white opacity-5 group-hover:scale-110 transition-transform duration-300"></div>
-      <div class="absolute -right-8 -bottom-8 w-24 h-24 rounded-full bg-white opacity-10 group-hover:scale-110 transition-transform duration-300"></div>
+      <div class="absolute -right-3 -top-3 w-20 h-20 rounded-full bg-surface opacity-5 group-hover:scale-110 transition-transform duration-300"></div>
+      <div class="absolute -right-8 -bottom-8 w-24 h-24 rounded-full bg-surface opacity-10 group-hover:scale-110 transition-transform duration-300"></div>
     </div>
 
   </div>

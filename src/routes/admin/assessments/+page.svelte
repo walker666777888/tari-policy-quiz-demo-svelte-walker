@@ -111,7 +111,7 @@
   {/if}
 
   <!-- Header block -->
-  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-5">
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border pb-5">
     <div class="premium-heading-group">
       <h1 class="premium-heading-title">Policy &amp; Module Assignment</h1>
       <p class="premium-heading-subtitle">Activate organizational governance standards, target compliance categories, and establish hard auditor deadlines.</p>
@@ -129,19 +129,19 @@
   <!-- Available Policy Modules Card Directory -->
   <div class="space-y-4">
     <div class="flex justify-between items-center">
-      <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Corporate Policy Library</h3>
-      <span class="text-[10px] text-slate-400 font-semibold font-mono">Committed Policies: {modules.length}</span>
+      <h3 class="text-xs font-bold text-muted-foreground uppercase tracking-wider">Corporate Policy Library</h3>
+      <span class="text-[10px] text-muted-foreground font-semibold font-mono">Committed Policies: {modules.length}</span>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {#each modules as mod}
-        <div class="bg-white rounded-xl border border-slate-100 p-5 shadow-sm flex flex-col justify-between space-y-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-primary/20 relative group">
+        <div class="bg-surface rounded-xl border border-border p-5 shadow-sm flex flex-col justify-between space-y-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-primary/20 relative group">
           
           <!-- Module header -->
           <div class="space-y-2">
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2">
-                <span class="px-2 py-0.5 text-[10px] font-extrabold uppercase rounded bg-slate-100 border border-slate-200/50 text-slate-700">{mod.code}</span>
+                <span class="px-2 py-0.5 text-[10px] font-extrabold uppercase rounded bg-muted border border-border/50 text-foreground/90">{mod.code}</span>
               </div>
               
               <!-- Combined Premium Action Switch Badge -->
@@ -149,8 +149,8 @@
                 onclick={() => toggleModule(mod.id)}
                 class="group px-3 py-1 rounded-full text-[10px] font-bold tracking-tight border transition-all duration-200 flex items-center gap-1.5 cursor-pointer shadow-sm
                   {mod.active 
-                    ? 'bg-emerald-50/80 border-emerald-200/40 text-emerald-700 hover:bg-rose-50 hover:border-rose-200/40 hover:text-rose-700' 
-                    : 'bg-slate-50 border-slate-200 text-slate-500 hover:bg-emerald-50 hover:border-emerald-200/40 hover:text-emerald-700'}"
+                    ? 'bg-success/10/80 border-emerald-200/40 text-emerald-700 hover:bg-destructive/10 hover:border-rose-200/40 hover:text-rose-700' 
+                    : 'bg-muted border-border text-muted-foreground hover:bg-success/10 hover:border-emerald-200/40 hover:text-emerald-700'}"
                 aria-label="Toggle policy active state"
               >
                 {#if mod.active}
@@ -168,19 +168,19 @@
               </button>
             </div>
             
-            <h4 class="text-xs font-extrabold text-slate-800 group-hover:text-primary transition-colors">{mod.name}</h4>
-            <p class="text-[11px] text-slate-400 font-medium leading-normal">{mod.desc}</p>
+            <h4 class="text-xs font-extrabold text-foreground group-hover:text-primary transition-colors">{mod.name}</h4>
+            <p class="text-[11px] text-muted-foreground font-medium leading-normal">{mod.desc}</p>
           </div>
 
           <!-- Module active metadata -->
-          <div class="border-t border-slate-100 pt-3 mt-2 text-[10px] space-y-1.5 text-slate-500">
+          <div class="border-t border-border pt-3 mt-2 text-[10px] space-y-1.5 text-muted-foreground">
             <div class="flex justify-between">
               <span>Auditor Deadline:</span>
-              <span class="font-mono font-bold text-slate-700">{mod.deadline}</span>
+              <span class="font-mono font-bold text-foreground/90">{mod.deadline}</span>
             </div>
             <div class="flex justify-between">
               <span>Target Categories:</span>
-              <span class="font-bold text-slate-700">{mod.assignedTo.join(', ')}</span>
+              <span class="font-bold text-foreground/90">{mod.assignedTo.join(', ')}</span>
             </div>
           </div>
 
@@ -190,32 +190,32 @@
   </div>
 
   <!-- Assignments & Audits Logs Tracker -->
-  <div class="bg-white rounded-xl border border-slate-100 shadow-sm p-6 space-y-4">
+  <div class="bg-surface rounded-xl border border-border shadow-sm p-6 space-y-4">
     <div>
-      <h3 class="text-sm font-bold text-slate-800">Committed Group Assignments</h3>
-      <p class="text-[10px] text-slate-400 font-medium font-mono">Live telemetry tracker detailing certified organizational governance distributions.</p>
+      <h3 class="text-sm font-bold text-foreground">Committed Group Assignments</h3>
+      <p class="text-[10px] text-muted-foreground font-medium font-mono">Live telemetry tracker detailing certified organizational governance distributions.</p>
     </div>
 
-    <div class="overflow-x-auto border border-slate-100 rounded-lg">
+    <div class="overflow-x-auto border border-border rounded-lg">
       <table class="w-full text-left border-collapse text-xs">
         <thead>
-          <tr class="bg-slate-50/70 border-b border-slate-100 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+          <tr class="bg-muted/70 border-b border-border text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
             <th class="p-3.5 pl-4 whitespace-nowrap">Policy Module Name</th>
             <th class="p-3.5 whitespace-nowrap">Assigned Target Group</th>
             <th class="p-3.5 whitespace-nowrap">Compliance Deadline</th>
             <th class="p-3.5 pr-4 whitespace-nowrap">Log Status</th>
           </tr>
         </thead>
-        <tbody class="font-medium text-slate-600 divide-y divide-slate-100">
+        <tbody class="font-medium text-muted-foreground divide-y divide-border">
           {#each assignmentsLog as log}
-            <tr class="hover:bg-slate-50/50 transition-colors">
-              <td class="p-3.5 pl-4 font-bold text-slate-800 whitespace-nowrap">{log.module}</td>
+            <tr class="hover:bg-muted/50 transition-colors">
+              <td class="p-3.5 pl-4 font-bold text-foreground whitespace-nowrap">{log.module}</td>
               <td class="p-3.5 whitespace-nowrap">
-                <span class="px-2 py-0.5 text-[9px] font-bold bg-slate-100 border border-slate-200/40 text-slate-600 rounded">{log.target}</span>
+                <span class="px-2 py-0.5 text-[9px] font-bold bg-muted border border-border/40 text-muted-foreground rounded">{log.target}</span>
               </td>
-              <td class="p-3.5 text-slate-500 font-semibold whitespace-nowrap">{log.deadline}</td>
+              <td class="p-3.5 text-muted-foreground font-semibold whitespace-nowrap">{log.deadline}</td>
               <td class="p-3.5 pr-4 whitespace-nowrap">
-                <span class="px-2 py-0.5 text-[8px] font-extrabold uppercase rounded bg-emerald-50 text-emerald-600 border border-emerald-100">Active</span>
+                <span class="px-2 py-0.5 text-[8px] font-extrabold uppercase rounded bg-success/10 text-success border border-success/20">Active</span>
               </td>
             </tr>
           {/each}
@@ -233,14 +233,14 @@
     >
       <div 
         transition:slide={{axis: 'y'}}
-        class="bg-white rounded-xl border border-slate-200/60 shadow-2xl w-full max-w-md p-6 space-y-6"
+        class="bg-surface rounded-xl border border-border/60 shadow-2xl w-full max-w-md p-6 space-y-6"
         onclick={(e) => e.stopPropagation()}
       >
-        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-          <h3 class="text-sm font-bold text-slate-800">Assign Policy Module</h3>
+        <div class="flex items-center justify-between border-b border-border pb-3">
+          <h3 class="text-sm font-bold text-foreground">Assign Policy Module</h3>
           <button 
             onclick={() => isAssignModalOpen = false}
-            class="text-slate-400 hover:text-slate-600 font-semibold"
+            class="text-muted-foreground hover:text-muted-foreground font-semibold"
           >
             ✕
           </button>
@@ -250,11 +250,11 @@
           
           <!-- Select Policy Module -->
           <div class="space-y-1.5">
-            <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" for="moduleSelect">Select Policy Module</label>
+            <label class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider" for="moduleSelect">Select Policy Module</label>
             <select 
               id="moduleSelect"
               bind:value={selectedModuleId}
-              class="w-full border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs bg-slate-50 text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm cursor-pointer"
+              class="w-full border border-border rounded-lg px-2.5 py-1.5 text-xs bg-muted text-foreground/90 font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm cursor-pointer"
             >
               {#each modules as m}
                 <option value={m.id}>{m.name} ({m.code})</option>
@@ -265,11 +265,11 @@
           <div class="grid grid-cols-2 gap-4">
             <!-- Target employee category -->
             <div class="space-y-1.5">
-              <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" for="targetGroupSelect">Target Employee Category</label>
+              <label class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider" for="targetGroupSelect">Target Employee Category</label>
               <select 
                 id="targetGroupSelect"
                 bind:value={targetGroup}
-                class="w-full border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs bg-slate-50 text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm cursor-pointer"
+                class="w-full border border-border rounded-lg px-2.5 py-1.5 text-xs bg-muted text-foreground/90 font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm cursor-pointer"
               >
                 <option value="All">All Employees</option>
                 <option value="General">General Category</option>
@@ -280,22 +280,22 @@
 
             <!-- Deadline Date selection -->
             <div class="space-y-1.5">
-              <label class="text-[10px] font-bold text-slate-400 uppercase tracking-wider" for="deadlineSelect">Compliance Deadline</label>
+              <label class="text-[10px] font-bold text-muted-foreground uppercase tracking-wider" for="deadlineSelect">Compliance Deadline</label>
               <input 
                 id="deadlineSelect"
                 type="date" 
                 bind:value={customDeadline}
                 required
-                class="w-full border border-slate-200 rounded-lg px-2.5 py-1.2 text-xs bg-slate-50 text-slate-700 font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm cursor-pointer"
+                class="w-full border border-border rounded-lg px-2.5 py-1.2 text-xs bg-muted text-foreground/90 font-semibold focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary shadow-sm cursor-pointer"
               />
             </div>
           </div>
 
-          <div class="flex gap-3 border-t border-slate-100 pt-4">
+          <div class="flex gap-3 border-t border-border pt-4">
             <button 
               type="button" 
               onclick={() => isAssignModalOpen = false}
-              class="flex-1 py-2 border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-500 rounded-lg transition-all active:scale-95"
+              class="flex-1 py-2 border border-border bg-surface hover:bg-muted text-xs font-semibold text-muted-foreground rounded-lg transition-all active:scale-95"
             >
               Cancel
             </button>
