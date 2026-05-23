@@ -105,4 +105,4 @@ Remember to add the following Environment Variables in your Vercel **Project Set
 - `PUBLIC_APP_URL` (Set to your production domain, e.g., `https://your-app.vercel.app`)
 - `RESEND_API_KEY` (Optional)
 
-> **Note:** No additional `vercel.json` configuration is required. SvelteKit automatically detects the Vercel build environment and adapts perfectly.
+> **Note:** No additional `vercel.json` configuration is required. SvelteKit automatically detects the Vercel build environment and integrates perfectly.
